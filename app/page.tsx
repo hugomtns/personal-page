@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Timeline from '@/components/Timeline';
+import BookingEmbed from '@/components/BookingEmbed';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <h2 className="label mb-10">Experience</h2>
         <Timeline />
       </section>
+      <BookingEmbed />
     </>
   );
 }
