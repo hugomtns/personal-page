@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Instrument_Serif, Geist } from 'next/font/google';
 import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
+import SkipLink from '@/components/SkipLink';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const instrumentSerif = Instrument_Serif({
   weight: '400',
@@ -28,7 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${instrumentSerif.variable} ${geist.variable}`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SkipLink />
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
