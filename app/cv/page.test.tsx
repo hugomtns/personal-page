@@ -15,4 +15,21 @@ describe('CV page', () => {
     expect(screen.getByText(/bioinformatics/i)).toBeInTheDocument();
     expect(screen.getByText(/agentic ai nanodegree/i)).toBeInTheDocument();
   });
+
+  it('keeps every dl group div a valid dt/dd-only child of dl', () => {
+    const { container } = render(<CVPage />);
+    const dls = container.querySelectorAll('dl');
+    expect(dls.length).toBeGreaterThan(0);
+
+    dls.forEach((dl) => {
+      const groupDivs = dl.querySelectorAll(':scope > div');
+      expect(groupDivs.length).toBeGreaterThan(0);
+
+      groupDivs.forEach((group) => {
+        Array.from(group.children).forEach((child) => {
+          expect(['DT', 'DD']).toContain(child.tagName);
+        });
+      });
+    });
+  });
 });

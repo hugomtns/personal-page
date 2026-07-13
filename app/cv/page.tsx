@@ -32,12 +32,13 @@ export default function CVPage() {
         <h2 className="label mb-10">Education</h2>
         <dl className="grid gap-6">
           {education.map((e) => (
-            <div key={e.degree} className="flex flex-wrap justify-between gap-2 border-b border-border pb-4">
-              <div>
-                <dt className="font-display text-[length:var(--text-h2)]">{e.degree}</dt>
-                <dd className="text-small text-muted">{e.institution}</dd>
-              </div>
-              <span className="label">{e.years}</span>
+            <div
+              key={e.degree}
+              className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-border pb-4"
+            >
+              <dt className="font-display text-[length:var(--text-h2)]">{e.degree}</dt>
+              <dd className="label justify-self-end whitespace-nowrap">{e.years}</dd>
+              <dd className="text-small text-muted">{e.institution}</dd>
             </div>
           ))}
         </dl>
@@ -47,12 +48,13 @@ export default function CVPage() {
         <h2 className="label mb-10">Certifications</h2>
         <dl className="grid gap-6">
           {certifications.map((c) => (
-            <div key={c.name} className="flex flex-wrap justify-between gap-2 border-b border-border pb-4">
-              <div>
-                <dt className="font-display text-[length:var(--text-h2)]">{c.name}</dt>
-                <dd className="text-small text-muted">{c.issuer}</dd>
-              </div>
-              <span className="label">{c.date}</span>
+            <div
+              key={c.name}
+              className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-border pb-4"
+            >
+              <dt className="font-display text-[length:var(--text-h2)]">{c.name}</dt>
+              <dd className="label justify-self-end whitespace-nowrap">{c.date}</dd>
+              <dd className="text-small text-muted">{c.issuer}</dd>
             </div>
           ))}
         </dl>
