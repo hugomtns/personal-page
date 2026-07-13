@@ -11,7 +11,7 @@ export default function Timeline() {
     <div>
       {roles.map((role, i) => (
         <motion.div
-          key={role.company}
+          key={`${role.company}-${role.start}`}
           initial={reduce ? false : { opacity: 0, y: 24 }}
           whileInView={reduce ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}

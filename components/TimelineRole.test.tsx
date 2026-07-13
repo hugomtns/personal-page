@@ -42,4 +42,19 @@ describe('TimelineRole', () => {
     await user.click(trigger);
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
   });
+
+  it('keeps aria-controls resolvable after collapsing a previously expanded role', async () => {
+    const user = userEvent.setup();
+    render(<TimelineRole role={role} />);
+    const trigger = screen.getByRole('button', { name: /pvcase/i });
+
+    await user.click(trigger); // expand
+    await user.click(trigger); // collapse again
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    const panelId = trigger.getAttribute('aria-controls');
+    expect(panelId).toBeTruthy();
+    expect(document.getElementById(panelId as string)).toBeInTheDocument();
+  });
 });
