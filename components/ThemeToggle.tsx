@@ -7,6 +7,11 @@ export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // next-themes mount guard: the server cannot know the visitor's theme, so we
+  // render a neutral placeholder until we're on the client. Detecting mount is
+  // the legitimate exception to this rule — without it, the toggle renders the
+  // wrong icon server-side and hydration mismatches.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   // The server cannot know the visitor's theme. Render a same-sized
