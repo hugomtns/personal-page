@@ -31,9 +31,10 @@ export default function TimelineRole({ role }: { role: Role }) {
 
       <p className="mt-4 max-w-2xl text-muted">{role.summary}</p>
 
-      {/* The wrapper is always mounted so aria-controls always resolves to a
-          real element. Only the content inside it comes and goes. */}
-      <div id={panelId} role="region" aria-label={`${role.company} highlights`}>
+      {/* Always mounted so aria-controls resolves even when collapsed; only the
+          content inside comes and goes. Deliberately not role="region" — that
+          would put an empty landmark per role into the landmark menu. */}
+      <div id={panelId}>
         <AnimatePresence initial={false}>
           {open && (
             <motion.div

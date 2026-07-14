@@ -43,6 +43,22 @@ describe('TimelineRole', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
   });
 
+  it('points aria-controls at a real element on first paint, before any interaction', () => {
+    render(<TimelineRole role={role} />);
+    const trigger = screen.getByRole('button', { name: /pvcase/i });
+
+    const panelId = trigger.getAttribute('aria-controls');
+    expect(panelId).toBeTruthy();
+    expect(document.getElementById(panelId as string)).toBeInTheDocument();
+  });
+
+  it('does not leave an empty landmark behind while collapsed', () => {
+    render(<TimelineRole role={role} />);
+    // Five roles each exposing a region would clutter the landmark menu with
+    // five empty entries a screen-reader user can navigate into for nothing.
+    expect(screen.queryByRole('region')).not.toBeInTheDocument();
+  });
+
   it('keeps aria-controls resolvable after collapsing a previously expanded role', async () => {
     const user = userEvent.setup();
     render(<TimelineRole role={role} />);

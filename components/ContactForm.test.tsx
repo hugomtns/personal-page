@@ -41,4 +41,35 @@ describe('ContactForm', () => {
     expect(await screen.findByRole('status')).toHaveTextContent(/thank/i);
     expect(fetch).toHaveBeenCalledWith('/api/contact', expect.any(Object));
   });
+
+  it('surfaces a failed send instead of falsely confirming it', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ ok: false, status: 500 })));
+
+    const user = userEvent.setup();
+    render(<ContactForm />);
+    await user.type(screen.getByLabelText(/name/i), 'Jane Recruiter');
+    await user.type(screen.getByLabelText(/email/i), 'jane@example.com');
+    await user.type(screen.getByLabelText(/message/i), 'We have a role for you.');
+    await user.click(screen.getByRole('button', { name: /send/i }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(/something went wrong/i);
+    // The success state must not appear — a message that never sent is worse
+    // than an error, because the sender walks away believing it did.
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    // And the form must still be there to retry from.
+    expect(screen.getByRole('button', { name: /send/i })).toBeEnabled();
+  });
+
+  it('offers the booking link as a fallback when sending fails', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new Error('offline'))));
+
+    const user = userEvent.setup();
+    render(<ContactForm />);
+    await user.type(screen.getByLabelText(/name/i), 'Jane Recruiter');
+    await user.type(screen.getByLabelText(/email/i), 'jane@example.com');
+    await user.type(screen.getByLabelText(/message/i), 'We have a role for you.');
+    await user.click(screen.getByRole('button', { name: /send/i }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(/booking link/i);
+  });
 });
