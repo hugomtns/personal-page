@@ -20,6 +20,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 import Hero from './Hero';
+import { intro } from '@/content/about';
 
 // This is the single most dangerous failure mode for the hero: a
 // reduced-motion visitor must land on the FINISHED state immediately —
@@ -36,11 +37,10 @@ describe('Hero with prefers-reduced-motion: reduce', () => {
     render(<Hero />);
 
     const heading = screen.getByRole('heading', { level: 1, name: /hugo martins/i });
-    const role = screen.getByText(/senior product manager/i);
-    const tagline = screen.getByText(/prototypes/i);
-    const nav = screen.getByRole('navigation', { name: /primary actions/i });
+    const role = screen.getByText(/senior product manager — berlin, germany/i);
+    const introText = screen.getByText(intro);
 
-    for (const el of [heading, role, tagline, nav]) {
+    for (const el of [heading, role, introText]) {
       // toBeVisible() fails if computed opacity is 0, display is none,
       // visibility is hidden, etc. — this is the actual "is it readable" check.
       expect(el).toBeVisible();

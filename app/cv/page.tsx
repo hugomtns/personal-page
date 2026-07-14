@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Timeline from '@/components/Timeline';
 import { education, certifications } from '@/content/cv';
-import { site } from '@/content/site';
+import { site, isLive } from '@/content/site';
 
 export const metadata: Metadata = {
-  title: 'CV — Hugo Martins',
+  title: `CV — ${site.name}`,
   description:
     'Eleven years of product management across B2B SaaS, healthtech and marketplaces.',
+  robots: isLive('/cv') ? undefined : { index: false, follow: false },
 };
 
 export default function CVPage() {

@@ -1,0 +1,42 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import Image from 'next/image';
+
+export const PORTRAIT_FILE = 'hugo-martins.jpg';
+
+/**
+ * The portrait, or a placeholder that says so.
+ *
+ * This is a Server Component, so it can just look on disk. Drop the photo at
+ * public/hugo-martins.jpg and it appears — no code change, and no broken image
+ * icon in the meantime if the file is not there yet.
+ */
+export default function Portrait() {
+  const present = existsSync(join(process.cwd(), 'public', PORTRAIT_FILE));
+
+  if (!present) {
+    return (
+      <div className="grid aspect-[4/5] w-full place-items-center rounded-lg border border-dashed border-border bg-fg/[0.02] p-6 text-center">
+        <p className="text-small text-muted">
+          Portrait goes here.
+          <br />
+          <span className="text-fg/60">public/{PORTRAIT_FILE}</span>
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={`/${PORTRAIT_FILE}`}
+      alt="Hugo Martins"
+      width={800}
+      height={1000}
+      // The portrait is the largest thing on /about and sits at the top of it,
+      // so it is the LCP element. It must not be lazy-loaded.
+      priority
+      sizes="(min-width: 768px) 24rem, 100vw"
+      className="aspect-[4/5] w-full rounded-lg object-cover"
+    />
+  );
+}

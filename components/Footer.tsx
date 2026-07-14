@@ -8,7 +8,9 @@ export default function Footer() {
         <p className="label">
           {site.name} — {site.location}
         </p>
-        <SocialLinks />
+        {/* Repeated from the header on purpose: this is the bottom of the page,
+            where someone who has read to the end goes looking for them. */}
+        <SocialLinks className="-ml-3" />
       </div>
     </footer>
   );

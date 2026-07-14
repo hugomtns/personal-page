@@ -22,14 +22,16 @@ const geist = Geist({
   display: 'swap',
 });
 
+const description =
+  'Product manager in Berlin. Eleven years building software products, mostly in B2B SaaS.';
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: `${site.name} — ${site.role}`,
-  description:
-    'Senior Product Manager, Berlin. 11+ years shipping data-intensive B2B SaaS. I build the prototypes, not just the specs.',
+  description,
   openGraph: {
     title: `${site.name} — ${site.role}`,
-    description: site.tagline,
+    description,
     url: site.url,
     siteName: site.name,
     locale: 'en_GB',

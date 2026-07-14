@@ -19,6 +19,8 @@ export default async function Image() {
 
   return new ImageResponse(
     (
+      // Dark, to match the site a click away. No slogan — the name and the
+      // fact of what he does, nothing sold.
       <div
         style={{
           width: '100%',
@@ -26,7 +28,7 @@ export default async function Image() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          backgroundColor: '#fafaf8',
+          backgroundColor: '#0d0d0d',
           padding: '80px',
           fontFamily: 'Geist',
         }}
@@ -34,21 +36,9 @@ export default async function Image() {
         <div
           style={{
             display: 'flex',
-            fontSize: 22,
-            letterSpacing: 4,
-            textTransform: 'uppercase',
-            color: '#6b6b6b',
-          }}
-        >
-          {site.role} — {site.location.split(',')[0]}
-        </div>
-        <div
-          style={{
-            display: 'flex',
             fontFamily: 'Instrument Serif',
-            fontSize: 140,
-            color: '#111111',
-            marginTop: 24,
+            fontSize: 150,
+            color: '#f5f5f3',
             lineHeight: 1,
           }}
         >
@@ -57,12 +47,14 @@ export default async function Image() {
         <div
           style={{
             display: 'flex',
-            fontSize: 32,
-            color: '#0047ff',
-            marginTop: 32,
+            fontSize: 26,
+            letterSpacing: 4,
+            textTransform: 'uppercase',
+            color: '#6b8aff',
+            marginTop: 36,
           }}
         >
-          {site.tagline}
+          {site.role} — {site.location.split(',')[0]}
         </div>
       </div>
     ),

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Hero from './Hero';
+import { intro } from '@/content/about';
 
 describe('Hero', () => {
   it('renders the name as the h1', () => {
@@ -10,25 +11,21 @@ describe('Hero', () => {
     ).toBeInTheDocument();
   });
 
-  it('offers the CV and booking exits', () => {
+  it('states what he is and where, as fact', () => {
     render(<Hero />);
-    expect(screen.getByRole('link', { name: /read the cv/i })).toHaveAttribute(
-      'href',
-      '/cv'
-    );
-    expect(screen.getByRole('link', { name: /book a call/i })).toHaveAttribute(
-      'href',
-      '#book'
-    );
+    expect(screen.getByText(/senior product manager — berlin, germany/i)).toBeInTheDocument();
   });
 
-  it('does not link to the gallery until it exists', () => {
+  it('carries the one intro paragraph, from content', () => {
     render(<Hero />);
-    expect(screen.queryByRole('link', { name: /see the work/i })).not.toBeInTheDocument();
+    expect(screen.getByText(intro)).toBeInTheDocument();
   });
 
-  it('states the positioning', () => {
-    render(<Hero />);
-    expect(screen.getByText(/prototypes/i)).toBeInTheDocument();
+  it('sells nothing', () => {
+    const { container } = render(<Hero />);
+    // The splash is a name, a fact, and a paragraph. No slogan, no calls to
+    // action, no links — the nav is the only way out, on purpose.
+    expect(container.querySelectorAll('a')).toHaveLength(0);
+    expect(screen.queryByText(/not just the specs/i)).not.toBeInTheDocument();
   });
 });

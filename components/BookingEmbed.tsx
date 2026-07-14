@@ -7,13 +7,9 @@ export default function BookingEmbed() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <section id="book" className="mx-auto max-w-5xl px-6 py-20">
+    // No page container of its own — the page it sits on owns the layout.
+    <section id="book">
       <h2 className="label mb-10">Book a call</h2>
-
-      <p className="mb-8 max-w-2xl text-[length:var(--text-h2)] leading-snug">
-        Hiring, advising, or just want to compare notes on AI product work —
-        grab a slot.
-      </p>
 
       {/* Click-to-load. Google's calendar sets a third-party cookie the moment
           its iframe mounts, so it must not mount until someone asks for it.
