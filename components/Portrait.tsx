@@ -27,11 +27,13 @@ export default function Portrait() {
   }
 
   return (
+    // The source is square; the frame is 4:5. object-cover crops the sides,
+    // which is what we want — it tightens onto the face and loses the plant.
     <Image
       src={`/${PORTRAIT_FILE}`}
       alt="Hugo Martins"
-      width={800}
-      height={1000}
+      width={1254}
+      height={1254}
       // The portrait is the largest thing on /about and sits at the top of it,
       // so it is the LCP element. It must not be lazy-loaded.
       priority
