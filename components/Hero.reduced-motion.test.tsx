@@ -24,26 +24,31 @@ import Hero from './Hero';
 // This is the single most dangerous failure mode for the hero: a
 // reduced-motion visitor must land on the FINISHED state immediately —
 // fully visible, fully readable — never an element stuck at opacity: 0.
+//
+// The subtle part, and the one that shipped broken: it is NOT enough for
+// Motion to decline to animate. The server cannot read a motion preference,
+// so it renders the pre-animation state (opacity: 0) straight into the HTML.
+// If the client then hands Motion no props, that opacity: 0 is never undone
+// and the hero is permanently blank. So the assertion here is deliberately
+// that Motion *does* write the visible state — not that it writes nothing.
 describe('Hero with prefers-reduced-motion: reduce', () => {
-  it('renders every animated element fully visible with no opacity/transform applied', () => {
+  it('asserts the finished, visible state instead of leaving the server-rendered opacity: 0 in place', () => {
     render(<Hero />);
 
     const heading = screen.getByRole('heading', { level: 1, name: /hugo martins/i });
     const role = screen.getByText(/senior product manager/i);
     const tagline = screen.getByText(/prototypes/i);
     const nav = screen.getByRole('navigation', { name: /primary actions/i });
-    const cvLink = screen.getByRole('link', { name: /read the cv/i });
-    const bookLink = screen.getByRole('link', { name: /book a call/i });
 
-    for (const el of [heading, role, tagline, nav, cvLink, bookLink]) {
+    for (const el of [heading, role, tagline, nav]) {
       // toBeVisible() fails if computed opacity is 0, display is none,
       // visibility is hidden, etc. — this is the actual "is it readable" check.
       expect(el).toBeVisible();
-      // Belt-and-braces: confirm motion did not write initial/animate
-      // inline styles at all (stagger === {} when reduce is true), rather
-      // than merely landing on opacity: 1 after an animation tick.
-      expect(el.style.opacity).toBe('');
-      expect(el.style.transform).toBe('');
+      // The load-bearing one: an explicit opacity: 1 is what overwrites what
+      // the server put there. An empty string here means Motion left the DOM
+      // untouched — which is exactly how the hero went invisible in a real
+      // browser while this test was passing.
+      expect(el.style.opacity).toBe('1');
     }
   });
 });

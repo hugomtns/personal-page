@@ -24,13 +24,18 @@ export default function ThemeToggle() {
   const next = isDark ? 'light' : 'dark';
 
   return (
+    // The button is 44px so a thumb can hit it; the -m-1 pulls that back out of
+    // the layout so the visible circle stays the 36px the header was built for.
     <button
       type="button"
       onClick={() => setTheme(next)}
       aria-label={`Switch to ${next} theme`}
-      className="grid size-9 place-items-center rounded-full border border-border transition-colors hover:text-accent"
+      className="group -m-1 grid size-11 place-items-center"
     >
-      <span aria-hidden="true" className="text-sm">
+      <span
+        aria-hidden="true"
+        className="grid size-9 place-items-center rounded-full border border-border text-sm transition-colors group-hover:text-accent"
+      >
         {isDark ? '☀' : '☾'}
       </span>
     </button>

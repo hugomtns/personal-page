@@ -17,7 +17,7 @@ export default function CVPage() {
         <a
           href={site.cvPdfPath}
           download
-          className="border-b border-accent pb-1 text-accent"
+          className="-mt-3.5 inline-flex border-b border-accent pb-1 pt-3.5 text-accent"
         >
           Download PDF
         </a>

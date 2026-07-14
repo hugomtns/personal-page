@@ -7,7 +7,7 @@ export default function SocialLinks({ className = '' }: { className?: string }) 
         href={site.links.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="label transition-colors hover:text-accent"
+        className="label -my-3.5 inline-flex items-center py-3.5 transition-colors hover:text-accent"
       >
         LinkedIn
       </a>
@@ -15,7 +15,7 @@ export default function SocialLinks({ className = '' }: { className?: string }) 
         href={site.links.github}
         target="_blank"
         rel="noopener noreferrer"
-        className="label transition-colors hover:text-accent"
+        className="label -my-3.5 inline-flex items-center py-3.5 transition-colors hover:text-accent"
       >
         GitHub
       </a>

@@ -36,7 +36,7 @@ export default function BookingEmbed() {
           <button
             type="button"
             onClick={() => setLoaded(true)}
-            className="mt-6 border-b border-accent pb-1 text-accent transition-opacity hover:opacity-70"
+            className="mt-6 border-b border-accent pb-1 pt-3.5 text-accent transition-opacity hover:opacity-70"
           >
             Load booking calendar
           </button>

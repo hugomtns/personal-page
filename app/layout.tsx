@@ -42,8 +42,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${instrumentSerif.variable} ${geist.variable}`}>
+    // The font variables must live on <html>, not <body>. `@theme inline` emits
+    // --font-display: var(--font-instrument-serif) onto :root, and a custom
+    // property is resolved in the scope where it is DECLARED — so if the font
+    // variables sit on <body>, that reference is invalid at :root, --font-display
+    // computes to nothing, and every hand-written rule using it (h1/h2/h3, body,
+    // .label) silently loses its font-family. The site then renders in neither of
+    // its own typefaces, and nothing errors to tell you.
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${geist.variable}`}
+      suppressHydrationWarning
+    >
+      <body>
         <ThemeProvider>
           <SkipLink />
           <Header />

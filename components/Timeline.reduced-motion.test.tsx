@@ -23,10 +23,18 @@ import Timeline from './Timeline';
 
 // This is the single most dangerous failure mode for the timeline: a
 // reduced-motion visitor must land on the FINISHED state immediately for
-// every role — fully visible — never a CV stuck at opacity: 0. The
-// scroll-reveal animation is skipped entirely, not merely sped up.
+// every role — fully visible — never a CV stuck at opacity: 0.
+//
+// The subtle part, and the one that shipped broken: it is NOT enough for
+// Motion to decline to animate. The server cannot read a motion preference,
+// so it renders the pre-animation state (opacity: 0) straight into the HTML.
+// If the client then hands Motion no props, that opacity: 0 is never undone
+// and four of the five roles stay invisible — on the page a recruiter is most
+// likely to actually read. So the assertion here is deliberately that Motion
+// *does* write the visible state, without waiting for a scroll or an
+// IntersectionObserver that a reduced-motion visitor may never trigger.
 describe('Timeline with prefers-reduced-motion: reduce', () => {
-  it('renders every role fully visible with no opacity/transform applied, without any scroll or IntersectionObserver firing', () => {
+  it('asserts the finished, visible state for every role instead of leaving the server-rendered opacity: 0 in place', () => {
     const { container } = render(<Timeline />);
 
     const companies = ['PVcase', 'Staffbase', 'Medwing', 'Helpling', 'ResearchGate'];
@@ -38,17 +46,19 @@ describe('Timeline with prefers-reduced-motion: reduce', () => {
       expect(el).toBeVisible();
     }
 
-    // Belt-and-braces: confirm motion did not write initial/whileInView
-    // inline styles on the wrapping motion.div at all (whileInView === {}
-    // when reduce is true), rather than merely landing on opacity: 1 after
-    // an animation/observer tick that a stubbed IntersectionObserver never fires.
     const root = container.firstElementChild as HTMLElement;
     expect(root).not.toBeNull();
     const wrappers = Array.from(root.children) as HTMLElement[];
     expect(wrappers).toHaveLength(companies.length);
+
+    // The load-bearing one: an explicit opacity: 1 is what overwrites what the
+    // server put there. An empty string means Motion left the DOM untouched —
+    // which is exactly how these roles went invisible in a real browser while
+    // this test was passing. No scroll happens here, and the stubbed
+    // IntersectionObserver never fires, so this can only pass if the visible
+    // state is applied up front.
     for (const wrapper of wrappers) {
-      expect(wrapper.style.opacity).toBe('');
-      expect(wrapper.style.transform).toBe('');
+      expect(wrapper.style.opacity).toBe('1');
     }
   });
 });

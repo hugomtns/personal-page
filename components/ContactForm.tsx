@@ -79,7 +79,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={state === 'sending'}
-        className="justify-self-start border-b border-accent pb-1 text-accent disabled:opacity-50"
+        className="-mt-3.5 justify-self-start border-b border-accent pb-1 pt-3.5 text-accent disabled:opacity-50"
       >
         {state === 'sending' ? 'Sending…' : 'Send'}
       </button>
