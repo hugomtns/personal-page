@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { site, isLive } from '@/content/site';
 
 export const metadata: Metadata = {
@@ -8,6 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  // An unfinished page saying "this is unfinished" is still an unfinished page
+  // on a portfolio. Until it has something on it, it does not resolve.
+  if (!isLive('/projects')) notFound();
+
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       <h1 className="mb-16 text-[length:var(--text-h1)]">Projects</h1>
@@ -15,11 +20,6 @@ export default function ProjectsPage() {
       <p className="max-w-2xl text-[length:var(--text-h2)] leading-snug text-muted">
         The gallery is being put together — the prototypes exist, the screenshots
         do not yet.
-      </p>
-
-      <p className="mt-6 max-w-2xl text-muted">
-        This page is not linked from the nav and is marked noindex until it has
-        something on it.
       </p>
     </div>
   );

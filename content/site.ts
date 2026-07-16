@@ -17,7 +17,11 @@ export const site = {
   bookingUrl:
     'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0y2_E6lKQfqRiJEK-uZwPTQpYhHMxQVSl6TF3Ic9FHRkonfmu9Yj0A_Leacg7zbH-_2YPtLDRA',
 
-  cvPdfPath: '/hugo-martins-cv.pdf',
+  // No cvPdfPath, deliberately. The CV PDF is not in this repo and is not
+  // served by the site: it goes out when Hugo sends it, not on a stranger's
+  // click. Anything in public/ is downloadable by anyone who guesses the URL,
+  // whatever the nav shows — so the only reliable way to not hand it out is to
+  // not ship it.
 
   links: {
     linkedin: 'https://linkedin.com/in/hugommartins',

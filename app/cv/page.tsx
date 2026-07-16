@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Timeline from '@/components/Timeline';
 import { education, certifications } from '@/content/cv';
 import { site, isLive } from '@/content/site';
@@ -11,18 +12,16 @@ export const metadata: Metadata = {
 };
 
 export default function CVPage() {
+  // noindex and a hidden nav link only stop people who were never going to type
+  // the URL. This page is a full CV — until the tab ships it must genuinely not
+  // resolve, not merely be unadvertised.
+  if (!isLive('/cv')) notFound();
+
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
-      <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
-        <h1 className="text-[length:var(--text-h1)]">Curriculum Vitae</h1>
-        <a
-          href={site.cvPdfPath}
-          download
-          className="-mt-3.5 inline-flex border-b border-accent pb-1 pt-3.5 text-accent"
-        >
-          Download PDF
-        </a>
-      </div>
+      {/* No PDF download. The CV is handed over deliberately, not scraped off
+          a page by anyone who finds it. */}
+      <h1 className="mb-16 text-[length:var(--text-h1)]">Curriculum Vitae</h1>
 
       <section className="mb-20">
         <h2 className="label mb-10">Experience</h2>
