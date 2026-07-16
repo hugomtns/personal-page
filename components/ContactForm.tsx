@@ -40,7 +40,7 @@ export default function ContactForm() {
   if (state === 'sent') {
     return (
       <p role="status" className="text-[length:var(--text-h2)] leading-snug">
-        Thank you — I&apos;ll come back to you shortly.
+        Thank you. I&apos;ll come back to you shortly.
       </p>
     );
   }

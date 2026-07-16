@@ -11,21 +11,21 @@ import { site } from '@/content/site';
  * third-party cookie the moment its iframe mounts, and nothing mounts here
  * until someone asks. That is what keeps this site free of a consent banner.
  *
- * The cookie note sits under the button rather than inside the dialog on
- * purpose: by the time the dialog is open the iframe has already mounted and
- * the cookie is already set, so a notice in there would be telling people
- * something after the fact instead of before it.
+ * The cookie note sits outside the dialog, above the button that opens it. Not
+ * decoration, and not arbitrary placement: by the time the dialog is open the
+ * iframe has mounted and the cookie is already set, so a notice inside it would
+ * be telling people something after the fact. Above the button, it is the last
+ * thing read before the click that consents to it.
+ *
+ * The button also comes last for the same reason the form's Send does: the
+ * action belongs at the end of what you need to know to take it.
  */
 export default function BookingButton() {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <Button type="button" onClick={() => setOpen(true)}>
-        Book a call
-      </Button>
-
-      <p className="mt-5 max-w-sm text-small text-muted">
+      <p className="mb-7 max-w-sm text-small text-muted">
         Booking runs on Google Calendar, and opening it sets a Google cookie —
         so it stays closed until you ask. You can also{' '}
         <a
@@ -38,6 +38,10 @@ export default function BookingButton() {
         </a>
         .
       </p>
+
+      <Button type="button" onClick={() => setOpen(true)}>
+        Book a call
+      </Button>
 
       <Modal open={open} onClose={() => setOpen(false)} title="Book a call">
         <iframe
