@@ -4,9 +4,18 @@ export const site = {
   location: 'Berlin, Germany',
   url: 'https://hugomartins.pm',
 
-  // Google Calendar appointment schedule.
+  // Google Calendar appointment schedule ("Chat with Hugo", 30 min).
   // Swapping to Cal.com is a change to this line and nothing else.
-  bookingUrl: 'https://calendar.google.com/calendar/appointments/REPLACE_ME',
+  //
+  // This is the long form of the calendar.app.google/ZFkK9vXtqmqpuDxP6 share
+  // link, used deliberately. The short link 302s here, and that redirect hop
+  // carries X-Frame-Options: SAMEORIGIN — Chrome ignores it (only the final
+  // rendered document is checked) and the embed does work, but relying on that
+  // across every browser is a bet with no upside. The long URL has no XFO
+  // anywhere in the chain and skips the redirect. `?gv=true` is not needed;
+  // it renders identically with and without.
+  bookingUrl:
+    'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0y2_E6lKQfqRiJEK-uZwPTQpYhHMxQVSl6TF3Ic9FHRkonfmu9Yj0A_Leacg7zbH-_2YPtLDRA',
 
   cvPdfPath: '/hugo-martins-cv.pdf',
 
