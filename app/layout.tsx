@@ -6,7 +6,6 @@ import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
 import SkipLink from '@/components/SkipLink';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { site } from '@/content/site';
 
 const instrumentSerif = Instrument_Serif({
@@ -61,7 +60,6 @@ export default function RootLayout({
           <SkipLink />
           <Header />
           <main id="main">{children}</main>
-          <Footer />
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

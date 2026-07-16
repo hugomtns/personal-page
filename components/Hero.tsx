@@ -29,9 +29,15 @@ export default function Hero() {
       </motion.h1>
 
       <motion.p {...enter(0.6, 0.1)} className="label mt-6">
-        {site.role} — {site.location}
+        {site.role}
       </motion.p>
 
+      {/* Ragged right, not justified — tried and reverted. At this type size a
+          390px screen fits 4-6 words per line, so justifying forces all the
+          slack into 3-5 word gaps and tears rivers through the paragraph.
+          Hyphenation is the usual escape hatch and is not available: Chrome on
+          Windows ships its hyphenation dictionary as a separate component that
+          is often absent, so `hyphens: auto` silently does nothing there. */}
       <motion.p
         {...enter(0.6, 0.18)}
         className="mt-12 max-w-2xl text-[length:var(--text-h2)] leading-snug text-muted"

@@ -1,6 +1,6 @@
 # personal-page
 
-Source for [hugomartins.pm](https://hugomartins.pm) — the personal site of Hugo Martins, Senior Product Manager (Berlin).
+Source for [hugomartins.pm](https://hugomartins.pm) — the personal site of Hugo Martins, product builder (Berlin).
 
 ## Stack
 

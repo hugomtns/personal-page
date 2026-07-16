@@ -11,9 +11,9 @@ describe('Hero', () => {
     ).toBeInTheDocument();
   });
 
-  it('states what he is and where, as fact', () => {
+  it('states what he is, as fact', () => {
     render(<Hero />);
-    expect(screen.getByText(/senior product manager — berlin, germany/i)).toBeInTheDocument();
+    expect(screen.getByText(/product builder/i)).toBeInTheDocument();
   });
 
   it('carries the one intro paragraph, from content', () => {

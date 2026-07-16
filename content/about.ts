@@ -1,12 +1,15 @@
 /**
  * The About copy. Plain data, so rewriting it never means touching a component.
  *
- * `intro` is the one paragraph on the splash page. `body` is the longer piece
- * on /about. Keep both in a speaking voice — no slogans, no third person.
+ * `intro` is the one paragraph on the splash page: what he believes, not what
+ * he has done. The record — years, employers, products — is `body`'s job, on
+ * /about. Keep both in a speaking voice, first person, and keep `intro` to a
+ * claim someone could disagree with; a virtue no one would argue against says
+ * nothing.
  */
 
 export const intro =
-  'I have spent eleven years building software products, most of it in B2B SaaS where the domain is genuinely hard and the interface has to hide that. Currently at PVcase in Berlin, leading the flagship solar design product.';
+  'I believe in empowered product teams: give people a hard problem, a clear vision, and a strategy with no ambiguity in it, and they will build something worth using. Everything else is overhead.';
 
 export const body: string[] = [
   'I work on products where the underlying problem is complicated — solar engineering, analytics platforms, healthcare recruitment — and the job is to make the complexity someone else’s problem rather than the user’s. That usually means spending longer than feels comfortable in the problem before touching a solution.',

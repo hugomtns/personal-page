@@ -1,6 +1,6 @@
 export const site = {
   name: 'Hugo Martins',
-  role: 'Senior Product Manager',
+  role: 'Product Builder',
   location: 'Berlin, Germany',
   url: 'https://hugomartins.pm',
 

@@ -37,7 +37,7 @@ describe('Hero with prefers-reduced-motion: reduce', () => {
     render(<Hero />);
 
     const heading = screen.getByRole('heading', { level: 1, name: /hugo martins/i });
-    const role = screen.getByText(/senior product manager — berlin, germany/i);
+    const role = screen.getByText(/product builder/i);
     const introText = screen.getByText(intro);
 
     for (const el of [heading, role, introText]) {
