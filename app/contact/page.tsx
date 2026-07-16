@@ -22,13 +22,13 @@ export default function ContactPage() {
           narrating the layout back to the reader. */}
       <div className="mt-16 grid gap-16 sm:grid-cols-2 sm:gap-12">
         <section>
-          <h2 className="label mb-6">Book a call</h2>
-          <BookingButton />
+          <h2 className="label mb-6">Send a message</h2>
+          <ContactForm />
         </section>
 
         <section>
-          <h2 className="label mb-6">Send a message</h2>
-          <ContactForm />
+          <h2 className="label mb-6">Book a call</h2>
+          <BookingButton />
         </section>
       </div>
     </div>

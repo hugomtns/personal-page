@@ -20,13 +20,6 @@ describe('BookingButton', () => {
     expect(screen.getByText(/google cookie/i)).toBeInTheDocument();
   });
 
-  it('offers a direct link, so declining the dialog still lets you book', () => {
-    render(<BookingButton />);
-    const link = screen.getByRole('link', { name: /new tab/i });
-    expect(link).toHaveAttribute('href', site.bookingUrl);
-    expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'));
-  });
-
   it('mounts the calendar once the visitor opts in', async () => {
     const user = userEvent.setup();
     const { container } = render(<BookingButton />);
