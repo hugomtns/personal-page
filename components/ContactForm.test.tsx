@@ -60,7 +60,7 @@ describe('ContactForm', () => {
     expect(screen.getByRole('button', { name: /send/i })).toBeEnabled();
   });
 
-  it('offers the booking link as a fallback when sending fails', async () => {
+  it('points at booking as a fallback when sending fails', async () => {
     vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new Error('offline'))));
 
     const user = userEvent.setup();
@@ -70,6 +70,9 @@ describe('ContactForm', () => {
     await user.type(screen.getByLabelText(/message/i), 'We have a role for you.');
     await user.click(screen.getByRole('button', { name: /send/i }));
 
-    expect(await screen.findByRole('alert')).toHaveTextContent(/booking link/i);
+    // A dead end here loses the message and the sender. The wording moved with
+    // the embed becoming a dialog; what matters is that the error still names
+    // the other way through.
+    expect(await screen.findByRole('alert')).toHaveTextContent(/book/i);
   });
 });

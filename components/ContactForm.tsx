@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Button from './Button';
 import { contactSchema } from '@/lib/contact-schema';
 
 type State = 'idle' | 'sending' | 'sent' | 'error';
@@ -32,7 +33,7 @@ export default function ContactForm() {
       setState('sent');
     } catch {
       setState('error');
-      setError('Something went wrong. Try the booking link instead.');
+      setError('Something went wrong. Try booking a call instead.');
     }
   }
 
@@ -44,24 +45,40 @@ export default function ContactForm() {
     );
   }
 
+  // The underline is the field. A box would be the only hard-edged rectangle on
+  // a site built from hairlines and space, and `bg-transparent` keeps it that
+  // way in both themes. py-3 plus the label puts every target over 44px without
+  // a box to measure.
   const field =
-    'w-full border-b border-border bg-transparent py-3 outline-none transition-colors focus:border-accent';
+    'w-full border-b border-border bg-transparent py-3 outline-none transition-colors hover:border-muted focus:border-accent';
 
   return (
-    <form onSubmit={onSubmit} noValidate className="grid max-w-xl gap-6">
+    <form onSubmit={onSubmit} noValidate className="grid w-full gap-7">
       <div>
-        <label htmlFor="name" className="label mb-2 block">Name</label>
+        <label htmlFor="name" className="label mb-1 block">
+          Name
+        </label>
         <input id="name" name="name" type="text" required className={field} />
       </div>
 
       <div>
-        <label htmlFor="email" className="label mb-2 block">Email</label>
+        <label htmlFor="email" className="label mb-1 block">
+          Email
+        </label>
         <input id="email" name="email" type="email" required className={field} />
       </div>
 
       <div>
-        <label htmlFor="message" className="label mb-2 block">Message</label>
-        <textarea id="message" name="message" rows={4} required className={field} />
+        <label htmlFor="message" className="label mb-1 block">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows={4}
+          required
+          className={`${field} resize-y`}
+        />
       </div>
 
       {/* Honeypot. Hidden from humans; bots fill it and are silently dropped. */}
@@ -71,18 +88,14 @@ export default function ContactForm() {
       </div>
 
       {error && (
-        <p role="alert" className="text-small text-accent">
+        <p role="alert" className="-mt-2 text-small text-accent">
           {error}
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={state === 'sending'}
-        className="-mt-3.5 justify-self-start border-b border-accent pb-1 pt-3.5 text-accent disabled:opacity-50"
-      >
+      <Button type="submit" disabled={state === 'sending'} className="justify-self-start">
         {state === 'sending' ? 'Sending…' : 'Send'}
-      </button>
+      </Button>
     </form>
   );
 }
