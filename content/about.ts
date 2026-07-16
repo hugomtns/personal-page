@@ -14,7 +14,7 @@ export const intro =
 export const body: string[] = [
   'I grew up in Portugal, studied Biochemistry and Bioinformatics, and found product after moving to Germany. Product felt familiar straight away: understand a real-world problem, form a hypothesis, look for evidence, and keep learning until you have a better answer. The medium changed from science to software, but the part I enjoy most did not.',
 
-  'I have worked on products in solar engineering, workplace software, healthcare recruitment, marketplaces, and research. The industries differ, but the work usually starts in the same place: someone is trying to get something important done and the current way of doing it is harder than it needs to be. I like taking that complexity apart with the people closest to it.',
+  'I have worked on products in solar engineering, workplace software, recruitment, marketplaces, and research. The industries differ, but the work usually starts in the same place: someone is trying to get something important done and the current way of doing it is harder than it needs to be. I like taking that complexity apart with the people closest to it.',
 
   'My approach is not rocket science. I spend as much time with users as the problem requires, understand what they are trying to achieve, map the journey, isolate the painful bits, and work with the team on the best way forward. Empathy, evidence, and honest collaboration beat a polished roadmap built around hype. I care a lot about empowered teams that can make good decisions together, rather than waiting for a PM to hand them answers.',
 
