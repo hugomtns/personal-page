@@ -1,0 +1,82 @@
+'use client';
+
+import type { Project } from '@/content/projects';
+
+/**
+ * A tile in the grid: a thumbnail with a name and a one-line tagline, in the
+ * same bordered, accent-on-hover card as the CV cards. Uniform height so the
+ * grid packs without gaps — that is what lets the detail open in flow below a
+ * row without any tile having to move sideways or reshuffle.
+ *
+ * The open tile gets the accent border (not just on hover) so it reads as the
+ * one the detail panel below belongs to.
+ */
+
+/** The screenshot frame, shared with the detail panel. Null shows the
+    placeholder, exactly like CVProduct. */
+export function Screenshot({
+  src,
+  alt,
+  className,
+}: {
+  src: string | null;
+  alt: string;
+  className: string;
+}) {
+  return (
+    <span
+      className={`block overflow-hidden bg-[color-mix(in_oklab,var(--muted)_8%,transparent)] ${className}`}
+    >
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={alt} className="h-full w-full object-cover" />
+      ) : (
+        <span className="label flex h-full w-full items-center justify-center">
+          screenshot
+        </span>
+      )}
+    </span>
+  );
+}
+
+export default function ProjectTile({
+  project: p,
+  open,
+  panelId,
+  onToggle,
+}: {
+  project: Project;
+  open: boolean;
+  panelId: string;
+  onToggle: () => void;
+}) {
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        aria-controls={panelId}
+        className={`group flex h-full w-full flex-col overflow-hidden rounded-xl border bg-[color-mix(in_oklab,var(--muted)_4%,transparent)] text-left transition-colors hover:border-accent ${
+          open ? 'border-accent' : 'border-border'
+        }`}
+      >
+        <Screenshot
+          src={p.images[0]}
+          alt={p.name}
+          className="aspect-[16/10] w-full shrink-0 rounded-t-xl"
+        />
+        <span className="block p-5">
+          <span
+            className={`block font-display leading-[1.1] text-[length:var(--text-h2)] transition-colors group-hover:text-accent ${
+              open ? 'text-accent' : ''
+            }`}
+          >
+            {p.name}
+          </span>
+          <span className="mt-1 block text-small text-muted">{p.tagline}</span>
+        </span>
+      </button>
+    </li>
+  );
+}
