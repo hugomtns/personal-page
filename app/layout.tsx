@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Instrument_Serif, Geist } from 'next/font/google';
+import { Geist, Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
@@ -8,10 +8,11 @@ import SkipLink from '@/components/SkipLink';
 import Header from '@/components/Header';
 import { site } from '@/content/site';
 
-const instrumentSerif = Instrument_Serif({
-  weight: '400',
+// Display face. Variable font (300–700) so headings can carry a real bold
+// weight in CSS — see globals.css. globals.css maps --font-display to this.
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-instrument-serif',
+  variable: '--font-space-grotesk',
   display: 'swap',
 });
 
@@ -44,7 +45,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     // The font variables must live on <html>, not <body>. `@theme inline` emits
-    // --font-display: var(--font-instrument-serif) onto :root, and a custom
+    // --font-display: var(--font-space-grotesk) onto :root, and a custom
     // property is resolved in the scope where it is DECLARED — so if the font
     // variables sit on <body>, that reference is invalid at :root, --font-display
     // computes to nothing, and every hand-written rule using it (h1/h2/h3, body,
@@ -52,7 +53,7 @@ export default function RootLayout({
     // its own typefaces, and nothing errors to tell you.
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${geist.variable}`}
+      className={`${spaceGrotesk.variable} ${geist.variable}`}
       suppressHydrationWarning
     >
       <body>

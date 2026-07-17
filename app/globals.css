@@ -42,7 +42,7 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
 
-  --font-display: var(--font-instrument-serif);
+  --font-display: var(--font-space-grotesk);
   --font-body: var(--font-geist-sans);
 
   /* Fluid scale — no breakpoint jumps. */
@@ -64,10 +64,10 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 400;      /* Instrument Serif has one weight; never fake-bold it */
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;      /* Space Grotesk is variable; 600 is a real weight */
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 /* Metadata and labels. Stands in for the monospace we deliberately don't use. */
@@ -80,6 +80,15 @@ h1, h2, h3 {
 }
 
 a { color: inherit; }
+
+/* Tailwind v4's Preflight no longer sets cursor: pointer on buttons. Restore it
+   for every clickable control site-wide; a disabled control keeps the default. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+label[for],
+summary {
+  cursor: pointer;
+}
 
 :focus-visible {
   outline: 2px solid var(--accent);

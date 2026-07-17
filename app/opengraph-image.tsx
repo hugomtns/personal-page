@@ -12,8 +12,8 @@ export const contentType = 'image/png';
 // supplying a `fonts` array at all replaces that default outright, so every
 // family used below (including the body face) must be loaded explicitly.
 export default async function Image() {
-  const [instrumentSerif, geist] = await Promise.all([
-    readFile(join(process.cwd(), 'assets/InstrumentSerif-Regular.ttf')),
+  const [spaceGrotesk, geist] = await Promise.all([
+    readFile(join(process.cwd(), 'assets/SpaceGrotesk-Bold.ttf')),
     readFile(join(process.cwd(), 'assets/Geist-Regular.ttf')),
   ]);
 
@@ -36,8 +36,9 @@ export default async function Image() {
         <div
           style={{
             display: 'flex',
-            fontFamily: 'Instrument Serif',
-            fontSize: 150,
+            fontFamily: 'Space Grotesk',
+            fontSize: 140,
+            letterSpacing: -4,
             color: '#f5f5f3',
             lineHeight: 1,
           }}
@@ -62,10 +63,10 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: 'Instrument Serif',
-          data: instrumentSerif,
+          name: 'Space Grotesk',
+          data: spaceGrotesk,
           style: 'normal',
-          weight: 400,
+          weight: 700,
         },
         { name: 'Geist', data: geist, style: 'normal', weight: 400 },
       ],

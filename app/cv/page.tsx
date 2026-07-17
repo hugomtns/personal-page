@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Timeline from '@/components/Timeline';
-import { education, certifications } from '@/content/cv';
+import CVTimeline from '@/components/CVTimeline';
+import { education, certifications } from '@/content/cvTimeline';
 import { site, isLive } from '@/content/site';
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function CVPage() {
 
       <section className="mb-20">
         <h2 className="label mb-10">Experience</h2>
-        <Timeline />
+        <CVTimeline />
       </section>
 
       <section className="mb-20">
