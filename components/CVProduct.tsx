@@ -54,13 +54,16 @@ export default function CVProduct({ product: p }: { product: Product }) {
         )}
       >
         <div className="mt-5 max-w-xl">
-          {/* Fixed 16:10 so every product reads as one system; a product with
-              no shot still shows the frame. */}
-          <Screenshot
-            src={p.image}
-            alt={p.name}
-            className="mb-6 aspect-[16/10] w-full rounded-frame border border-border"
-          />
+          {/* Fixed 16:10 so every product reads as one system. A product with
+              no image gets no frame: an empty placeholder reads as missing
+              content, not as restraint. */}
+          {p.image && (
+            <Screenshot
+              src={p.image}
+              alt={p.name}
+              className="mb-6 aspect-[16/10] w-full rounded-frame border border-border"
+            />
+          )}
 
           <MetaList
             className="border-l border-accent pl-6"

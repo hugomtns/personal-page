@@ -20,7 +20,7 @@ export type Product = {
   problem: string;
   did: string;
   outcome: string;
-  /** Optional image. Null renders the placeholder frame. */
+  /** Optional image. Null renders no frame at all. */
   image: string | null;
 };
 
@@ -64,7 +64,7 @@ export const companies: Company[] = [
           'Recruited the team from a pool of internal and external candidates, trained them, set up reporting lines and processes, and kept improving the workflow as volume grew. A large part of the job was the people: coaching, and creating the conditions for promotions. The multidisciplinary mix paid off directly: the quality of the labeling and targeting work helped us secure more clients.',
         outcome:
           'A team of 8, with career growth and promotions. Dozens of satisfied clients who managed to recruit through ResearchGate, and kept using the recruitment platform.',
-        image: null,
+        image: '/images/cv/rg-ops.webp',
       },
       {
         id: 'rg-recruit',
@@ -78,7 +78,7 @@ export const companies: Company[] = [
           'Took the product from a basic job board MVP to a recommendation-powered job match engine: dedicated job pages, a posting flow with assisted targeting, email campaigns, and advertising both in-platform and external.',
         outcome:
           '4M+ EUR ARR. 70% better matching quality via ML recommendations versus purely manual matching, measured by the amount of positive candidate matches as reported by customers.',
-        image: null,
+        image: '/images/cv/rg-recruit.webp',
       },
     ],
   },
@@ -104,7 +104,7 @@ export const companies: Company[] = [
         did:
           'Led a focused team to rebuild the app in React Native, one codebase delivering across Android, iOS and web. Mapped every workflow in the old app and ran user research to prioritize what the rebuild should change. Shipped in six months.',
         outcome: 'Over 4.0 stars in both app stores, 2x the old rating.',
-        image: null,
+        image: '/images/cv/helpling-app.webp',
       },
       {
         id: 'helpling-booking',
@@ -119,7 +119,7 @@ export const companies: Company[] = [
           'A risky endeavour: inside the company, the manual call was seen as a way to reduce churn through the human touch. The numbers told a different story. Prevention almost never worked, and the calls ate the team\'s time. We carefully designed an automated, single-click cancellation flow for both individual and recurring cleanings, and rolled it out through consecutive A/B tests, monitoring cancellation rates and conversion at every step to make sure there was no significant negative impact on the business.',
         outcome:
           'Cancellation rates stayed roughly the same as with the fully manual process, but the operational lift was tremendous. Virtually no time was now spent handling cancellations over the phone, shifting energy to more critical customer and cleaner support tasks.',
-        image: null,
+        image: '/images/cv/helpling-booking.webp',
       },
     ],
   },
@@ -146,7 +146,7 @@ export const companies: Company[] = [
           'Led the ground-up implementation of a digital application management system inside Medwing: incoming applications funneled into a web experience for candidate review and management, effectively replacing much of the old manual data entry.',
         outcome:
           'Customer onboarding got easier: an 80% reduction in onboarding call time, and increased satisfaction from target customers.',
-        image: null,
+        image: '/images/cv/medwing-ats.webp',
       },
       {
         id: 'medwing-shift',
@@ -159,7 +159,7 @@ export const companies: Company[] = [
         did:
           'Worked with two key customers to design a shift management system that let managers plan ahead and assign nursing workforce across wards through an intuitive UI, with real-time oversight of ward over- and understaffing.',
         outcome: 'The MVP moved successfully into a real-life trial phase.',
-        image: null,
+        image: '/images/cv/medwing-shift.webp',
       },
     ],
   },
@@ -186,7 +186,7 @@ export const companies: Company[] = [
           'I had originally joined Staffbase to lead the Surveys product, but it became apparent almost immediately that Analytics, a core value delivery for the company, lacked product thinking, and its issues were putting customer retention and acquisition at risk. I spent a good stretch weeding out the issues, prioritizing and addressing them, enabling key deals to happen. The most important fix was democratizing access to analytics for users of different access levels, making sure everyone had the data they needed, without the noise.',
         outcome:
           'CSAT 45% to 95%. 3M EUR ARR through enterprise deals. A platform-wide internal event system.',
-        image: null,
+        image: '/images/cv/sb-analytics.webp',
       },
       {
         id: 'sb-smart',
@@ -200,7 +200,7 @@ export const companies: Company[] = [
           'Led the conceptualization, validation and implementation of a zero-to-one data product through to a successful launch. Managed two product teams and interfaced regularly with data engineering, legal and marketing to make sure the product worked and was delivered with the right messaging.',
         outcome:
           'A validated product that lets customers tell a data-informed narrative across multiple comms channels from a centralized dashboard. Beat the launch sign-up goal by 150%.',
-        image: null,
+        image: '/images/cv/sb-smart.webp',
       },
     ],
   },
@@ -227,7 +227,7 @@ export const companies: Company[] = [
           'My job was to close the customer gap with a stream of new features, using voice of customer to prioritize the yearly roadmap. During my tenure the product shipped harness support and AC and DC BESS design, and we ran the research and validation for a standards-compliant cable sizing solution.',
         outcome:
           'Positive adoption of the new features, and a roadmap that kept Ground Mount competitive in a fast-moving market.',
-        image: null,
+        image: '/images/cv/pv-ground.webp',
       },
       {
         id: 'pv-hub',
