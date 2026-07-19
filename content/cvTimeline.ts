@@ -61,7 +61,7 @@ export const companies: Company[] = [
       {
         id: 'rg-ops',
         name: 'Product Operations',
-        year: '2014',
+        year: '2014 – 2016',
         tagline: 'Built the function from zero to a team of eight.',
         audience: '', // leadership milestone — Scope, not audience
         problem:
@@ -75,7 +75,7 @@ export const companies: Company[] = [
       {
         id: 'rg-recruit',
         name: 'Scientific Recruitment',
-        year: '2016',
+        year: '2016 – 2019',
         tagline: 'A paid recruitment product, zero to one.',
         audience: 'Scientists job-hunting, and the employers hiring them',
         problem:
@@ -206,7 +206,7 @@ export const companies: Company[] = [
   {
     id: 'pvcase',
     name: 'PVcase',
-    dates: '2024 — Now',
+    dates: '2024 — 2026',
     tagline: 'Renewable-energy design software · Berlin',
     about:
       'PVcase builds software that automates the design of commercial and utility-scale solar power plants. The original product is an AutoCAD plug-in covering layout, shading analysis and civil design; the suite has since grown toward site selection and yield assessment. Founded in Kaunas, Lithuania in 2018, it raised a $23M Series A in 2021 and a $100M Series B in 2023, with customers in more than 75 countries.',
@@ -216,7 +216,7 @@ export const companies: Company[] = [
       {
         id: 'pv-ground',
         name: 'Ground Mount',
-        year: '2024',
+        year: '2024 – 2025',
         tagline: 'The flagship AutoCAD solar-design product.',
         audience: 'Solar engineers designing utility-scale PV plants',
         problem: `Problem. ${LOREM}`,
@@ -227,7 +227,7 @@ export const companies: Company[] = [
       {
         id: 'pv-hub',
         name: 'Hub',
-        year: '2025',
+        year: '2025 – 2026',
         tagline: 'A collaborative web platform, zero to one.',
         audience: 'Solar teams collaborating across a project',
         problem: `Problem. ${LOREM}`,

@@ -4,7 +4,7 @@ export const site = {
   location: 'Berlin, Germany',
   url: 'https://hugomartins.pm',
   description:
-    'Product manager in Berlin. Eleven years building software products, mostly in B2B SaaS.',
+    'Experienced product leader in Berlin. Twelve years shipping B2B SaaS, analytics and data products, including ML recommendations and generative AI.',
 
   // Google Calendar appointment schedule ("Chat with Hugo", 30 min).
   // Swapping to Cal.com is a change to this line and nothing else.

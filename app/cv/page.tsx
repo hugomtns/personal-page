@@ -9,7 +9,7 @@ import { isLive } from '@/content/site';
 export const metadata: Metadata = {
   title: 'CV',
   description:
-    'Eleven years of product management across B2B SaaS, healthtech and marketplaces.',
+    'Experienced product leader: twelve years shipping B2B SaaS, analytics and data products, including ML recommendations and generative AI.',
   robots: isLive('/cv') ? undefined : { index: false, follow: false },
 };
 
