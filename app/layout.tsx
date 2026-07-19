@@ -6,7 +6,6 @@ import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
 import SkipLink from '@/components/SkipLink';
 import Header from '@/components/Header';
-import BerlinTime from '@/components/BerlinTime';
 import { site } from '@/content/site';
 
 // Display face. Variable font (300–700) so headings can carry a real bold
@@ -70,10 +69,6 @@ export default function RootLayout({
           <SkipLink />
           <Header />
           <main id="main">{children}</main>
-          {/* The site's only footer content is one ambient mono line. */}
-          <footer className="mx-auto flex w-full max-w-5xl justify-end px-6 pb-10">
-            <BerlinTime />
-          </footer>
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

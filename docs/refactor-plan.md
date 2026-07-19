@@ -240,10 +240,9 @@ fall back to opacity-only/visible under `useReducedMotion()` and keep the
    already close). Keep the AA guard green.
 6. **Scroll progress hairline** — 1px accent bar at top of long pages (CV,
    About) via `useScroll` + `scaleX`. Invisible until scroll.
-7. **Ambient detail** — one mono line, e.g. "Berlin — 14:32 CET", in footer or
-   header corner. Cheap, human, keeps the site feeling maintained. Update on
-   an interval; render server-safe (no hydration mismatch — render nothing or
-   a placeholder until mounted).
+7. ~~Ambient detail~~ — CUT. The "Berlin, 14:32 CET" footer clock shipped and
+   Hugo rejected it on sight; component, footer, and tests were removed and
+   AGENTS.md records the decision. Do not reintroduce.
 8. **Weight-axis hover** — Space Grotesk is variable; try 400→500 weight
    shift on link hover instead of color-only changes. Subtle; evaluate in
    browser, drop if it causes layout shift.
