@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import PageShell from '@/components/PageShell';
-import Portrait from '@/components/Portrait';
+import AboutFlip from '@/components/AboutFlip';
 import ScrollProgress from '@/components/ScrollProgress';
-import { body } from '@/content/about';
+import { body, personal } from '@/content/about';
 import { site, isLive } from '@/content/site';
 
 export const metadata: Metadata = {
@@ -12,25 +14,36 @@ export const metadata: Metadata = {
   robots: isLive('/about') ? undefined : { index: false, follow: false },
 };
 
+const PERSONAL_PHOTO = 'hugo-martins-personal.jpg';
+
 export default function AboutPage() {
   // Symmetric with CV and Projects: a gated tab must genuinely not resolve,
   // not merely be unadvertised.
   if (!isLive('/about')) notFound();
+
+  // Server side, so the check costs nothing: the flip's back face only points
+  // at the personal photo if it actually exists in public/.
+  const personalSrc = existsSync(join(process.cwd(), 'public', PERSONAL_PHOTO))
+    ? `/${PERSONAL_PHOTO}`
+    : null;
 
   return (
     <>
       <ScrollProgress />
       <PageShell title="About">
       <div className="grid gap-12 md:grid-cols-[24rem_1fr] md:gap-16">
-        <div className="md:sticky md:top-32 md:self-start">
-          <Portrait />
-        </div>
-
-        <div className="grid max-w-2xl gap-6 text-body leading-relaxed">
-          {body.map((paragraph) => (
-            <p key={paragraph.slice(0, 32)}>{paragraph}</p>
-          ))}
-        </div>
+        <AboutFlip
+          portraitSrc="/hugo-martins.jpg"
+          personalSrc={personalSrc}
+          professional={body}
+          personal={personal}
+          links={[
+            {
+              match: 'Bacalhau com Natas',
+              href: 'https://wetravelportugal.com/bacalhau-com-natas/',
+            },
+          ]}
+        />
       </div>
     </PageShell>
     </>
