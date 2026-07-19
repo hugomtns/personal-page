@@ -115,7 +115,9 @@ must keep `app/globals.test.ts` green.
    modal/portrait), `--radius-card` (0.75rem, cards). Replace literals.
    `rounded-full` pills stay as-is.
 4. **Utility syntax sweep** — `@theme inline` already generates `text-h1`,
-   `text-display`, etc. Replace all `text-[length:var(--text-*)]` literals
+   `text-display`, etc. Replace all `text-[length: var(--text-*)]` literals
+   (written with a space here so Tailwind's content scan does not pick the
+   doc up as a class candidate; the real syntax has no space)
    (`Hero.tsx:27,43`, `ContactForm.tsx:42`, `ProjectDetail.tsx:23`,
    `ProjectTile.tsx:71`, all four page headings, `cv/page.tsx:39,55`).
 5. **`lib/motion.ts`** — new module for JS-driven values (can't be CSS keys):
@@ -132,7 +134,7 @@ must keep `app/globals.test.ts` green.
    a comment. Low value; skip if it adds noise.
 
 **Exit criteria**: zero visual diff, tests green, no `color-mix` or
-`text-[length:...]` literals left outside `globals.css`.
+`text-[length: ...]` literals left outside `globals.css`.
 
 ---
 
