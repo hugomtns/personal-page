@@ -4,6 +4,13 @@
 // before Hugo writes the copy; every `images` entry is null, so every tile
 // shows the placeholder frame.
 
+/**
+ * The tab is live in the nav, but the garden is not: /projects renders a
+ * Coming soon teaser while this is true. Shipping the garden for real is
+ * flipping this to false — ProjectGarden and the data below stay untouched.
+ */
+export const comingSoon = true;
+
 export type Project = {
   id: string;
   name: string;

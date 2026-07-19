@@ -4,10 +4,17 @@ import { describe, it, expect, vi } from 'vitest';
 
 // The page 404s unless its tab is live, so force it live here — this file is
 // about what the garden renders. The gate itself is covered in
-// app/unlaunched-routes.test.tsx.
+// app/unlaunched-routes.test.tsx, the teaser state in coming-soon.test.tsx.
 vi.mock('@/content/site', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/content/site')>();
   return { ...actual, isLive: () => true };
+});
+
+// Render the garden, not the teaser: the teaser is the shipped default while
+// the garden waits for real content.
+vi.mock('@/content/projects', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/content/projects')>();
+  return { ...actual, comingSoon: false };
 });
 
 import ProjectsPage from './page';
