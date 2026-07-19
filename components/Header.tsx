@@ -6,7 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import ThemeToggle from './ThemeToggle';
 import SocialLinks from './SocialLinks';
+import IconButton from './IconButton';
 import { site, liveNav } from '@/content/site';
+import { EASE_OUT, DURATION } from '@/lib/motion';
 
 const MENU_ID = 'header-menu';
 
@@ -44,14 +46,14 @@ export default function Header() {
   }, [open]);
 
   const tabClass = (href: string) =>
-    `label transition-colors hover:text-accent ${pathname === href ? 'text-fg' : ''}`;
+    `label weight-hover hover:text-accent ${pathname === href ? 'text-fg' : ''}`;
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
         <Link
           href="/"
-          className="-my-2 inline-flex items-center py-2 font-display text-lg whitespace-nowrap transition-colors hover:text-accent"
+          className="-my-2 inline-flex items-center py-2 font-display text-lg whitespace-nowrap weight-hover hover:text-accent"
         >
           {site.name}
         </Link>
@@ -73,20 +75,19 @@ export default function Header() {
             ))}
           </nav>
 
-          <button
+          <IconButton
             ref={buttonRef}
-            type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls={MENU_ID}
             aria-label="Menu"
-            className="label -m-1 grid size-11 place-items-center sm:hidden"
+            className="label -m-1 sm:hidden"
           >
             <span aria-hidden="true" className="grid gap-[5px]">
               <span className="block h-px w-5 bg-current" />
               <span className="block h-px w-5 bg-current" />
             </span>
-          </button>
+          </IconButton>
 
           <span aria-hidden="true" className="h-4 w-px bg-border" />
 
@@ -123,7 +124,7 @@ export default function Header() {
           aria-label="Menu"
           initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: reduce ? 0 : DURATION.fast, ease: EASE_OUT }}
           className="absolute inset-x-0 top-full border-b border-border bg-bg sm:hidden"
         >
           <ul className="mx-auto flex max-w-5xl flex-col px-6 py-2">

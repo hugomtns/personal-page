@@ -1,12 +1,36 @@
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { Fragment, useState, useSyncExternalStore } from 'react';
 import { projects } from '@/content/projects';
+import { AccordionPanel } from './Accordion';
 import ProjectTile from './ProjectTile';
 import ProjectDetail from './ProjectDetail';
 
 const PANEL_ID = 'project-detail-panel';
+
+// Column count decides which cell ends a row, so the panel can drop in after
+// the whole row. This query mirrors the grid classes on the ul below:
+// grid-cols-2 up to `sm`, sm:grid-cols-3 from 640px up.
+const GRID_COLUMNS_QUERY = '(min-width: 640px)';
+
+function subscribeToColumns(onChange: () => void) {
+  const mq = window.matchMedia(GRID_COLUMNS_QUERY);
+  mq.addEventListener('change', onChange);
+  return () => mq.removeEventListener('change', onChange);
+}
+
+function columnCount() {
+  return window.matchMedia(GRID_COLUMNS_QUERY).matches ? 3 : 2;
+}
+
+// The server cannot know the viewport; first paint assumes the small grid.
+const serverColumnCount = () => 2;
+
+/** Index of the cell that ends the row containing `i`, clamped to the last
+    tile because the final row may be short. */
+export function rowEndFor(i: number, cols: number, count: number) {
+  return Math.min(count - 1, (Math.floor(i / cols) + 1) * cols - 1);
+}
 
 /**
  * The garden: a uniform grid of tiles. Clicking one opens its detail as a
@@ -16,30 +40,17 @@ const PANEL_ID = 'project-detail-panel';
  * only movement, and it is the animation, so there is no modal and no reshuffle.
  *
  * The panel is rendered by whichever row it belongs to: every row-end cell holds
- * an AnimatePresence, and the one matching the open tile's row shows the panel.
+ * an AccordionPanel, and the one matching the open tile's row shows the panel.
  * Rendering it per-row (rather than moving one panel around) means opening,
  * closing, and jumping between rows all animate their height cleanly.
  */
 export default function ProjectGarden() {
-  const reduce = useReducedMotion();
   const [openId, setOpenId] = useState<string | null>(null);
-
-  // Column count drives which cell ends each row, so the panel can be dropped
-  // after the whole row. It mirrors the Tailwind grid: 2 up to `sm`, then 3.
-  const [cols, setCols] = useState(2);
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 640px)');
-    const update = () => setCols(mq.matches ? 3 : 2);
-    update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
-  }, []);
+  const cols = useSyncExternalStore(subscribeToColumns, columnCount, serverColumnCount);
 
   const open = projects.find((p) => p.id === openId) ?? null;
   const openIndex = open ? projects.indexOf(open) : -1;
-  const last = projects.length - 1;
-  const rowEndFor = (i: number) => Math.min(last, (Math.floor(i / cols) + 1) * cols - 1);
-  const openRowEnd = openIndex >= 0 ? rowEndFor(openIndex) : -1;
+  const openRowEnd = openIndex >= 0 ? rowEndFor(openIndex, cols, projects.length) : -1;
 
   return (
     <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -53,27 +64,22 @@ export default function ProjectGarden() {
           />
         );
 
-        const isRowEnd = i % cols === cols - 1 || i === last;
-        if (!isRowEnd) return <Fragment key={p.id}>{tile}</Fragment>;
+        if (rowEndFor(i, cols, projects.length) !== i) {
+          return <Fragment key={p.id}>{tile}</Fragment>;
+        }
 
         return (
           <Fragment key={p.id}>
             {tile}
-            <AnimatePresence initial={false}>
-              {open && openRowEnd === i && (
-                <motion.li
-                  key={open.id}
-                  id={PANEL_ID}
-                  className="col-span-full overflow-hidden"
-                  initial={reduce ? false : { height: 0, opacity: 0 }}
-                  animate={reduce ? {} : { height: 'auto', opacity: 1 }}
-                  exit={reduce ? {} : { height: 0, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <ProjectDetail project={open} onClose={() => setOpenId(null)} />
-                </motion.li>
-              )}
-            </AnimatePresence>
+            <AccordionPanel
+              as="li"
+              open={open !== null && openRowEnd === i}
+              id={PANEL_ID}
+              panelKey={open?.id}
+              className="col-span-full"
+            >
+              {open && <ProjectDetail project={open} onClose={() => setOpenId(null)} />}
+            </AccordionPanel>
           </Fragment>
         );
       })}

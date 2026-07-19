@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Space_Grotesk } from 'next/font/google';
+import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
@@ -22,16 +22,24 @@ const geist = Geist({
   display: 'swap',
 });
 
-const description =
-  'Product manager in Berlin. Eleven years building software products, mostly in B2B SaaS.';
+// Metadata face. Same family DNA as the body text, so the mono layer reads as
+// structure rather than decoration. globals.css maps --font-mono to this.
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: `${site.name} — ${site.role}`,
-  description,
+  title: {
+    default: `${site.name} — ${site.role}`,
+    template: `%s — ${site.name}`,
+  },
+  description: site.description,
   openGraph: {
     title: `${site.name} — ${site.role}`,
-    description,
+    description: site.description,
     url: site.url,
     siteName: site.name,
     locale: 'en_GB',
@@ -53,7 +61,7 @@ export default function RootLayout({
     // its own typefaces, and nothing errors to tell you.
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${geist.variable}`}
+      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <body>

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import PageShell from '@/components/PageShell';
 import ProjectGarden from '@/components/ProjectGarden';
-import { site, isLive } from '@/content/site';
+import { isLive } from '@/content/site';
 
 export const metadata: Metadata = {
-  title: `Projects — ${site.name}`,
+  title: 'Projects',
   description: 'Things Hugo Martins built for the fun of it.',
   robots: isLive('/projects') ? undefined : { index: false, follow: false },
 };
@@ -16,9 +17,8 @@ export default function ProjectsPage() {
   if (!isLive('/projects')) notFound();
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
-      <h1 className="mb-16 text-[length:var(--text-h1)]">Projects</h1>
+    <PageShell title="Projects">
       <ProjectGarden />
-    </div>
+    </PageShell>
   );
 }

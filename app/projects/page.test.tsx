@@ -27,16 +27,17 @@ describe('Projects page', () => {
     const user = userEvent.setup();
     render(<ProjectsPage />);
 
-    const tile = screen.getByRole('button', { name: /placeholder one/i });
+    const first = projects[0];
+    const tile = screen.getByRole('button', { name: new RegExp(first.name, 'i') });
     expect(tile).toHaveAttribute('aria-expanded', 'false');
-    // Just the tile face before it opens.
-    expect(screen.getAllByText('Placeholder One')).toHaveLength(1);
+    // Just the tile face before it opens; the detail heading is not there yet.
+    expect(screen.queryByRole('heading', { name: first.name })).not.toBeInTheDocument();
 
     await user.click(tile);
     expect(tile).toHaveAttribute('aria-expanded', 'true');
-    // Tile face + the detail panel's heading.
-    expect(screen.getAllByText('Placeholder One')).toHaveLength(2);
-    expect(screen.getByText(projects[0].description)).toBeInTheDocument();
+    // The detail panel opens in place, headed by the project name.
+    expect(screen.getByRole('heading', { name: first.name })).toBeInTheDocument();
+    expect(screen.getByText(first.description)).toBeInTheDocument();
 
     // The tile toggles closed; the gate for that is aria-expanded, which flips
     // synchronously (the panel's exit animation may still be unwinding).
@@ -48,8 +49,8 @@ describe('Projects page', () => {
     const user = userEvent.setup();
     render(<ProjectsPage />);
 
-    const one = screen.getByRole('button', { name: /placeholder one/i });
-    const two = screen.getByRole('button', { name: /placeholder two/i });
+    const one = screen.getByRole('button', { name: new RegExp(projects[0].name, 'i') });
+    const two = screen.getByRole('button', { name: new RegExp(projects[1].name, 'i') });
 
     await user.click(one);
     expect(one).toHaveAttribute('aria-expanded', 'true');

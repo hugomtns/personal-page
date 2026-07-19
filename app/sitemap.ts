@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { site, liveNav } from '@/content/site';
 
-// Only what is actually finished. A tab that is still hidden from the nav must
-// not be advertised to Google — the page exists so it can be previewed, not
-// so it can be indexed half-built.
+// Only what is actually finished. A tab that is still hidden from the nav
+// calls notFound() and 404s until it ships, so it must not be advertised to
+// Google either.
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 

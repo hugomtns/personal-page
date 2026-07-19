@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import CVCompany from './CVCompany';
 import { companies } from '@/content/cvTimeline';
+import { EASE_OUT, DURATION } from '@/lib/motion';
 
 export default function CVTimeline() {
   const reduce = useReducedMotion();
@@ -25,7 +26,7 @@ export default function CVTimeline() {
             viewport={{ once: true, margin: '-80px' }}
             transition={
               reveal
-                ? { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+                ? { duration: DURATION.reveal, ease: EASE_OUT }
                 : { duration: 0 }
             }
           >

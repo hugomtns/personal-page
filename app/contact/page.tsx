@@ -1,19 +1,23 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import PageShell from '@/components/PageShell';
 import BookingButton from '@/components/BookingButton';
 import ContactForm from '@/components/ContactForm';
-import { site, isLive } from '@/content/site';
+import { isLive } from '@/content/site';
 
 export const metadata: Metadata = {
-  title: `Contact — ${site.name}`,
+  title: 'Contact',
   description: 'Book a call with Hugo Martins, send a message, or both.',
   robots: isLive('/contact') ? undefined : { index: false, follow: false },
 };
 
 export default function ContactPage() {
-  return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
-      <h1 className="text-[length:var(--text-h1)]">Contact</h1>
+  // Symmetric with CV and Projects: a gated tab must genuinely not resolve,
+  // not merely be unadvertised.
+  if (!isLive('/contact')) notFound();
 
+  return (
+    <PageShell title="Contact" headingClassName="">
       {/* Side by side from `sm` up, so they read as two offers of equal weight.
           They used to be stacked under "Book a call" and "Or send a message",
           which made the message the consolation prize for people unwilling to
@@ -31,6 +35,6 @@ export default function ContactPage() {
           <BookingButton />
         </section>
       </div>
-    </div>
+    </PageShell>
   );
 }

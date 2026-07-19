@@ -1,4 +1,5 @@
 import { site } from '@/content/site';
+import IconButton from './IconButton';
 
 // Inline, not an icon package: two icons do not justify a dependency, and a
 // remote sprite would be one more thing that can fail to load.
@@ -21,24 +22,24 @@ function GitHubIcon() {
 export default function SocialLinks({ className = '' }: { className?: string }) {
   return (
     <nav aria-label="Social links" className={`flex items-center gap-1 ${className}`}>
-      <a
+      <IconButton
         href={site.links.linkedin}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LinkedIn"
-        className="grid size-11 place-items-center text-muted transition-colors hover:text-accent"
+        className="text-muted transition-colors hover:text-accent"
       >
         <LinkedInIcon />
-      </a>
-      <a
+      </IconButton>
+      <IconButton
         href={site.links.github}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub"
-        className="grid size-11 place-items-center text-muted transition-colors hover:text-accent"
+        className="text-muted transition-colors hover:text-accent"
       >
         <GitHubIcon />
-      </a>
+      </IconButton>
     </nav>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import IconButton from './IconButton';
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -26,11 +27,10 @@ export default function ThemeToggle() {
   return (
     // The button is 44px so a thumb can hit it; the -m-1 pulls that back out of
     // the layout so the visible circle stays the 36px the header was built for.
-    <button
-      type="button"
+    <IconButton
       onClick={() => setTheme(next)}
       aria-label={`Switch to ${next} theme`}
-      className="group -m-1 grid size-11 place-items-center"
+      className="group -m-1"
     >
       <span
         aria-hidden="true"
@@ -38,6 +38,6 @@ export default function ThemeToggle() {
       >
         {isDark ? '☀' : '☾'}
       </span>
-    </button>
+    </IconButton>
   );
 }

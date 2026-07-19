@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import Image from 'next/image';
 
-export const PORTRAIT_FILE = 'hugo-martins.jpg';
+const PORTRAIT_FILE = 'hugo-martins.jpg';
 
 /**
  * The portrait, or a placeholder that says so.
@@ -16,7 +16,7 @@ export default function Portrait() {
 
   if (!present) {
     return (
-      <div className="grid aspect-[4/5] w-full place-items-center rounded-lg border border-dashed border-border bg-fg/[0.02] p-6 text-center">
+      <div className="grid aspect-[4/5] w-full place-items-center rounded-panel border border-dashed border-border bg-surface p-6 text-center">
         <p className="text-small text-muted">
           Portrait goes here.
           <br />
@@ -38,7 +38,7 @@ export default function Portrait() {
       // so it is the LCP element. It must not be lazy-loaded.
       priority
       sizes="(min-width: 768px) 24rem, 100vw"
-      className="aspect-[4/5] w-full rounded-lg object-cover"
+      className="aspect-[4/5] w-full rounded-panel object-cover"
     />
   );
 }

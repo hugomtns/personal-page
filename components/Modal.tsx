@@ -1,6 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
+import IconButton, { CloseIcon } from './IconButton';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, iframe, [tabindex]:not([tabindex="-1"])';
@@ -10,7 +12,7 @@ type Props = {
   onClose: () => void;
   /** Names the dialog for screen readers, and titles it on screen. */
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 /**
@@ -94,28 +96,18 @@ export default function Modal({ open, onClose, title, children }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative z-10 flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-border bg-bg"
+        className="relative z-10 flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-panel border border-border bg-bg"
       >
         <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3">
           <h2 className="label">{title}</h2>
-          <button
+          <IconButton
             ref={closeRef}
-            type="button"
             onClick={onClose}
             aria-label="Close"
-            className="-mr-2 grid size-11 place-items-center text-muted transition-colors hover:text-fg"
+            className="-mr-2 text-muted transition-colors hover:text-fg"
           >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 16 16"
-              className="size-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path d="M3 3l10 10M13 3L3 13" />
-            </svg>
-          </button>
+            <CloseIcon />
+          </IconButton>
         </div>
 
         <div className="min-h-0 flex-1 overflow-auto">{children}</div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import Button from './Button';
 import { contactSchema } from '@/lib/contact-schema';
 
@@ -10,7 +11,7 @@ export default function ContactForm() {
   const [state, setState] = useState<State>('idle');
   const [error, setError] = useState<string | null>(null);
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
 
@@ -39,7 +40,7 @@ export default function ContactForm() {
 
   if (state === 'sent') {
     return (
-      <p role="status" className="text-[length:var(--text-h2)] leading-snug">
+      <p role="status" className="text-h2 leading-snug">
         Thank you. I&apos;ll come back to you shortly.
       </p>
     );

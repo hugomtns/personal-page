@@ -19,18 +19,36 @@ vi.mock('@/content/site', async (importOriginal) => {
   return { ...actual, isLive: isLiveMock };
 });
 
+import AboutPage from './about/page';
 import CVPage from './cv/page';
 import ProjectsPage from './projects/page';
+import ContactPage from './contact/page';
 
 beforeEach(() => {
   vi.clearAllMocks();
 });
 
 // A tab with live: false is hidden from the nav, dropped from the sitemap and
-// marked noindex — but none of that stops anyone who simply types the URL.
-// "Not linked" is not "not public", and this page holds a full CV. Until the
-// tab ships it must genuinely not resolve.
+// marked noindex, but none of that stops anyone who simply types the URL.
+// "Not linked" is not "not public". Until a tab ships its route must genuinely
+// not resolve, and every gate must consult its own tab, not some other tab.
 describe('routes that have not launched', () => {
+  it('serves the About page once it is live', () => {
+    isLiveMock.mockReturnValue(true);
+    expect(() => AboutPage()).not.toThrow();
+  });
+
+  it('404s the About page while it is not live', () => {
+    isLiveMock.mockReturnValue(false);
+    expect(() => AboutPage()).toThrow(NOT_FOUND);
+  });
+
+  it('gates the About page on its own tab', () => {
+    isLiveMock.mockReturnValue(false);
+    expect(() => AboutPage()).toThrow();
+    expect(isLiveMock).toHaveBeenCalledWith('/about');
+  });
+
   it('serves the CV page once it is live', () => {
     isLiveMock.mockReturnValue(true);
     expect(() => CVPage()).not.toThrow();
@@ -61,5 +79,21 @@ describe('routes that have not launched', () => {
     isLiveMock.mockReturnValue(false);
     expect(() => ProjectsPage()).toThrow();
     expect(isLiveMock).toHaveBeenCalledWith('/projects');
+  });
+
+  it('serves the Contact page once it is live', () => {
+    isLiveMock.mockReturnValue(true);
+    expect(() => ContactPage()).not.toThrow();
+  });
+
+  it('404s the Contact page while it is not live', () => {
+    isLiveMock.mockReturnValue(false);
+    expect(() => ContactPage()).toThrow(NOT_FOUND);
+  });
+
+  it('gates the Contact page on its own tab', () => {
+    isLiveMock.mockReturnValue(false);
+    expect(() => ContactPage()).toThrow();
+    expect(isLiveMock).toHaveBeenCalledWith('/contact');
   });
 });

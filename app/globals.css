@@ -8,7 +8,7 @@
   --color-border-light: #e5e5e1;
   --color-accent-light: #0047ff;
 
-  --color-bg-dark: #0d0d0d;
+  --color-bg-dark: #0e0d0c;       /* warm near-black, the dark end of the warm paper above */
   --color-fg-dark: #f5f5f3;
   --color-muted-dark: #9a9a98;
   --color-border-dark: #262626;
@@ -42,16 +42,30 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
 
+  /* Surface fills, derived from --muted so they switch themes for free. */
+  --color-surface: color-mix(in oklab, var(--muted) 4%, transparent);
+  --color-surface-strong: color-mix(in oklab, var(--muted) 8%, transparent);
+
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 
-  /* Fluid scale — no breakpoint jumps. */
-  --text-display: clamp(3rem, 9vw, 7.5rem);
+  /* Fluid scale — no breakpoint jumps. The display step carries its own
+     tracking: tighter than the h1/h2/h3 default because large type reads
+     better set close. */
+  --text-display: clamp(3.5rem, 9vw, 9rem);
+  --text-display--letter-spacing: -0.035em;
   --text-h1: clamp(2.25rem, 5vw, 4rem);
   --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+  --text-h3: clamp(1.75rem, 3.2vw, 2.6rem);
   --text-body: clamp(1rem, 1.1vw, 1.125rem);
   --text-small: 0.9375rem;
   --text-label: 0.75rem;
+
+  /* Radius tiers: screenshot frames, overlays/portraits, cards. */
+  --radius-frame: 0.375rem;
+  --radius-panel: 0.5rem;
+  --radius-card: 0.75rem;
 }
 
 body {
@@ -70,9 +84,11 @@ h1, h2, h3 {
   letter-spacing: -0.03em;
 }
 
-/* Metadata and labels. Stands in for the monospace we deliberately don't use. */
+/* Metadata and labels: dates, years, section markers, form labels. Monospace
+   is what sets this layer apart from prose — it adds editorial structure with
+   no visual mass. */
 .label {
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--text-label);
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -80,6 +96,30 @@ h1, h2, h3 {
 }
 
 a { color: inherit; }
+
+/* Selected text in the accent, with the page background as the ink. This is
+   the same accent-on-bg pairing Button uses, pinned at AA in both themes by
+   app/globals.test.ts. */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Weight-axis hover. Geist, Geist Mono and Space Grotesk are all variable
+   fonts, so a small 400 to 500 step animates instead of snapping. Standalone
+   links only, never inline prose: a bolder glyph is slightly wider, and in
+   running text that would reflow the line around the hovered word. Replaces
+   transition-colors on the elements that wear it, so the color and weight
+   move together on one timing. */
+.weight-hover {
+  transition:
+    color 180ms ease,
+    text-decoration-color 180ms ease,
+    font-weight 180ms ease;
+}
+.weight-hover:hover {
+  font-weight: 500;
+}
 
 /* Tailwind v4's Preflight no longer sets cursor: pointer on buttons. Restore it
    for every clickable control site-wide; a disabled control keeps the default. */

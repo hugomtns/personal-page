@@ -44,11 +44,30 @@ describe('Hero with prefers-reduced-motion: reduce', () => {
       // toBeVisible() fails if computed opacity is 0, display is none,
       // visibility is hidden, etc. — this is the actual "is it readable" check.
       expect(el).toBeVisible();
+    }
+    for (const el of [role, introText]) {
       // The load-bearing one: an explicit opacity: 1 is what overwrites what
       // the server put there. An empty string here means Motion left the DOM
       // untouched — which is exactly how the hero went invisible in a real
       // browser while this test was passing.
       expect(el.style.opacity).toBe('1');
+    }
+  });
+
+  it('mounts the masked name reveal at its finished state, not behind the mask', () => {
+    render(<Hero />);
+
+    // The h1 itself carries no motion now; each word is a motion.span sliding
+    // up inside an overflow-hidden mask. The same contract applies: the server
+    // rendered hidden (opacity 0, y 110%), so the client must write the final
+    // state. An un-animated word would sit at y 110% behind the mask, and the
+    // headline would simply not be there.
+    for (const word of ['Hugo', 'Martins']) {
+      const el = screen.getByText(word);
+      expect(el.style.opacity).toBe('1');
+      // Motion writes the finished transform as none or translateY(0px);
+      // anything still holding a percentage offset never left the mask.
+      expect(el.style.transform).not.toMatch(/110%/);
     }
   });
 });

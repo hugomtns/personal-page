@@ -3,6 +3,8 @@ export const site = {
   role: 'Product Builder',
   location: 'Berlin, Germany',
   url: 'https://hugomartins.pm',
+  description:
+    'Product manager in Berlin. Eleven years building software products, mostly in B2B SaaS.',
 
   // Google Calendar appointment schedule ("Chat with Hugo", 30 min).
   // Swapping to Cal.com is a change to this line and nothing else.
@@ -32,10 +34,10 @@ export const site = {
 /**
  * The tabs, and whether each is finished enough to be seen.
  *
- * `live: false` hides a tab from the nav, keeps it out of the sitemap, and
- * marks the page noindex. The URL still works, so it can be previewed — but a
- * half-built page that Google has already indexed is worse than no page.
- * Shipping a tab is a one-word change here.
+ * `live: false` hides a tab from the nav, keeps it out of the sitemap, marks
+ * the page noindex, and 404s the route itself: the page calls notFound().
+ * Unlinked is not private, so a gated tab genuinely does not resolve until it
+ * ships. Shipping a tab is a one-word change here.
  */
 export type NavItem = { href: string; label: string; live: boolean };
 

@@ -1,11 +1,12 @@
 'use client';
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import type { ReactNode } from 'react';
 
 export default function ThemeProvider({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     // Dark by default for everyone, on purpose. enableSystem is deliberately

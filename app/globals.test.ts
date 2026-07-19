@@ -35,6 +35,23 @@ describe('design tokens', () => {
       .toBeGreaterThanOrEqual(4.5);
   });
 
+  it('bg text on the accent background meets WCAG AA in both themes', () => {
+    // The inverse pairing: Button and the focused SkipLink put text-bg on
+    // bg-accent. Contrast is symmetric, but pinning it both ways keeps the
+    // intent legible if a future palette change splits them.
+    expect(contrast(token('--color-bg-light'), token('--color-accent-light')))
+      .toBeGreaterThanOrEqual(4.5);
+    expect(contrast(token('--color-bg-dark'), token('--color-accent-dark')))
+      .toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('muted text meets WCAG AA in both themes', () => {
+    expect(contrast(token('--color-muted-light'), token('--color-bg-light')))
+      .toBeGreaterThanOrEqual(4.5);
+    expect(contrast(token('--color-muted-dark'), token('--color-bg-dark')))
+      .toBeGreaterThanOrEqual(4.5);
+  });
+
   it('body text meets WCAG AA in both themes', () => {
     expect(contrast(token('--color-fg-light'), token('--color-bg-light')))
       .toBeGreaterThanOrEqual(4.5);
