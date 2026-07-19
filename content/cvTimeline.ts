@@ -1,9 +1,8 @@
-// PLACEHOLDER content for the timeline redesign, partially filled. Two tiers:
-// companies are the chapters, products are what happened inside them. The
-// company About paragraphs are real, researched copy (2026-07). Prose under
-// My role / Problem / What I did / Outcome is still lorem, marked as such:
-// only Hugo can write what he did. Names, dates, taglines, audiences and the
-// headline metrics are real — they set the shape.
+// The CV timeline. Two tiers: companies are the chapters, products are what
+// happened inside them. All copy is real, written by Hugo (company About
+// paragraphs researched and drafted for him, then reviewed). A product with
+// an empty audience is a leadership milestone: it shows Scope instead of
+// Problem and drops the For row.
 
 export type MilestoneLink = { label: string; href: string };
 
@@ -40,11 +39,6 @@ export type Company = {
   links: MilestoneLink[];
   products: Product[];
 };
-
-const LOREM =
-  'Placeholder. Nulla facilisi. Morbi in sem quis dui placerat ornare. ' +
-  'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. ' +
-  'Curabitur pretium tincidunt lacus, nulla gravida orci a odio.';
 
 export const companies: Company[] = [
   {
@@ -176,7 +170,8 @@ export const companies: Company[] = [
     tagline: 'Employee comms platform · Berlin',
     about:
       'Staffbase is an employee communications platform: intranet, employee app and email for large organizations, built to reach frontline workers as well as desk staff. Founded in Chemnitz in 2014, it became a unicorn in March 2022 at a $1.1B valuation, with over 2,000 enterprise customers reaching more than 13 million employees. Customers include Adidas, Audi, DHL and Ikea.',
-    role: `My role. Led the analytics product group across multiple teams. ${LOREM}`,
+    role:
+      'I joined Staffbase to lead the Surveys product, but the state of Analytics pulled me in within weeks. I ended up leading the analytics product group across multiple teams: first stabilizing the core platform, then taking a new data product from concept to launch.',
     links: [{ label: 'staffbase.com', href: 'https://staffbase.com' }],
     products: [
       {
@@ -185,9 +180,12 @@ export const companies: Company[] = [
         year: '2022',
         tagline: 'The core analytics platform, rebuilt.',
         audience: 'Internal comms leads at enterprise scale',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: 'CSAT 45% to 95%. 3M EUR ARR through enterprise deals.',
+        problem:
+          'The analytics product had issues on every layer: RBAC was too restrictive, calculations were unclear, and implementation problems in the backend were corrupting internal data collection.',
+        did:
+          'I had originally joined Staffbase to lead the Surveys product, but it became apparent almost immediately that Analytics, a core value delivery for the company, lacked product thinking, and its issues were putting customer retention and acquisition at risk. I spent a good stretch weeding out the issues, prioritizing and addressing them, enabling key deals to happen. The most important fix was democratizing access to analytics for users of different access levels, making sure everyone had the data they needed, without the noise.',
+        outcome:
+          'CSAT 45% to 95%. 3M EUR ARR through enterprise deals. A platform-wide internal event system.',
         image: null,
       },
       {
@@ -195,10 +193,13 @@ export const companies: Company[] = [
         name: 'Smart Impact',
         year: '2023',
         tagline: 'A data-driven comms product, zero to launch.',
-        audience: 'Comms teams measuring reach and sentiment',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: '150% over the adoption goal in Q1.',
+        audience: 'Customers running multi-channel campaigns that want to be more data-informed',
+        problem:
+          'Enterprise customers struggled to monitor the true effect of their comms campaigns, especially multichannel ones. Too many disjointed tools, and no measurement beyond views and clicks, made it hard to report on actual progress.',
+        did:
+          'Led the conceptualization, validation and implementation of a zero-to-one data product through to a successful launch. Managed two product teams and interfaced regularly with data engineering, legal and marketing to make sure the product worked and was delivered with the right messaging.',
+        outcome:
+          'A validated product that lets customers tell a data-informed narrative across multiple comms channels from a centralized dashboard. Beat the launch sign-up goal by 150%.',
         image: null,
       },
     ],
@@ -210,7 +211,8 @@ export const companies: Company[] = [
     tagline: 'Renewable-energy design software · Berlin',
     about:
       'PVcase builds software that automates the design of commercial and utility-scale solar power plants. The original product is an AutoCAD plug-in covering layout, shading analysis and civil design; the suite has since grown toward site selection and yield assessment. Founded in Kaunas, Lithuania in 2018, it raised a $23M Series A in 2021 and a $100M Series B in 2023, with customers in more than 75 countries.',
-    role: `My role. ${LOREM}`,
+    role:
+      'I joined PVcase on the Roof Mount team, but a restructuring put me in charge of the electrical domain in the company\'s flagship product, Ground Mount. A year later, I spearheaded the development of a brand new product: a collaboration and data platform.',
     links: [{ label: 'pvcase.com', href: 'https://pvcase.com' }],
     products: [
       {
@@ -219,9 +221,12 @@ export const companies: Company[] = [
         year: '2024 – 2025',
         tagline: 'The flagship AutoCAD solar-design product.',
         audience: 'Solar engineers designing utility-scale PV plants',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: '500k+ ARR in new sales.',
+        problem:
+          'Ground Mount is an AutoCAD plug-in that electrical design engineers love. But the field moves extremely fast, and the electrical domain was lagging behind the market: the product had no support for battery system design or for harnesses in electrical designs, which was hampering customer retention and acquisition.',
+        did:
+          'My job was to close the customer gap with a stream of new features, using voice of customer to prioritize the yearly roadmap. During my tenure the product shipped harness support and AC and DC BESS design, and we ran the research and validation for a standards-compliant cable sizing solution.',
+        outcome:
+          'Positive adoption of the new features, and a roadmap that kept Ground Mount competitive in a fast-moving market.',
         image: null,
       },
       {
@@ -230,9 +235,11 @@ export const companies: Company[] = [
         year: '2025 – 2026',
         tagline: 'A collaborative web platform, zero to one.',
         audience: 'Solar teams collaborating across a project',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: 'Placeholder. Shipped through Alpha and Beta.',
+        problem:
+          'Bringing a solar project to life is hard. The design phase alone needs people in different functions working in tandem, but they often use disconnected tooling: design, project management, analytics, finance. Each has its own system, and when data does not carry over correctly, costly mistakes happen.',
+        did:
+          'Took over a product that was stuck in discovery and brought the first alpha version to life. Coordinated the expansion of a customer advisory board to gather regular feedback, and led a development team to build a cross-functional, sellable open beta.',
+        outcome: 'Shipped from pre-alpha to open beta, validated with 30+ customers.',
         image: null,
       },
     ],
