@@ -49,7 +49,11 @@ export default function Hero() {
           inter-word space), so the h1 carries the name as a label and the
           animated fragments are presentation only. */}
       <motion.h1
-        className="text-display"
+        // Space Grotesk's H carries a 0.066em left side bearing (measured from
+        // the TTF): invisible at body sizes, but at display size it pushes the
+        // name's ink ~10px right of the label and paragraph below. Pull the
+        // block back by exactly that, so the alignment is optical, not metric.
+        className="text-display -ml-[0.066em]"
         aria-label={site.name}
         variants={maskGroup}
         initial={reduce ? 'show' : 'hidden'}
