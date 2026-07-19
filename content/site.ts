@@ -43,7 +43,7 @@ export type NavItem = { href: string; label: string; live: boolean };
 
 export const nav: NavItem[] = [
   { href: '/about', label: 'About', live: true },
-  { href: '/cv', label: 'CV', live: false },
+  { href: '/cv', label: 'CV', live: true },
   { href: '/projects', label: 'Projects', live: true },
   { href: '/contact', label: 'Contact', live: true },
 ];
