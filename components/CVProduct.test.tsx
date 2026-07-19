@@ -26,11 +26,13 @@ describe('CVProduct', () => {
     expect(screen.getByText('Problem')).toBeInTheDocument();
     expect(screen.getByText('What I did')).toBeInTheDocument();
     expect(screen.getByText('Outcome')).toBeInTheDocument();
-    expect(screen.getByText('For · Enterprise admins')).toBeInTheDocument();
+    // The audience sits as the For row inside the ruled list.
+    expect(screen.getByText('For')).toBeInTheDocument();
+    expect(screen.getByText('Enterprise admins')).toBeInTheDocument();
   });
 
   // A product with an empty audience is a leadership milestone: it shows
-  // Scope instead of Problem and drops the "For" line (content/cvTimeline.ts).
+  // Scope instead of Problem and drops the For row (content/cvTimeline.ts).
   it('shows Scope instead of Problem and drops the audience line for a leadership milestone', async () => {
     const user = userEvent.setup();
     render(<CVProduct product={{ ...product, audience: '' }} />);
@@ -39,7 +41,8 @@ describe('CVProduct', () => {
 
     expect(screen.getByText('Scope')).toBeInTheDocument();
     expect(screen.queryByText('Problem')).not.toBeInTheDocument();
-    expect(screen.queryByText(/^For ·/)).not.toBeInTheDocument();
+    expect(screen.queryByText('For')).not.toBeInTheDocument();
+    expect(screen.queryByText('Enterprise admins')).not.toBeInTheDocument();
   });
 
   it('wires the trigger to the panel with aria-expanded and aria-controls', async () => {

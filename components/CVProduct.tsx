@@ -9,11 +9,11 @@ import MetaList from './MetaList';
  * A product branches off its company's trunk: a horizontal connector runs from
  * the trunk (at -1rem, the company's pl-20 gutter) out to the node, so it reads
  * as attached rather than a floating pin. Click reveals the case: image frame,
- * then Problem / What I did / Outcome. The link to the company lives on the
- * company card, not here.
+ * then the ruled list: For / Problem / What I did / Outcome. The link to the
+ * company lives on the company card, not here.
  *
  * A leadership milestone has no `audience` — it shows Scope instead of Problem
- * and drops the "For" line.
+ * and drops the For row.
  */
 export default function CVProduct({ product: p }: { product: Product }) {
   const leadership = p.audience === '';
@@ -62,11 +62,10 @@ export default function CVProduct({ product: p }: { product: Product }) {
             className="mb-6 aspect-[16/10] w-full rounded-frame border border-border"
           />
 
-          {!leadership && <p className="label mb-6">For · {p.audience}</p>}
-
           <MetaList
             className="border-l border-accent pl-6"
             items={[
+              ...(!leadership ? [{ label: 'For', value: p.audience }] : []),
               { label: leadership ? 'Scope' : 'Problem', value: p.problem },
               { label: 'What I did', value: p.did },
               { label: 'Outcome', value: p.outcome },

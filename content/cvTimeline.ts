@@ -54,7 +54,8 @@ export const companies: Company[] = [
     tagline: 'Academic social network · Berlin',
     about:
       'ResearchGate is a social network for scientists: members share papers, data and negative results, and find collaborators. Founded in 2008, it grew from Boston to Berlin and reached around 15 million members by the late 2010s, backed by over $100M from investors including Benchmark, Founders Fund and Bill Gates. Membership is free; the revenue comes from advertising and recruiting for scientific markets.',
-    role: `My role. Product Operations Lead, then Product Manager. ${LOREM}`,
+    role:
+      'I started at ResearchGate as a part-time data curator, and after a break to finish my studies, I joined full-time. My job was to keep the scientific job posts accurate, in content and in how they were targeted, and to run the email campaigns sent to specific user segments. As demand grew, I built a product operations team around that workflow and ran it. After two years I moved into product management, taking over the scientific recruitment product I had helped launch from behind the scenes.',
     links: [{ label: 'researchgate.net', href: 'https://www.researchgate.net' }],
     products: [
       {
@@ -63,9 +64,12 @@ export const companies: Company[] = [
         year: '2014',
         tagline: 'Built the function from zero to a team of eight.',
         audience: '', // leadership milestone — Scope, not audience
-        problem: `Scope. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: 'A team of 8, with career growth and promotions.',
+        problem:
+          'The team owned the quality of every scientific job post on the platform: accurate content, accurate targeting to the right users, and the email campaigns that carried jobs to specific segments. On top of the daily workflow, the team\'s labeling work fed training data to the company\'s recommendation engine.',
+        did:
+          'Recruited the team from a pool of internal and external candidates, trained them, set up reporting lines and processes, and kept improving the workflow as volume grew. A large part of the job was the people: coaching, and creating the conditions for promotions. The multidisciplinary mix paid off directly: the quality of the labeling and targeting work helped us secure more clients.',
+        outcome:
+          'A team of 8, with career growth and promotions. Dozens of satisfied clients who managed to recruit through ResearchGate, and kept using the recruitment platform.',
         image: null,
       },
       {
@@ -74,9 +78,12 @@ export const companies: Company[] = [
         year: '2016',
         tagline: 'A paid recruitment product, zero to one.',
         audience: 'Scientists job-hunting, and the employers hiring them',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: '4M+ EUR ARR. 70% better matching quality via ML recommendations.',
+        problem:
+          'Recruitment in academia is a long process that still relied on old-school reputation-based hiring. Big institutions get a lot of attention as candidates organically flock to their career pages. Leveraging ResearchGate\'s millions of publications, the recruitment product could build accurate researcher profiles which, combined with category extraction from job posts, could recommend candidates proactively to recruiters. This recommendation system matched profile skills, academic degree, region and other parameters to ensure that the scientific talent was the best possible match, cutting recruitment time and costs.',
+        did:
+          'Took the product from a basic job board MVP to a recommendation-powered job match engine: dedicated job pages, a posting flow with assisted targeting, email campaigns, and advertising both in-platform and external.',
+        outcome:
+          '4M+ EUR ARR. 70% better matching quality via ML recommendations versus purely manual matching, measured by the amount of positive candidate matches as reported by customers.',
         image: null,
       },
     ],
