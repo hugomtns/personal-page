@@ -1,8 +1,9 @@
-// PLACEHOLDER content for the timeline redesign. Two tiers: companies are the
-// chapters, products are what happened inside them. Prose under About / My role
-// / Problem / What I did / Outcome is lorem, marked as such, so the layout can
-// be judged at real density before Hugo writes the copy. Names, dates,
-// taglines, audiences and the headline metrics are real — they set the shape.
+// PLACEHOLDER content for the timeline redesign, partially filled. Two tiers:
+// companies are the chapters, products are what happened inside them. The
+// company About paragraphs are real, researched copy (2026-07). Prose under
+// My role / Problem / What I did / Outcome is still lorem, marked as such:
+// only Hugo can write what he did. Names, dates, taglines, audiences and the
+// headline metrics are real — they set the shape.
 
 export type MilestoneLink = { label: string; href: string };
 
@@ -51,7 +52,8 @@ export const companies: Company[] = [
     name: 'ResearchGate',
     dates: '2014 — 2019',
     tagline: 'Academic social network · Berlin',
-    about: `About ResearchGate. ${LOREM}`,
+    about:
+      'ResearchGate is a social network for scientists: members share papers, data and negative results, and find collaborators. Founded in 2008, it grew from Boston to Berlin and reached around 15 million members by the late 2010s, backed by over $100M from investors including Benchmark, Founders Fund and Bill Gates. Membership is free; the revenue comes from advertising and recruiting for scientific markets.',
     role: `My role. Product Operations Lead, then Product Manager. ${LOREM}`,
     links: [{ label: 'researchgate.net', href: 'https://www.researchgate.net' }],
     products: [
@@ -84,7 +86,8 @@ export const companies: Company[] = [
     name: 'Helpling',
     dates: '2019 — 2020',
     tagline: 'Home-services marketplace · Berlin',
-    about: `About Helpling. ${LOREM}`,
+    about:
+      'Helpling is an online marketplace for home services, best known for booking vetted, insured cleaners. Incubated by Rocket Internet in Berlin in 2014, it expanded at Rocket pace: 200 cities within its first year, nine countries across three continents by 2017. Customers and cleaners find each other on the platform; Helpling takes a commission.',
     role: `My role. ${LOREM}`,
     links: [{ label: 'helpling.com', href: 'https://www.helpling.com' }],
     products: [
@@ -106,7 +109,8 @@ export const companies: Company[] = [
     name: 'Medwing',
     dates: '2020 — 2021',
     tagline: 'Healthcare staffing · Berlin',
-    about: `About Medwing. ${LOREM}`,
+    about:
+      'Medwing is a digital staffing platform for healthcare, matching nurses and carers with hospitals and care homes for permanent roles and temp shifts. Founded in Berlin in 2017, it operated in Germany and the UK; by 2020 it counted over 200,000 registered healthcare professionals and 2,500 partner facilities. The workflow is fully digital, from job search to signed contract to timesheet.',
     role: `My role. ${LOREM}`,
     links: [{ label: 'medwing.com', href: 'https://www.medwing.com' }],
     products: [
@@ -128,7 +132,8 @@ export const companies: Company[] = [
     name: 'Staffbase',
     dates: '2022 — 2024',
     tagline: 'Employee comms platform · Berlin',
-    about: `About Staffbase. ${LOREM}`,
+    about:
+      'Staffbase is an employee communications platform: intranet, employee app and email for large organizations, built to reach frontline workers as well as desk staff. Founded in Chemnitz in 2014, it became a unicorn in March 2022 at a $1.1B valuation, with over 2,000 enterprise customers reaching more than 13 million employees. Customers include Adidas, Audi, DHL and Ikea.',
     role: `My role. Led the analytics product group across multiple teams. ${LOREM}`,
     links: [{ label: 'staffbase.com', href: 'https://staffbase.com' }],
     products: [
@@ -161,7 +166,8 @@ export const companies: Company[] = [
     name: 'PVcase',
     dates: '2024 — Now',
     tagline: 'Renewable-energy design software · Berlin',
-    about: `About PVcase. ${LOREM}`,
+    about:
+      'PVcase builds software that automates the design of commercial and utility-scale solar power plants. The original product is an AutoCAD plug-in covering layout, shading analysis and civil design; the suite has since grown toward site selection and yield assessment. Founded in Kaunas, Lithuania in 2018, it raised a $23M Series A in 2021 and a $100M Series B in 2023, with customers in more than 75 countries.',
     role: `My role. ${LOREM}`,
     links: [{ label: 'pvcase.com', href: 'https://pvcase.com' }],
     products: [
