@@ -95,18 +95,36 @@ export const companies: Company[] = [
     tagline: 'Home-services marketplace · Berlin',
     about:
       'Helpling is an online marketplace for home services, best known for booking vetted, insured cleaners. Incubated by Rocket Internet in Berlin in 2014, it expanded at Rocket pace: 200 cities within its first year, nine countries across three continents by 2017. Customers and cleaners find each other on the platform; Helpling takes a commission.',
-    role: `My role. ${LOREM}`,
+    role:
+      'I owned two problem spaces at Helpling. First, the mobile app: I led the release of a new React Native experience across Android, iOS and web. Second, the booking flow: I cut operational overhead and lifted stepwise conversion to drive business volume.',
     links: [{ label: 'helpling.com', href: 'https://www.helpling.com' }],
     products: [
       {
-        id: 'helpling-booking',
-        name: 'Cleaner Booking',
+        id: 'helpling-app',
+        name: 'Mobile App',
         year: '2019',
-        tagline: 'A new booking experience across web and mobile.',
+        tagline: 'A new React Native experience across Android, iOS and web.',
         audience: 'People booking home cleaning',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: '4.5 stars, 2.5x the old rating. 90% less CS time on cancellations.',
+        problem:
+          'The old Helpling mobile app was a Cordova wrapper on an aging web experience, and it was at risk of becoming unsupported. On top of that, the store rating sat marginally above 2 stars.',
+        did:
+          'Led a focused team to rebuild the app in React Native, one codebase delivering across Android, iOS and web. Mapped every workflow in the old app and ran user research to prioritize what the rebuild should change. Shipped in six months.',
+        outcome: 'Over 4.0 stars in both app stores, 2x the old rating.',
+        image: null,
+      },
+      {
+        id: 'helpling-booking',
+        name: 'Booking Flow',
+        year: '2020',
+        tagline: 'Single-click cancellations, shipped against company instinct.',
+        audience:
+          'People looking to cancel a cleaning, and the support team handling cancellations manually',
+        problem:
+          'With the new app launched, we looked at how the flows performed historically, especially cancellations. Cancelling was only possible over the phone, and the biggest risk that carried was the overhead on customer service: agents buried in cancellation calls had less time for everything else, like cleaner support.',
+        did:
+          'A risky endeavour: inside the company, the manual call was seen as a way to reduce churn through the human touch. The numbers told a different story. Prevention almost never worked, and the calls ate the team\'s time. We carefully designed an automated, single-click cancellation flow for both individual and recurring cleanings, and rolled it out through consecutive A/B tests, monitoring cancellation rates and conversion at every step to make sure there was no significant negative impact on the business.',
+        outcome:
+          'Cancellation rates stayed roughly the same as with the fully manual process, but the operational lift was tremendous. Virtually no time was now spent handling cancellations over the phone, shifting energy to more critical customer and cleaner support tasks.',
         image: null,
       },
     ],
@@ -118,18 +136,35 @@ export const companies: Company[] = [
     tagline: 'Healthcare staffing · Berlin',
     about:
       'Medwing is a digital staffing platform for healthcare, matching nurses and carers with hospitals and care homes for permanent roles and temp shifts. Founded in Berlin in 2017, it operated in Germany and the UK; by 2020 it counted over 200,000 registered healthcare professionals and 2,500 partner facilities. The workflow is fully digital, from job search to signed contract to timesheet.',
-    role: `My role. ${LOREM}`,
+    role:
+      'I joined Medwing in my first Senior position and took ownership of the core recruitment experience. My goal was to lead candidate management into a new digital experience, and to help other business verticals explore new product opportunities.',
     links: [{ label: 'medwing.com', href: 'https://www.medwing.com' }],
     products: [
       {
         id: 'medwing-ats',
-        name: 'ATS & Shift Management',
-        year: '2020',
-        tagline: 'Hiring tools, and a validated shift product.',
-        audience: 'Care facilities hiring and scheduling staff',
-        problem: `Problem. ${LOREM}`,
-        did: `What I did. ${LOREM}`,
-        outcome: '80% faster onboarding. PMF validated across 50+ facilities.',
+        name: 'Digital ATS',
+        year: '2020 – 2021',
+        tagline: 'Recruitment, out of the inbox and into a web app.',
+        audience: 'Healthcare facilities still relying on outdated recruitment processes',
+        problem:
+          'Many healthcare and daycare facilities in Germany still run recruitment out of an inbox, or through physical mail applications. It is cumbersome for the institution and for the applicants themselves, especially in an ever more digital age.',
+        did:
+          'Led the ground-up implementation of a digital application management system inside Medwing: incoming applications funneled into a web experience for candidate review and management, effectively replacing much of the old manual data entry.',
+        outcome:
+          'Customer onboarding got easier: an 80% reduction in onboarding call time, and increased satisfaction from target customers.',
+        image: null,
+      },
+      {
+        id: 'medwing-shift',
+        name: 'Shift Management MVP',
+        year: '2021',
+        tagline: 'Ward staffing, off the whiteboard.',
+        audience: 'Healthcare facilities struggling with ward nurse allocation across shifts',
+        problem:
+          'Shift management is a hard problem in healthcare: staff rotate continuously, every day brings unforeseen circumstances, and low digitalization leaves wards relying on error-prone whiteboards to assign tasks and plan ahead.',
+        did:
+          'Worked with two key customers to design a shift management system that let managers plan ahead and assign nursing workforce across wards through an intuitive UI, with real-time oversight of ward over- and understaffing.',
+        outcome: 'The MVP moved successfully into a real-life trial phase.',
         image: null,
       },
     ],
