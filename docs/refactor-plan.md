@@ -226,10 +226,9 @@ fall back to opacity-only/visible under `useReducedMotion()` and keep the
    linusrogge.com.
 3. **Unified micro-interaction timing** — one duration/easing scale for every
    interactive element (built on Phase 1's `lib/motion.ts`): link underline
-   sweeps (CSS-only), card hover choreography, icon nudges. Then **one
-   magnetic CTA**: the booking/contact button translates a few px toward the
-   cursor via `useMotionValue` + spring. One element only; skip listeners
-   entirely under reduced motion.
+   sweeps (CSS-only), card hover choreography, icon nudges.
+   (The magnetic CTA originally planned here shipped and was then removed:
+   Hugo saw it live and rejected the effect.)
 4. **Spring-based garden accordion** — after Phase 2's `Accordion`, give the
    projects garden a height/layout spring (stiffness ~300, damping ~30) so
    expansion feels physical. This is the restrained version of the
