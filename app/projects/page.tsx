@@ -7,7 +7,7 @@ import { isLive } from '@/content/site';
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Things Hugo Martins built for the fun of it.',
+  description: 'Side projects and product prototypes by Hugo Martins.',
   robots: isLive('/projects') ? undefined : { index: false, follow: false },
 };
 
@@ -24,8 +24,9 @@ export default function ProjectsPage() {
       <PageShell title="Projects">
         <p className="label mb-4">Coming soon</p>
         <p className="max-w-xl text-muted">
-          Side projects and hobbies, built for the fun of it. A few of them
-          will live here soon.
+          Side projects and prototypes, from discovery and user research work
+          to things built for the fun of it. A few of them will live here
+          soon.
         </p>
       </PageShell>
     );

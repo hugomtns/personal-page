@@ -21,7 +21,7 @@ describe('Projects page, coming soon state', () => {
     render(<ProjectsPage />);
 
     expect(screen.getByText('Coming soon')).toBeInTheDocument();
-    expect(screen.getByText(/side projects and hobbies/i)).toBeInTheDocument();
+    expect(screen.getByText(/side projects and prototypes/i)).toBeInTheDocument();
     // No garden: nothing expandable, no placeholder tiles.
     expect(screen.queryByRole('button', { name: /placeholder/i })).not.toBeInTheDocument();
   });
