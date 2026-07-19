@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PageShell from '@/components/PageShell';
 import Portrait from '@/components/Portrait';
+import ScrollProgress from '@/components/ScrollProgress';
 import { body } from '@/content/about';
 import { site, isLive } from '@/content/site';
 
@@ -17,7 +18,9 @@ export default function AboutPage() {
   if (!isLive('/about')) notFound();
 
   return (
-    <PageShell title="About">
+    <>
+      <ScrollProgress />
+      <PageShell title="About">
       <div className="grid gap-12 md:grid-cols-[24rem_1fr] md:gap-16">
         <div className="md:sticky md:top-32 md:self-start">
           <Portrait />
@@ -30,5 +33,6 @@ export default function AboutPage() {
         </div>
       </div>
     </PageShell>
+    </>
   );
 }

@@ -56,12 +56,12 @@ export default function CVCompany({
                   the name box starts at 5.25rem = 84px, so -3.25rem centers it). */}
               <span
                 aria-hidden
-                className={`absolute top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent transition-colors ${
+                className={`absolute top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent transition-colors duration-180 ${
                   open ? 'bg-bg' : 'bg-accent'
                 }`}
                 style={{ left: '-3.25rem' }}
               />
-              <span className="block font-display leading-[1.05] text-h3 transition-colors group-hover:text-accent">
+              <span className="block font-display leading-[1.05] text-h3 transition-colors duration-180 group-hover:text-accent">
                 {c.name}
               </span>
             </span>

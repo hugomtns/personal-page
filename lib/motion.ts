@@ -9,7 +9,11 @@
 export const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 export const DURATION = {
-  fast: 0.18, // small UI responses (header menu)
-  panel: 0.35, // accordion/panel height reveals
+  fast: 0.18, // small UI responses (header menu, hover transitions)
   reveal: 0.5, // scroll-into-view reveals
 } as const;
+
+/** The disclosure spring: stiff enough to snap open, damped enough to settle
+    without a bounce. Panels (accordion, garden) use this instead of a tween
+    so expansion feels physical. */
+export const SPRING = { stiffness: 300, damping: 30 } as const;

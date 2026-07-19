@@ -27,7 +27,7 @@ export default function SocialLinks({ className = '' }: { className?: string }) 
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LinkedIn"
-        className="text-muted transition-colors hover:text-accent"
+        className="text-muted transition-colors duration-180 hover:text-accent"
       >
         <LinkedInIcon />
       </IconButton>
@@ -36,7 +36,7 @@ export default function SocialLinks({ className = '' }: { className?: string }) 
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub"
-        className="text-muted transition-colors hover:text-accent"
+        className="text-muted transition-colors duration-180 hover:text-accent"
       >
         <GitHubIcon />
       </IconButton>

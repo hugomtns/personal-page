@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Button from './Button';
+import Magnetic from './Magnetic';
 import Modal from './Modal';
 import { site } from '@/content/site';
 
@@ -30,9 +31,13 @@ export default function BookingButton() {
         a Google cookie.
       </p>
 
-      <Button type="button" onClick={() => setOpen(true)}>
-        Book a call
-      </Button>
+      {/* The one magnetic element on the site. It only moves the button's
+          pixels; the Modal below still mounts nothing until the click. */}
+      <Magnetic>
+        <Button type="button" onClick={() => setOpen(true)}>
+          Book a call
+        </Button>
+      </Magnetic>
 
       <Modal open={open} onClose={() => setOpen(false)} title="Book a call">
         <iframe

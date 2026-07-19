@@ -43,7 +43,7 @@ export default function ProjectTile({
         />
         <span className="block p-5">
           <span
-            className={`block font-display leading-[1.1] text-h2 transition-colors group-hover:text-accent ${
+            className={`block font-display leading-[1.1] text-h2 transition-colors duration-180 group-hover:text-accent ${
               open ? 'text-accent' : ''
             }`}
           >

@@ -28,7 +28,7 @@ export default function ProjectDetail({
         <IconButton
           onClick={onClose}
           aria-label="Close"
-          className="-mr-2 -mt-1 shrink-0 text-muted transition-colors hover:text-fg"
+          className="-mr-2 -mt-1 shrink-0 text-muted transition-colors duration-180 hover:text-fg"
         >
           <CloseIcon />
         </IconButton>

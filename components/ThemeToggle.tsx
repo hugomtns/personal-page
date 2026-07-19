@@ -34,7 +34,7 @@ export default function ThemeToggle() {
     >
       <span
         aria-hidden="true"
-        className="grid size-9 place-items-center rounded-full border border-border text-sm transition-colors group-hover:text-accent"
+        className="grid size-9 place-items-center rounded-full border border-border text-sm transition-colors duration-180 group-hover:text-accent"
       >
         {isDark ? '☀' : '☾'}
       </span>

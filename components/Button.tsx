@@ -20,7 +20,7 @@ export default function Button({
   return (
     <button
       {...props}
-      className={`inline-flex min-h-11 items-center justify-center rounded-full bg-accent px-6 text-small text-bg transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center rounded-full bg-accent px-6 text-small text-bg transition-opacity duration-180 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
     />
   );
 }

@@ -104,7 +104,7 @@ export default function Modal({ open, onClose, title, children }: Props) {
             ref={closeRef}
             onClick={onClose}
             aria-label="Close"
-            className="-mr-2 text-muted transition-colors hover:text-fg"
+            className="-mr-2 text-muted transition-colors duration-180 hover:text-fg"
           >
             <CloseIcon />
           </IconButton>

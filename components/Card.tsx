@@ -29,7 +29,7 @@ export default function Card(allProps: DivCardProps | ButtonCardProps) {
   const classes = [
     'rounded-card border bg-surface',
     open ? 'border-accent' : 'border-border',
-    interactive ? 'transition-colors hover:border-accent' : '',
+    interactive ? 'transition-colors duration-180 hover:border-accent' : '',
     className,
   ]
     .filter(Boolean)

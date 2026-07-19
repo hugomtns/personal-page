@@ -33,7 +33,7 @@ export default function CVProduct({ product: p }: { product: Product }) {
                 it; it is still positioned against the outer relative div. */}
             <span
               aria-hidden
-              className={`absolute left-6 top-[1.35rem] size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent transition-colors ${
+              className={`absolute left-6 top-[1.35rem] size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent transition-colors duration-180 ${
                 open ? 'bg-accent' : 'bg-bg'
               }`}
             />
@@ -43,7 +43,7 @@ export default function CVProduct({ product: p }: { product: Product }) {
               className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-4 text-left"
             >
               <span>
-                <span className="text-[1.0625rem] font-medium transition-colors group-hover:text-accent">
+                <span className="text-[1.0625rem] font-medium transition-colors duration-180 group-hover:text-accent">
                   {p.name}
                 </span>
                 <span className="mt-0.5 block text-small text-muted">{p.tagline}</span>

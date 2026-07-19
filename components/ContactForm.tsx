@@ -51,7 +51,7 @@ export default function ContactForm() {
   // way in both themes. py-3 plus the label puts every target over 44px without
   // a box to measure.
   const field =
-    'w-full border-b border-border bg-transparent py-3 outline-none transition-colors hover:border-muted focus:border-accent';
+    'w-full border-b border-border bg-transparent py-3 outline-none transition-colors duration-180 hover:border-muted focus:border-accent';
 
   return (
     <form onSubmit={onSubmit} noValidate className="grid w-full gap-7">

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PageShell from '@/components/PageShell';
 import CVTimeline from '@/components/CVTimeline';
+import ScrollProgress from '@/components/ScrollProgress';
 import { education, certifications } from '@/content/cvTimeline';
 import { isLive } from '@/content/site';
 
@@ -21,7 +22,9 @@ export default function CVPage() {
   return (
     // No PDF download. The CV is handed over deliberately, not scraped off
     // a page by anyone who finds it.
-    <PageShell title="Curriculum Vitae">
+    <>
+      <ScrollProgress />
+      <PageShell title="Curriculum Vitae">
       <section className="mb-20">
         <h2 className="label mb-10">Experience</h2>
         <CVTimeline />
@@ -59,5 +62,6 @@ export default function CVPage() {
         </dl>
       </section>
     </PageShell>
+    </>
   );
 }

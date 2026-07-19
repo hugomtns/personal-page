@@ -3,7 +3,7 @@
 import { useId, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { EASE_OUT, DURATION } from '@/lib/motion';
+import { SPRING } from '@/lib/motion';
 
 /**
  * The height-reveal disclosure behind the CV milestones and the projects
@@ -60,7 +60,10 @@ export function AccordionPanel({
     initial: reduce ? { opacity: 1 } : { height: 0, opacity: 0 },
     animate: reduce ? { opacity: 1 } : { height: 'auto', opacity: 1 },
     exit: reduce ? { opacity: 1 } : { height: 0, opacity: 0 },
-    transition: { duration: reduce ? 0 : DURATION.panel, ease: EASE_OUT },
+    // A spring, not a tween: the panel opens with physical snap and settles
+    // without overshoot. Reduced motion stays instant and lands on the
+    // finished state, exactly as before.
+    transition: reduce ? { duration: 0 } : { type: 'spring' as const, ...SPRING },
     className: `overflow-hidden ${className}`,
   };
 
