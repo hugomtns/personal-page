@@ -177,7 +177,11 @@ export const projects: Project[] = [
     tagline: 'One AI portrait per day.',
     description:
       'A daily ritual app that serves one random AI portrait per day from a curated pool. It also generates new portraits by calling the local Codex image tool, with prompts and style controls.',
-    images: [null],
+    images: [
+      '/images/projects/image-picker/01.webp',
+      '/images/projects/image-picker/02.webp',
+      '/images/projects/image-picker/03.webp',
+    ],
     group: 'play',
   },
   {
