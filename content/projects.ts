@@ -265,7 +265,7 @@ It is a handy tool, more responsive than IMDb's website, and already slimmed dow
 
 I eventually realized I had generated a very large number of portraits of myself, so I built a small UI to keep them organized. On top of that, it lets me pick one image at random every day, without duplication, to use as my Slack profile at work. A Claude integration applies the change automatically after I confirm the image.
 
-My latest change was to hook up OpenAI image generation, but I have to say it does not work nearly as well as Gemini's Imagen, even with the same prompts and training sets.`,
+My latest change was to hook up OpenAI image generation, but I have to say it does not work nearly as well as Gemini's Nano Banana, even with the same prompts and training sets.`,
     images: [
       '/images/projects/image-picker/01.webp',
       '/images/projects/image-picker/02.webp',
