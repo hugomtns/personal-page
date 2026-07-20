@@ -98,7 +98,7 @@ export const projects: Project[] = [
     name: 'PM Insights',
     tagline: 'Product intelligence dashboard.',
     description:
-      'A PM intelligence dashboard prototype. It aggregates product research, competitive intel, and analytics into one view with AI-powered analysis pipelines.',
+      'A PM intelligence dashboard prototype. It aggregates product research, competitive intel, and analytics into one view with AI-powered analysis pipelines. The screenshots show only non-confidential flows.',
     images: [
       '/images/projects/pm-insights/01.webp',
       '/images/projects/pm-insights/02.webp',
@@ -117,7 +117,12 @@ export const projects: Project[] = [
     tagline: 'A Star Trek agent game in LCARS.',
     description:
       'A Star Trek narrative game built inside an LCARS interface. Each crew member is a Gemini character agent, and a narrative director keeps the scene moving. Deterministic fallbacks keep the game alive when the API is down.',
-    images: [null],
+    images: [
+      '/images/projects/ai-tng/01.webp',
+      '/images/projects/ai-tng/02.webp',
+      '/images/projects/ai-tng/03.webp',
+      '/images/projects/ai-tng/04.webp',
+    ],
     group: 'play',
   },
   {
