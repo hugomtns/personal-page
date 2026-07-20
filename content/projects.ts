@@ -14,6 +14,8 @@ export type Project = {
   captions?: string[];
   /** Whether the screenshots are portrait (mobile) rather than 16:10 landscape. */
   portrait?: boolean;
+  /** Optional longer multi-paragraph copy shown below the summary. */
+  details?: string;
   /** Which section the project belongs to. */
   group: 'work' | 'play';
 };
@@ -26,6 +28,13 @@ export const projects: Project[] = [
     tagline: 'Solar project finance in the browser.',
     description:
       'A browser-side financial model for utility-scale solar projects. It takes project parameters and runs IRR, NPV, LCOE, debt sizing, and a 25-year cash-flow projection. Sensitivity sliders let you see how assumptions affect returns, an audit log shows the formula behind every number, and it exports a PDF report.',
+    details: `I built this prototype iteratively with a customer who had a very specific pain: it was difficult for them to model financial returns on sales proposals for solar projects, as they were working all out of spreadsheets.
+
+The preparation work involved a lot of research into PV finance for solar projects, mapping out input variables and output KPIs, all the calculations and intermediate variables until I had a reasonably clear picture in my mind of what to build.
+
+The first prototype had just calculations from basic inputs and was slowly expanded to accommodate for bills of materials (BoMs), commercial margins, annual and monthly cash flow breakdowns and a PDF output generator. Lastly, I added templates so that users could store and load predetermined sets of BoMs and margins for reproducible proposals.
+
+The application, while not up to speed with a SaaS solution, allowed us to understand and tweak what had to be done to deliver a simple yet functional financial forecast tool for a PV business development team.`,
     images: [
       '/images/projects/pvfinance/01.webp',
       '/images/projects/pvfinance/02.webp',

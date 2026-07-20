@@ -60,7 +60,14 @@ export default function ProjectDetail({
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        <p className="max-w-prose leading-relaxed">{p.description}</p>
+        <div className="space-y-4">
+          <p className="max-w-prose leading-relaxed">{p.description}</p>
+          {p.details?.split('\n\n').map((paragraph, i) => (
+            <p key={i} className="max-w-prose leading-relaxed">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         {/* Landscape shots are 16:10; portrait/mobile shots keep their ratio. */}
         <div className="grid gap-4">
