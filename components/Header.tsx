@@ -51,12 +51,28 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-        <Link
-          href="/"
-          className="-my-2 inline-flex items-center py-2 font-display text-lg whitespace-nowrap weight-hover hover:text-accent"
-        >
-          {site.name}
-        </Link>
+        <div className="flex items-center gap-3">
+          <IconButton
+            ref={buttonRef}
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls={MENU_ID}
+            aria-label="Menu"
+            className="label -m-1 sm:hidden"
+          >
+            <span aria-hidden="true" className="grid gap-[5px]">
+              <span className="block h-px w-5 bg-current" />
+              <span className="block h-px w-5 bg-current" />
+            </span>
+          </IconButton>
+
+          <Link
+            href="/"
+            className="-my-2 inline-flex items-center py-2 font-display text-lg whitespace-nowrap weight-hover hover:text-accent"
+          >
+            {site.name}
+          </Link>
+        </div>
 
         <div className="flex items-center gap-2 sm:gap-6">
           {/* The tab row is the first thing that stops fitting: at 390px the bar
@@ -75,21 +91,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <IconButton
-            ref={buttonRef}
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls={MENU_ID}
-            aria-label="Menu"
-            className="label -m-1 sm:hidden"
-          >
-            <span aria-hidden="true" className="grid gap-[5px]">
-              <span className="block h-px w-5 bg-current" />
-              <span className="block h-px w-5 bg-current" />
-            </span>
-          </IconButton>
-
-          <span aria-hidden="true" className="h-4 w-px bg-border" />
+          <span aria-hidden="true" className="hidden h-4 w-px bg-border sm:block" />
 
           <SocialLinks />
           <ThemeToggle />
