@@ -86,7 +86,11 @@ export const projects: Project[] = [
     tagline: 'Auto-populate solar yield inputs.',
     description:
       'A prototype that fills in yield-analysis inputs by pulling data from design and site context. It reduces the manual entry needed before running a production simulation.',
-    images: [null],
+    images: [
+      '/images/projects/yield-auto-populate/01.webp',
+      '/images/projects/yield-auto-populate/02.webp',
+      '/images/projects/yield-auto-populate/03.webp',
+    ],
     group: 'work',
   },
   {
