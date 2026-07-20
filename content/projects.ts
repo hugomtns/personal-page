@@ -279,6 +279,11 @@ My latest change was to hook up OpenAI image generation, but I have to say it do
     tagline: 'A private health diary.',
     description:
       'A personal health diary for tracking medication, symptoms, vitals, and blood work. It writes entries to a private Google Sheet and is designed as a mobile PWA.',
+    details: `Here is another toy project I use every day. I have an incurable autoimmune disease. Ever since my last flare, I decided to keep a diary: noting down the medication I take, what I eat and when, how I feel day-to-day, including symptoms specific to my disease but also general feeling, pains, sleep quality, and more. That, plus the regular blood test results.
+
+The application is gated behind Google account authentication and hooked up to a Google Sheet to record the data. Every day, I can log in and note down values for any category at any point during the day. Most days, it has become a ritual I do right before bedtime.
+
+It could have more bells and whistles, but it works just fine for what I need. My doctor is also appreciating the detailed note-taking.`,
     images: [
       '/images/projects/aih-daily/01.webp',
       '/images/projects/aih-daily/02.webp',
