@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PageShell from '@/components/PageShell';
 import ProjectGarden from '@/components/ProjectGarden';
-import { comingSoon } from '@/content/projects';
+import { comingSoon, projects } from '@/content/projects';
 import { isLive } from '@/content/site';
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function ProjectsPage() {
 
   return (
     <PageShell title="Projects">
-      <ProjectGarden />
+      <ProjectGarden projects={projects} />
     </PageShell>
   );
 }

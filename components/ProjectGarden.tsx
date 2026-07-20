@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useState, useSyncExternalStore } from 'react';
-import { projects } from '@/content/projects';
+import type { Project } from '@/content/projects';
 import { AccordionPanel } from './Accordion';
 import ProjectTile from './ProjectTile';
 import ProjectDetail from './ProjectDetail';
@@ -44,7 +44,7 @@ export function rowEndFor(i: number, cols: number, count: number) {
  * Rendering it per-row (rather than moving one panel around) means opening,
  * closing, and jumping between rows all animate their height cleanly.
  */
-export default function ProjectGarden() {
+export default function ProjectGarden({ projects }: { projects: Project[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
   const cols = useSyncExternalStore(subscribeToColumns, columnCount, serverColumnCount);
 
