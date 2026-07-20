@@ -22,7 +22,16 @@ export const projects: Project[] = [
     tagline: 'Solar project finance in the browser.',
     description:
       'A browser-side financial model for utility-scale solar projects. It takes project parameters and runs IRR, NPV, LCOE, debt sizing, and a 25-year cash-flow projection. An audit log shows the formula behind every number, and it exports a PDF report.',
-    images: [null],
+    images: [
+      '/images/projects/pvfinance/01.webp',
+      '/images/projects/pvfinance/02.webp',
+      '/images/projects/pvfinance/03.webp',
+      '/images/projects/pvfinance/04.webp',
+      '/images/projects/pvfinance/05.webp',
+      '/images/projects/pvfinance/06.webp',
+      '/images/projects/pvfinance/07.webp',
+      '/images/projects/pvfinance/08.webp',
+    ],
     group: 'work',
   },
   {
