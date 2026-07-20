@@ -121,23 +121,23 @@ export default function ProjectDetail({
       className="max-w-5xl"
     >
       {lightbox !== null && (
-        <div className="p-4 sm:p-6">
-          <div className="relative">
-            <IconButton
-              onClick={goPrev}
-              aria-label="Previous image"
-              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
-            >
-              <ArrowLeftIcon />
-            </IconButton>
-            <IconButton
-              onClick={goNext}
-              aria-label="Next image"
-              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
-            >
-              <ArrowRightIcon />
-            </IconButton>
+        <>
+          <IconButton
+            onClick={goPrev}
+            aria-label="Previous image"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
+          >
+            <ArrowLeftIcon />
+          </IconButton>
+          <IconButton
+            onClick={goNext}
+            aria-label="Next image"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
+          >
+            <ArrowRightIcon />
+          </IconButton>
 
+          <div className="p-4 sm:p-6">
             {p.images[lightbox] ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
@@ -152,11 +152,11 @@ export default function ProjectDetail({
                 screenshot
               </span>
             )}
+            {p.captions?.[lightbox] && (
+              <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
+            )}
           </div>
-          {p.captions?.[lightbox] && (
-            <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
-          )}
-        </div>
+        </>
       )}
     </Modal>
     </>
