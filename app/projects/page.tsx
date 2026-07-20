@@ -12,13 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  // noindex and a hidden nav link only stop people who were never going to type
-  // the URL. Until the garden ships it must genuinely not resolve, not merely
-  // be unadvertised.
   if (!isLive('/projects')) notFound();
 
-  // The tab is live but the garden is not: show the teaser and keep the
-  // garden code and data parked behind the comingSoon flag.
   if (comingSoon) {
     return (
       <PageShell title="Projects">
@@ -32,9 +27,30 @@ export default function ProjectsPage() {
     );
   }
 
+  const workProjects = projects.filter((p) => p.group === 'work');
+  const playProjects = projects.filter((p) => p.group === 'play');
+
   return (
     <PageShell title="Projects">
-      <ProjectGarden projects={projects} />
+      <section className="mb-12">
+        <h2 className="font-display text-h1">Work</h2>
+        <p className="mt-2 max-w-xl text-muted">
+          Product prototypes and domain tools, mostly in the solar and B2B space.
+        </p>
+        <div className="mt-6">
+          <ProjectGarden projects={workProjects} />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="font-display text-h1">Play</h2>
+        <p className="mt-2 max-w-xl text-muted">
+          Games, tools, and experiments built for the fun of it.
+        </p>
+        <div className="mt-6">
+          <ProjectGarden projects={playProjects} />
+        </div>
+      </section>
     </PageShell>
   );
 }
