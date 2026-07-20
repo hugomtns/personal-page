@@ -9,7 +9,7 @@ if (!dir) {
 }
 
 const files = (await readdir(dir))
-  .filter((f) => f.toLowerCase().endsWith('.png'))
+  .filter((f) => /\.(png|jpe?g)$/i.test(f))
   .sort();
 
 let i = 1;

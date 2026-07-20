@@ -190,7 +190,13 @@ export const projects: Project[] = [
     tagline: 'A private health diary.',
     description:
       'A personal health diary for tracking medication, symptoms, vitals, and blood work. It writes entries to a private Google Sheet and is designed as a mobile PWA.',
-    images: [null],
+    images: [
+      '/images/projects/aih-daily/01.webp',
+      '/images/projects/aih-daily/02.webp',
+      '/images/projects/aih-daily/03.webp',
+      '/images/projects/aih-daily/04.webp',
+      '/images/projects/aih-daily/05.webp',
+    ],
     group: 'play',
   },
 ];
