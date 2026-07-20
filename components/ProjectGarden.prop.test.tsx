@@ -11,6 +11,7 @@ const mockProjects: Project[] = [
     tagline: 'First test project.',
     description: 'This is the alpha project.',
     images: [null],
+    group: 'work',
   },
   {
     id: 'beta',
@@ -18,6 +19,7 @@ const mockProjects: Project[] = [
     tagline: 'Second test project.',
     description: 'This is the beta project.',
     images: [null, null],
+    group: 'play',
   },
 ];
 
