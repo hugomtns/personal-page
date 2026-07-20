@@ -14,6 +14,8 @@ type Props = {
   title: string;
   children: ReactNode;
   className?: string;
+  /** Optional controls rendered outside the panel, e.g. lightbox arrows. */
+  frameActions?: ReactNode;
 };
 
 /**
@@ -29,7 +31,7 @@ type Props = {
  * which is what keeps this clear of the stranded-opacity trap that the animated
  * components have to work around.
  */
-export default function Modal({ open, onClose, title, children, className }: Props) {
+export default function Modal({ open, onClose, title, children, className, frameActions }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -113,6 +115,8 @@ export default function Modal({ open, onClose, title, children, className }: Pro
 
         <div className="min-h-0 flex-1 overflow-auto">{children}</div>
       </div>
+
+      {frameActions}
     </div>
   );
 }

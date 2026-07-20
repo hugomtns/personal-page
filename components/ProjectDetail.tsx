@@ -118,45 +118,48 @@ export default function ProjectDetail({
           ? `${p.name} — ${p.captions?.[lightbox] ?? `Screenshot ${lightbox + 1}`}`
           : p.name
       }
-      className="max-w-5xl"
+      className="max-w-6xl"
+      frameActions={
+        lightbox !== null ? (
+          <>
+            <IconButton
+              onClick={goPrev}
+              aria-label="Previous image"
+              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 text-bg transition-colors duration-180 hover:text-white"
+            >
+              <ArrowLeftIcon />
+            </IconButton>
+            <IconButton
+              onClick={goNext}
+              aria-label="Next image"
+              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 text-bg transition-colors duration-180 hover:text-white"
+            >
+              <ArrowRightIcon />
+            </IconButton>
+          </>
+        ) : null
+      }
     >
       {lightbox !== null && (
-        <>
-          <IconButton
-            onClick={goPrev}
-            aria-label="Previous image"
-            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
-          >
-            <ArrowLeftIcon />
-          </IconButton>
-          <IconButton
-            onClick={goNext}
-            aria-label="Next image"
-            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
-          >
-            <ArrowRightIcon />
-          </IconButton>
-
-          <div className="p-4 sm:p-6">
-            {p.images[lightbox] ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={p.images[lightbox]!}
-                alt={`${p.name}: ${lightbox + 1}`}
-                className={`rounded-frame ${p.portrait ? 'mx-auto h-auto max-h-[80vh] w-auto' : 'w-full'}`}
-              />
-            ) : (
-              <span
-                className={`label flex w-full items-center justify-center rounded-frame bg-surface-strong ${p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}`}
-              >
-                screenshot
-              </span>
-            )}
-            {p.captions?.[lightbox] && (
-              <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
-            )}
-          </div>
-        </>
+        <div className="p-4 sm:p-6">
+          {p.images[lightbox] ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={p.images[lightbox]!}
+              alt={`${p.name}: ${lightbox + 1}`}
+              className={`rounded-frame ${p.portrait ? 'mx-auto h-auto max-h-[80vh] w-auto' : 'w-full'}`}
+            />
+          ) : (
+            <span
+              className={`label flex w-full items-center justify-center rounded-frame bg-surface-strong ${p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}`}
+            >
+              screenshot
+            </span>
+          )}
+          {p.captions?.[lightbox] && (
+            <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
+          )}
+        </div>
       )}
     </Modal>
     </>
