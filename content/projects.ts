@@ -73,7 +73,11 @@ export const projects: Project[] = [
     tagline: 'Design-level solar cost modeling.',
     description:
       'A prototype that moves solar LCOE modeling from the project level down to the design level. It auto-populates CAPEX from design components so the financial model stays tied to the actual bill of materials.',
-    images: [null],
+    images: [
+      '/images/projects/lcoe-redesign/01.webp',
+      '/images/projects/lcoe-redesign/02.webp',
+      '/images/projects/lcoe-redesign/03.webp',
+    ],
     group: 'work',
   },
   {
