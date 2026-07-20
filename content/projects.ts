@@ -40,7 +40,16 @@ export const projects: Project[] = [
     tagline: 'Solar project management with a 3D site view.',
     description:
       'A prototype of project management tooling for utility-scale solar. It tracks tasks, documents, designs, and financials, with a 3D site viewer and a digital twin panel for monitoring. Everything runs client-side with mocked data.',
-    images: [null],
+    images: [
+      '/images/projects/pv-projectmgmt/01.webp',
+      '/images/projects/pv-projectmgmt/02.webp',
+      '/images/projects/pv-projectmgmt/03.webp',
+      '/images/projects/pv-projectmgmt/04.webp',
+      '/images/projects/pv-projectmgmt/05.webp',
+      '/images/projects/pv-projectmgmt/06.webp',
+      '/images/projects/pv-projectmgmt/07.webp',
+      '/images/projects/pv-projectmgmt/08.webp',
+    ],
     group: 'work',
   },
   {
