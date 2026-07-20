@@ -84,6 +84,13 @@ A lot of the ideas in this prototype actually made their way into the real produ
     tagline: 'Versioning design pushes by Site.',
     description:
       'A Hub-flavored prototype for grouping design pushes into Sites and versioning them. It lets a user compare versions side by side, leave scoped comments, and follow a design from Phase 1 to Phase 2.',
+    details: `This is an example of a brainstorming exercise using AI prototypes within the team. The problem was this: users needed a way to add multiple design versions inside a parent "design family" by exporting from the AutoCAD product into our collaboration platform. The status quo was that no designs were related per se, so they showed up separately in a big list.
+
+We tried the concept of design parents and design versions here. In the background, we simulated designs having the same parent ID, so they were added as versions of a single design parent.
+
+The user could then browse between multiple design versions inside the same UI, view or make comments across all versions, and evaluate differences in design metrics.
+
+This discussion became the backbone of our approach to design versioning in the shipped product.`,
     images: [
       '/images/projects/design-versioning/01.webp',
       '/images/projects/design-versioning/02.webp',
