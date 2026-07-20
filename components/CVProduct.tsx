@@ -40,15 +40,15 @@ export default function CVProduct({ product: p }: { product: Product }) {
             <button
               type="button"
               {...triggerProps}
-              className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-4 text-left"
+              className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-4 text-left"
             >
-              <span>
-                <span className="text-[1.0625rem] font-medium transition-colors duration-180 group-hover:text-accent">
-                  {p.name}
-                </span>
-                <span className="mt-0.5 block text-small text-muted">{p.tagline}</span>
+              <span className="text-[1.0625rem] font-medium transition-colors duration-180 group-hover:text-accent">
+                {p.name}
               </span>
               <span className="label whitespace-nowrap">{p.year}</span>
+              {/* Full-width row under both columns: a date-range year would
+                  otherwise starve the tagline's column and smash it on mobile. */}
+              <span className="col-span-2 mt-0.5 block text-small text-muted">{p.tagline}</span>
             </button>
           </>
         )}

@@ -41,7 +41,7 @@ export default function CVCompany({
             type="button"
             interactive
             {...triggerProps}
-            className="group ml-16 block w-full p-5 text-left"
+            className="group ml-16 block w-[calc(100%_-_4rem)] p-5 text-left"
           >
             <span className="label block">{c.dates}</span>
             <span className="relative mt-1 block">
