@@ -34,7 +34,7 @@ export default function ProjectsPage() {
     <PageShell title="Projects">
       <section className="mb-12">
         <h2 className="font-display text-h1">Work</h2>
-        <p className="mt-2 max-w-xl text-muted">
+        <p className="mt-2 max-w-2xl text-muted">
           Product prototypes and domain tools, mostly in the solar and B2B space.
         </p>
         <div className="mt-6">
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
 
       <section>
         <h2 className="font-display text-h1">Play</h2>
-        <p className="mt-2 max-w-xl text-muted">
+        <p className="mt-2 max-w-2xl text-muted">
           Games, tools, and experiments built for the fun of it.
         </p>
         <div className="mt-6">
