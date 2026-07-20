@@ -13,6 +13,7 @@ type Props = {
   /** Names the dialog for screen readers, and titles it on screen. */
   title: string;
   children: ReactNode;
+  className?: string;
 };
 
 /**
@@ -28,7 +29,7 @@ type Props = {
  * which is what keeps this clear of the stranded-opacity trap that the animated
  * components have to work around.
  */
-export default function Modal({ open, onClose, title, children }: Props) {
+export default function Modal({ open, onClose, title, children, className }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -96,7 +97,7 @@ export default function Modal({ open, onClose, title, children }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative z-10 flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-panel border border-border bg-bg"
+        className={`relative z-10 flex max-h-[90vh] w-full flex-col overflow-hidden rounded-panel border border-border bg-bg ${className ?? 'max-w-3xl'}`}
       >
         <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3">
           <h2 className="label">{title}</h2>
