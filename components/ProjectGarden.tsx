@@ -1,12 +1,10 @@
 'use client';
 
-import { Fragment, useState, useSyncExternalStore } from 'react';
+import { Fragment, useId, useState, useSyncExternalStore } from 'react';
 import type { Project } from '@/content/projects';
 import { AccordionPanel } from './Accordion';
 import ProjectTile from './ProjectTile';
 import ProjectDetail from './ProjectDetail';
-
-const PANEL_ID = 'project-detail-panel';
 
 // Column count decides which cell ends a row, so the panel can drop in after
 // the whole row. This query mirrors the grid classes on the ul below:
@@ -45,6 +43,7 @@ export function rowEndFor(i: number, cols: number, count: number) {
  * closing, and jumping between rows all animate their height cleanly.
  */
 export default function ProjectGarden({ projects }: { projects: Project[] }) {
+  const panelId = useId();
   const [openId, setOpenId] = useState<string | null>(null);
   const cols = useSyncExternalStore(subscribeToColumns, columnCount, serverColumnCount);
 
@@ -59,7 +58,7 @@ export default function ProjectGarden({ projects }: { projects: Project[] }) {
           <ProjectTile
             project={p}
             open={openId === p.id}
-            panelId={PANEL_ID}
+            panelId={panelId}
             onToggle={() => setOpenId((id) => (id === p.id ? null : p.id))}
           />
         );
@@ -74,7 +73,7 @@ export default function ProjectGarden({ projects }: { projects: Project[] }) {
             <AccordionPanel
               as="li"
               open={open !== null && openRowEnd === i}
-              id={PANEL_ID}
+              id={panelId}
               panelKey={open?.id}
               className="col-span-full"
             >

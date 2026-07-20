@@ -43,7 +43,7 @@ export default function ProjectDetail({
             <Screenshot
               key={i}
               src={img}
-              alt={`${p.name} — ${i + 1}`}
+              alt={`${p.name}: ${i + 1}`}
               className="aspect-[16/10] w-full rounded-frame border border-border"
             />
           ))}
