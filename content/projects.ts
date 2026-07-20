@@ -10,6 +10,8 @@ export type Project = {
   /** Screenshots. First is the tile thumbnail; the rest join it in the gallery.
       A null entry renders the placeholder frame. */
   images: (string | null)[];
+  /** Optional plain-text caption for each image, used by the lightbox. */
+  captions?: string[];
   /** Which section the project belongs to. */
   group: 'work' | 'play';
 };
