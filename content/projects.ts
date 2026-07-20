@@ -106,6 +106,11 @@ This discussion became the backbone of our approach to design versioning in the 
     tagline: 'Design-level solar cost modeling.',
     description:
       'A prototype that moves solar LCOE modeling from the project level down to the design level. It auto-populates CAPEX from design components so the financial model stays tied to the actual bill of materials.',
+    details: `Another example of AI prototyping supporting team discussions based on real user findings. Our product had a problem: financial calculations were presented at the project level, but users evaluated financial outcomes at the design level. They had to redo the calculations with every design upload, and the values were not persisted at the design level.
+
+This approach changed that. We performed the calculations at the design level, made adjustments to the UI to allow more granular control over CAPEX and OPEX items, and let users mark a design as the "winner". Only the winning design would surface its financial details to the project level. That concept later evolved into a proper approval flow.
+
+This prototype became the basis for a key iteration on our financial analysis product, which came out of a successful round of user feedback.`,
     images: [
       '/images/projects/lcoe-redesign/01.webp',
       '/images/projects/lcoe-redesign/02.webp',
