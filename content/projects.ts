@@ -12,6 +12,8 @@ export type Project = {
   images: (string | null)[];
   /** Optional plain-text caption for each image, used by the lightbox. */
   captions?: string[];
+  /** Whether the screenshots are portrait (mobile) rather than 16:10 landscape. */
+  portrait?: boolean;
   /** Which section the project belongs to. */
   group: 'work' | 'play';
 };
@@ -197,8 +199,8 @@ export const projects: Project[] = [
       '/images/projects/aih-daily/02.webp',
       '/images/projects/aih-daily/03.webp',
       '/images/projects/aih-daily/04.webp',
-      '/images/projects/aih-daily/05.webp',
     ],
+    portrait: true,
     group: 'play',
   },
 ];

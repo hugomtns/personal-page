@@ -62,7 +62,7 @@ export default function ProjectDetail({
       <div className="grid gap-8 md:grid-cols-2">
         <p className="max-w-prose leading-relaxed">{p.description}</p>
 
-        {/* Every shot, each 16:10 so the set reads as one system. */}
+        {/* Landscape shots are 16:10; portrait/mobile shots keep their ratio. */}
         <div className="grid gap-4">
           {p.images.map((img, i) => (
             <button
@@ -72,11 +72,22 @@ export default function ProjectDetail({
               aria-label={`View larger image ${i + 1} of ${p.images.length}`}
               className="text-left"
             >
-              <Screenshot
-                src={img}
-                alt={`${p.name}: ${i + 1}`}
-                className="aspect-[16/10] w-full rounded-frame border border-border"
-              />
+              {p.portrait ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={img ?? undefined}
+                    alt={`${p.name}: ${i + 1}`}
+                    className="h-auto max-h-[70vh] w-auto rounded-frame border border-border"
+                  />
+                </>
+              ) : (
+                <Screenshot
+                  src={img}
+                  alt={`${p.name}: ${i + 1}`}
+                  className="aspect-[16/10] w-full rounded-frame border border-border"
+                />
+              )}
             </button>
           ))}
         </div>
@@ -101,11 +112,13 @@ export default function ProjectDetail({
               <img
                 src={p.images[lightbox]!}
                 alt={`${p.name}: ${lightbox + 1}`}
-                className="w-full rounded-frame"
+                className={`rounded-frame ${p.portrait ? 'mx-auto h-auto max-h-[80vh] w-auto' : 'w-full'}`}
               />
             </>
           ) : (
-            <span className="label flex aspect-[16/10] w-full items-center justify-center rounded-frame bg-surface-strong">
+            <span
+              className={`label flex w-full items-center justify-center rounded-frame bg-surface-strong ${p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}`}
+            >
               screenshot
             </span>
           )}
