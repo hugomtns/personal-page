@@ -53,6 +53,19 @@ The application, while not up to speed with a SaaS solution, allowed us to under
     tagline: 'Solar project management with a 3D site view.',
     description:
       'A prototype of project management tooling for utility-scale solar. It tracks tasks, documents, designs, and financials in one place, with a 3D site viewer and a digital twin panel for monitoring. Everything runs client-side with mocked data, so it is easy to demo without a backend.',
+    details: `This project was very ambitious. It started as a quick demo to showcase the shadcn design system applied to the way we wanted to show projects on our main product page, and how we could swap between a table view and a kanban style view. Slowly, it grew to almost be a twin to the product itself, a staging area where I would throw ideas at it, test flows, and see if they could work.
+
+It has a lot of what a project manager would need to properly admin a solar project, from conception to asset management. It has basic project creation, editing, user management, user groups for permissions, an RBAC model, and admin logs for auditing.
+
+Each project can be enriched with milestones that are viewed in a timeline mode. Projects themselves have workflows that are fully customizable, tasks that can be assigned to users, and an in-app notification system to alert them of new tasks or upcoming deadlines.
+
+There are many other sub-features, such as component lists, a partial version of the PV Finance prototype built into the management module, and generation of different types of checklists for maintenance, permitting, and notice to proceed or build. All data is generated procedurally.
+
+The fun part is the KML and DXF viewer that allows the application to render the project in a simple Three.js environment, topped with satellite imagery from a free map provider. It can present solar panels and some electrical devices such as transformers and inverters, as well as guidelines for cables, strings, roads, paths, and project boundaries.
+
+In this environment, the design can be commented on. Commenters can @ other users so they get a notification. Furthermore, there is a digital twin mode that simulates the live operation of the power plant as provided. There are a few bugs I never got around fixing, but it was a really cool exercise to test the waters on where the product might or might not go.
+
+A lot of the ideas in this prototype actually made their way into the real product, or onto the roadmap for future iterations.`,
     images: [
       '/images/projects/pv-projectmgmt/01.webp',
       '/images/projects/pv-projectmgmt/02.webp',
