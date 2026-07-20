@@ -220,6 +220,13 @@ As with Ten Forward, it has NPC agents, a narrator agent, and a coordinator agen
     tagline: 'Deterministic MTG rules engine.',
     description:
       'A deterministic Magic: The Gathering rules engine with a local hotseat play surface. It imports real cards via MTGJSON and Scryfall, compiles them into engine definitions, and renders a 3D tabletop.',
+    details: `This is the project I am actively working on, and it is quite ambitious. It is meant to be a full rendition of the ruleset of Magic: The Gathering across all expansions. The ruleset exists in a canonical form, and all the cards can be retrieved, with canonical rules, via an API. I thought it could be possible to build a full card game simulation on my machine, together with a system that would let me create my own fantasy cards and play them.
+
+It is easier said than done. Creating a local database of cards and rules was the easy part, but converting the ruleset, over 800 rules in total, into reusable, modular code is a daunting task. Not many card properties are reusable, with the majority of cards having individually unique flavor. The current approach is to build rules based on how frequently a rule is mentioned in canonical card text, maximizing coverage early at the expense of a long tail of unplayable cards.
+
+Card creation uses SVGs and assets from card editions, card types, and colors. You can mix and match any combination of assets to produce the desired card. A built-in image generation integration using OpenAI is also available to create custom card art. The UI lets you fine-tune the position of text elements and save those positions for a particular combination of card assets, since the text elements sit on a superimposed layer that is not always in a precise location.
+
+Finally, the game has a top-down, 2D playing mat with the full match engine coded in. All the phases, allowed actions, and mana economy are handled, although the visuals of the playing mat itself are still far from complete.`,
     images: [
       '/images/projects/mtg-game/01.webp',
       '/images/projects/mtg-game/02.webp',
