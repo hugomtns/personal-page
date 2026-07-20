@@ -198,6 +198,11 @@ The game works fine for small interactions or short sessions, but it starts losi
     tagline: 'D&D 2024 rules engine and campaign.',
     description:
       'A browser implementation of the D&D 2024 rules: party creation, turn-based combat, 390 spells, and a playable adventure module. The rules engine is written in pure TypeScript with heavy test coverage.',
+    details: `This is an interactive game in the same line as Project Ten Forward, but with a few differences.
+
+It is a rules-as-written application of the Dungeons & Dragons 2024 core rulebook, also known as 5.5E, with the classes, species, feats, backgrounds, and spells that come with it. The game engine has a text-driven, turn-based combat mechanic with action-economy monitoring, full character creation, and a character experience, progression, and leveling system. You can run an adventure controlling a party of up to six characters.
+
+As with Ten Forward, it has NPC agents, a narrator agent, and a coordinator agent. New here is the battle arbiter, an agent in charge of running and resolving combat. Unlike Ten Forward, this game is built around a specific adventure book, in this case Dragons of Stormwreck Isle, which I own. The plot beats, events, and encounters can all be checked against the book, which minimizes the chance of deviation over time. But, as I learned, it does not completely avoid it.`,
     images: [
       '/images/projects/dnd-2024-game/01.webp',
       '/images/projects/dnd-2024-game/02.webp',
