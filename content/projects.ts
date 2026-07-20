@@ -242,6 +242,11 @@ Finally, the game has a top-down, 2D playing mat with the full match engine code
     tagline: 'A personal what-to-watch catalog.',
     description:
       'A personal catalog of around 2,300 IMDb-rated genre series. It filters by year, score, seasons, and trend, and syncs watch state from a local Plex library.',
+    details: `One day I was thinking there might be some good TV series out there that I had not tried or even heard about, but recommendation systems keep feeding me the same things over and over. So I built my own little version of IMDb using unofficial APIs, since IMDb does not offer free public APIs. I use it, and share it in my household, to discover and mark new series to watch or to avoid.
+
+The app is pretty simple: an interface for a local database that I can update on demand. The interface is mobile-friendly, so we can browse it from the couch. It retrieves series and season ratings for a specific set of categories. The database can also be filtered by year of first season, in addition to category and score. To top it off, it marks series as trending up, trending down, or a plain disaster, depending on the score difference between their last and first seasons, with a minimum of three seasons.
+
+It is a handy tool, more responsive than IMDb's website, and already slimmed down to our needs.`,
     images: [
       '/images/projects/series-library/01.webp',
       '/images/projects/series-library/02.webp',
