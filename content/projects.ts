@@ -23,7 +23,7 @@ export const projects: Project[] = [
     name: 'PV Finance',
     tagline: 'Solar project finance in the browser.',
     description:
-      'A browser-side financial model for utility-scale solar projects. It takes project parameters and runs IRR, NPV, LCOE, debt sizing, and a 25-year cash-flow projection. An audit log shows the formula behind every number, and it exports a PDF report.',
+      'A browser-side financial model for utility-scale solar projects. It takes project parameters and runs IRR, NPV, LCOE, debt sizing, and a 25-year cash-flow projection. Sensitivity sliders let you see how assumptions affect returns, an audit log shows the formula behind every number, and it exports a PDF report.',
     images: [
       '/images/projects/pvfinance/01.webp',
       '/images/projects/pvfinance/02.webp',
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     name: 'PV Project Management',
     tagline: 'Solar project management with a 3D site view.',
     description:
-      'A prototype of project management tooling for utility-scale solar. It tracks tasks, documents, designs, and financials, with a 3D site viewer and a digital twin panel for monitoring. Everything runs client-side with mocked data.',
+      'A prototype of project management tooling for utility-scale solar. It tracks tasks, documents, designs, and financials in one place, with a 3D site viewer and a digital twin panel for monitoring. Everything runs client-side with mocked data, so it is easy to demo without a backend.',
     images: [
       '/images/projects/pv-projectmgmt/01.webp',
       '/images/projects/pv-projectmgmt/02.webp',
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     name: 'Design Versioning',
     tagline: 'Versioning design pushes by Site.',
     description:
-      'A Hub-flavored prototype for grouping design pushes into Sites and versioning them. It lets a user compare versions, leave scoped comments, and follow the design from Phase 1 to Phase 2.',
+      'A Hub-flavored prototype for grouping design pushes into Sites and versioning them. It lets a user compare versions side by side, leave scoped comments, and follow a design from Phase 1 to Phase 2.',
     images: [
       '/images/projects/design-versioning/01.webp',
       '/images/projects/design-versioning/02.webp',
