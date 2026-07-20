@@ -131,7 +131,15 @@ export const projects: Project[] = [
     tagline: 'D&D 2024 rules engine and campaign.',
     description:
       'A browser implementation of the D&D 2024 rules: party creation, turn-based combat, 390 spells, and a playable adventure module. The rules engine is written in pure TypeScript with heavy test coverage.',
-    images: [null],
+    images: [
+      '/images/projects/dnd-2024-game/01.webp',
+      '/images/projects/dnd-2024-game/02.webp',
+      '/images/projects/dnd-2024-game/03.webp',
+      '/images/projects/dnd-2024-game/04.webp',
+      '/images/projects/dnd-2024-game/05.webp',
+      '/images/projects/dnd-2024-game/06.webp',
+      '/images/projects/dnd-2024-game/07.webp',
+    ],
     group: 'play',
   },
   {
