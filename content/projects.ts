@@ -142,6 +142,21 @@ The automatic addition of energy calculation was a small but important milestone
     tagline: 'Product intelligence dashboard.',
     description:
       'A PM intelligence dashboard prototype. It aggregates product research, competitive intel, and analytics into one view with AI-powered analysis pipelines. The screenshots show only non-confidential flows.',
+    details: `This was the real deal. It was likely the most comprehensive prototype I have ever built, and I could call it a product of sorts, since I was using it almost daily to accelerate my own product workflows. It also spawned several skills that were placed in a common repository so other PMs could leverage the functionality via CLI.
+
+It started as an exploration of my company's product stack in terms of APIs and MCPs, seeing what data could be retrieved and how, driven by a real problem: product management is mostly information and communication work. The information part can be a real problem, especially when all the data and feedback is scattered across a dozen tools that otherwise do not talk to one another.
+
+The basis of the prototype is a series of connectors to APIs and MCPs for Atlassian, Mixpanel, ProductBoard, GitHub, Google Workspace, Dovetail, and other sources; pipelines for data ingestion that run on demand or on a schedule; and a first layer of entities: feedback, documents, Jira tickets, data events, codebase summaries, and more.
+
+The second layer is inference. Intermediate data entities such as customers, features, opportunities, and others were inferred from parsing customer portal feedback, interviews, Slack threads, Mixpanel exports, and all other ingestion payloads. The initial bootstrap work was lengthy, but subsequent updates ran in a few minutes daily. The outcome was a connected graph, tying all ingested and inferred entities with real relationships.
+
+What this enabled was a true end-to-end overview of how ideas and features come to be, from initial feedback or discussion to validation, delivery, and finally adoption. Keeping an eye on this path meant I could often argue for new opportunities with real data and quotes at the click of a button, easily defend choices and strategic decisions, and quickly generate reports on work in progress or feature adoption, all from the same place.
+
+Not all of it worked. There were many other features I tried leveraging LLMs, mostly around writing artifacts and evaluating opportunities against one another using well-tried product frameworks. The generated text was fine for very short snippets, but the quality of long-form text was variable and often disappointing.
+
+The prototype also had an "ask the product" chatbot that let you engage with the knowledge base directly. One key idea that came out of this, after testing a short-lived Slackbot built on it, was to try customer support functions by analyzing incoming customer questions and providing answers based on codebase knowledge. The pilot was very successful and moved into production candidate a month later.
+
+All in all, this was a great learning experience in building knowledge bases, understanding what LLMs can and cannot do in a product context, and building something I would actually use daily rather than a throwaway prototype.`,
     images: [
       '/images/projects/pm-insights/01.webp',
       '/images/projects/pm-insights/02.webp',
