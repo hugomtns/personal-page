@@ -175,6 +175,15 @@ All in all, this was a great learning experience in building knowledge bases, un
     tagline: 'A Star Trek agent game in LCARS.',
     description:
       'A Star Trek narrative game built inside an LCARS interface. Each crew member is a Gemini character agent, and a narrative director keeps the scene moving. Deterministic fallbacks keep the game alive when the API is down.',
+    details: `This was an attempt that started with a simple question: what if LLMs could be used to mimic NPCs in games?
+
+The concept was a setting where short, open-ended interactions between a player and NPCs could occur, to see if emergent storytelling might happen. I chose Star Trek: The Next Generation as the setting. For this game, I instructed the LLM to mimic an LCARS user interface and used an agent architecture with a central coordinator to keep things running.
+
+The main NPCs each have a dedicated agent with a markdown behavior file dictating personality type, how they act in different situations, how they respond to higher or lower ranks, and so on. All these files share the same structure. There are also generic secondary NPCs that can be spawned on the fly by a narrator agent, which writes a shorter but still usable personality block for each one.
+
+The narrator is the puppet master, interacting with the user and the NPCs. Two more agents run in the background. A game state agent tracks locations, plot points, key items, inventories, and makes regular recordings of a game state file. A coordinator checks relationships, curates the tone of voice of NPCs, makes sure they react as they should, and sends output back for a redo when they do not.
+
+The game works fine for small interactions or short sessions, but it starts losing the plot over time. NPCs struggle to keep track of player rank, for example, and the game has trouble tracking where NPCs and players are over time. The persistence layer was never very reliable. I may come back to it in the future, now that the models have improved substantially since I first began working on it.`,
     images: [
       '/images/projects/ai-tng/01.webp',
       '/images/projects/ai-tng/02.webp',
