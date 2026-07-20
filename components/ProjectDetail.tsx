@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import type { Project } from '@/content/projects';
 import Card from './Card';
 import IconButton, { CloseIcon } from './IconButton';
+import Modal from './Modal';
 import Screenshot from './Screenshot';
 
 /**
@@ -18,8 +20,31 @@ export default function ProjectDetail({
   project: Project;
   onClose: () => void;
 }) {
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const closeLightbox = () => setLightbox(null);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setLightbox((i) =>
+          i === null ? i : i === 0 ? p.images.length - 1 : i - 1
+        );
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        setLightbox((i) => (i === null ? i : (i + 1) % p.images.length));
+      }
+    };
+
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox, p.images.length]);
+
   return (
-    <Card open className="p-6 sm:p-8">
+    <>
+      <Card open className="p-6 sm:p-8">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
           <h2 className="font-display text-h1">{p.name}</h2>
@@ -40,15 +65,56 @@ export default function ProjectDetail({
         {/* Every shot, each 16:10 so the set reads as one system. */}
         <div className="grid gap-4">
           {p.images.map((img, i) => (
-            <Screenshot
+            <button
               key={i}
-              src={img}
-              alt={`${p.name}: ${i + 1}`}
-              className="aspect-[16/10] w-full rounded-frame border border-border"
-            />
+              type="button"
+              onClick={() => setLightbox(i)}
+              aria-label={`View larger image ${i + 1} of ${p.images.length}`}
+              className="text-left"
+            >
+              <Screenshot
+                src={img}
+                alt={`${p.name}: ${i + 1}`}
+                className="aspect-[16/10] w-full rounded-frame border border-border"
+              />
+            </button>
           ))}
         </div>
       </div>
     </Card>
+
+    <Modal
+      open={lightbox !== null}
+      onClose={closeLightbox}
+      title={
+        lightbox !== null
+          ? `${p.name} — ${p.captions?.[lightbox] ?? `Screenshot ${lightbox + 1}`}`
+          : p.name
+      }
+      className="max-w-5xl"
+    >
+      {lightbox !== null && (
+        <div className="p-4 sm:p-6">
+          {p.images[lightbox] ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.images[lightbox]!}
+                alt={`${p.name}: ${lightbox + 1}`}
+                className="w-full rounded-frame"
+              />
+            </>
+          ) : (
+            <span className="label flex aspect-[16/10] w-full items-center justify-center rounded-frame bg-surface-strong">
+              screenshot
+            </span>
+          )}
+          {p.captions?.[lightbox] && (
+            <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
+          )}
+        </div>
+      )}
+    </Modal>
+    </>
   );
 }
