@@ -58,7 +58,13 @@ export const projects: Project[] = [
     tagline: 'Versioning design pushes by Site.',
     description:
       'A Hub-flavored prototype for grouping design pushes into Sites and versioning them. It lets a user compare versions, leave scoped comments, and follow the design from Phase 1 to Phase 2.',
-    images: [null],
+    images: [
+      '/images/projects/design-versioning/01.webp',
+      '/images/projects/design-versioning/02.webp',
+      '/images/projects/design-versioning/03.webp',
+      '/images/projects/design-versioning/04.webp',
+      '/images/projects/design-versioning/05.webp',
+    ],
     group: 'work',
   },
   {
