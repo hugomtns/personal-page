@@ -148,7 +148,13 @@ export const projects: Project[] = [
     tagline: 'Deterministic MTG rules engine.',
     description:
       'A deterministic Magic: The Gathering rules engine with a local hotseat play surface. It imports real cards via MTGJSON and Scryfall, compiles them into engine definitions, and renders a 3D tabletop.',
-    images: [null],
+    images: [
+      '/images/projects/mtg-game/01.webp',
+      '/images/projects/mtg-game/02.webp',
+      '/images/projects/mtg-game/03.webp',
+      '/images/projects/mtg-game/04.webp',
+      '/images/projects/mtg-game/05.webp',
+    ],
     group: 'play',
   },
   {
