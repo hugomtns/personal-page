@@ -99,7 +99,15 @@ export const projects: Project[] = [
     tagline: 'Product intelligence dashboard.',
     description:
       'A PM intelligence dashboard prototype. It aggregates product research, competitive intel, and analytics into one view with AI-powered analysis pipelines.',
-    images: [null],
+    images: [
+      '/images/projects/pm-insights/01.webp',
+      '/images/projects/pm-insights/02.webp',
+      '/images/projects/pm-insights/03.webp',
+      '/images/projects/pm-insights/04.webp',
+      '/images/projects/pm-insights/05.webp',
+      '/images/projects/pm-insights/06.webp',
+      '/images/projects/pm-insights/07.webp',
+    ],
     group: 'work',
   },
   // Play
