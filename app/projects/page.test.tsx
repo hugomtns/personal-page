@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 
@@ -36,8 +36,12 @@ describe('Projects page', () => {
 
   it('renders the correct number of tiles in each section', () => {
     render(<ProjectsPage />);
-    const tiles = screen.getAllByRole('button', { name: /./ });
-    expect(tiles.length).toBe(workCount + playCount);
+
+    const workSection = screen.getByRole('heading', { name: 'Work', level: 2 }).closest('section');
+    const playSection = screen.getByRole('heading', { name: 'Play', level: 2 }).closest('section');
+
+    expect(within(workSection!).getAllByRole('button').length).toBe(workCount);
+    expect(within(playSection!).getAllByRole('button').length).toBe(playCount);
   });
 
   it('opens a tile’s detail in place, then closes it', async () => {
@@ -71,5 +75,26 @@ describe('Projects page', () => {
     await user.click(two);
     expect(two).toHaveAttribute('aria-expanded', 'true');
     expect(one).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('keeps Work and Play gardens independent', async () => {
+    const user = userEvent.setup();
+    render(<ProjectsPage />);
+
+    const workProject = projects.find((p) => p.group === 'work');
+    const playProject = projects.find((p) => p.group === 'play');
+    if (!workProject || !playProject) {
+      throw new Error('Test requires at least one Work and one Play project');
+    }
+
+    const workTile = screen.getByRole('button', { name: new RegExp(workProject.name, 'i') });
+    const playTile = screen.getByRole('button', { name: new RegExp(playProject.name, 'i') });
+
+    await user.click(workTile);
+    expect(workTile).toHaveAttribute('aria-expanded', 'true');
+
+    await user.click(playTile);
+    expect(playTile).toHaveAttribute('aria-expanded', 'true');
+    expect(workTile).toHaveAttribute('aria-expanded', 'true');
   });
 });
