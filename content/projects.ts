@@ -163,7 +163,12 @@ export const projects: Project[] = [
     tagline: 'A personal what-to-watch catalog.',
     description:
       'A personal catalog of around 2,300 IMDb-rated genre series. It filters by year, score, seasons, and trend, and syncs watch state from a local Plex library.',
-    images: [null],
+    images: [
+      '/images/projects/series-library/01.webp',
+      '/images/projects/series-library/02.webp',
+      '/images/projects/series-library/03.webp',
+      '/images/projects/series-library/04.webp',
+    ],
     group: 'play',
   },
   {
