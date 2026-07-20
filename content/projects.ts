@@ -261,6 +261,11 @@ It is a handy tool, more responsive than IMDb's website, and already slimmed dow
     tagline: 'One AI portrait per day.',
     description:
       'A daily ritual app that serves one random AI portrait per day from a curated pool. It also generates new portraits by calling the local Codex image tool, with prompts and style controls.',
+    details: `The image picker is a fun one. At some point, I decided to train a Gemini Gem on some of my photos and get it to reimagine me in different art styles or fictional situations, like being part of movies or series.
+
+I eventually realized I had generated a very large number of portraits of myself, so I built a small UI to keep them organized. On top of that, it lets me pick one image at random every day, without duplication, to use as my Slack profile at work. A Claude integration applies the change automatically after I confirm the image.
+
+My latest change was to hook up OpenAI image generation, but I have to say it does not work nearly as well as Gemini's Imagen, even with the same prompts and training sets.`,
     images: [
       '/images/projects/image-picker/01.webp',
       '/images/projects/image-picker/02.webp',
