@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Project } from '@/content/projects';
 import Card from './Card';
-import IconButton, { CloseIcon } from './IconButton';
+import IconButton, { ArrowLeftIcon, ArrowRightIcon, CloseIcon } from './IconButton';
 import Modal from './Modal';
 import Screenshot from './Screenshot';
 
@@ -22,6 +22,17 @@ export default function ProjectDetail({
 }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const closeLightbox = () => setLightbox(null);
+  const goPrev = useCallback(
+    () =>
+      setLightbox((i) =>
+        i === null ? i : i === 0 ? p.images.length - 1 : i - 1
+      ),
+    [p.images.length]
+  );
+  const goNext = useCallback(
+    () => setLightbox((i) => (i === null ? i : (i + 1) % p.images.length)),
+    [p.images.length]
+  );
 
   useEffect(() => {
     if (lightbox === null) return;
@@ -29,18 +40,16 @@ export default function ProjectDetail({
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        setLightbox((i) =>
-          i === null ? i : i === 0 ? p.images.length - 1 : i - 1
-        );
+        goPrev();
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
-        setLightbox((i) => (i === null ? i : (i + 1) % p.images.length));
+        goNext();
       }
     };
 
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [lightbox, p.images.length]);
+  }, [lightbox, goPrev, goNext]);
 
   return (
     <>
@@ -113,22 +122,37 @@ export default function ProjectDetail({
     >
       {lightbox !== null && (
         <div className="p-4 sm:p-6">
-          {p.images[lightbox] ? (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+          <div className="relative">
+            <IconButton
+              onClick={goPrev}
+              aria-label="Previous image"
+              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
+            >
+              <ArrowLeftIcon />
+            </IconButton>
+            <IconButton
+              onClick={goNext}
+              aria-label="Next image"
+              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-180 hover:text-fg"
+            >
+              <ArrowRightIcon />
+            </IconButton>
+
+            {p.images[lightbox] ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={p.images[lightbox]!}
                 alt={`${p.name}: ${lightbox + 1}`}
                 className={`rounded-frame ${p.portrait ? 'mx-auto h-auto max-h-[80vh] w-auto' : 'w-full'}`}
               />
-            </>
-          ) : (
-            <span
-              className={`label flex w-full items-center justify-center rounded-frame bg-surface-strong ${p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}`}
-            >
-              screenshot
-            </span>
-          )}
+            ) : (
+              <span
+                className={`label flex w-full items-center justify-center rounded-frame bg-surface-strong ${p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}`}
+              >
+                screenshot
+              </span>
+            )}
+          </div>
           {p.captions?.[lightbox] && (
             <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
           )}
