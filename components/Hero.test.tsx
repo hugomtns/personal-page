@@ -21,11 +21,20 @@ describe('Hero', () => {
     expect(screen.getByText(intro)).toBeInTheDocument();
   });
 
-  it('sells nothing', () => {
+  it('sells nothing — the one link is the compatibility quiz, approved by Hugo', () => {
     const { container } = render(<Hero />);
-    // The splash is a name, a fact, and a paragraph. No slogan, no calls to
-    // action, no links — the nav is the only way out, on purpose.
-    expect(container.querySelectorAll('a')).toHaveLength(0);
+    // The splash had a strict no-links policy until 2026-07-24, when Hugo
+    // approved a single quiz link under the intro. It stays the only one.
+    const links = container.querySelectorAll('a');
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute('href', 'https://shouldiworkwith.hugomartins.pm');
     expect(screen.queryByText(/not just the specs/i)).not.toBeInTheDocument();
+  });
+
+  it('links to the compatibility quiz on its subdomain', () => {
+    render(<Hero />);
+    expect(
+      screen.getByRole('link', { name: /should you work with me/i }),
+    ).toHaveAttribute('href', 'https://shouldiworkwith.hugomartins.pm');
   });
 });

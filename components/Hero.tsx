@@ -89,6 +89,15 @@ export default function Hero() {
       >
         {intro}
       </motion.p>
+
+      <motion.p {...enter(0.6, 0.55)} className="label mt-8">
+        <a
+          href="https://shouldiworkwith.hugomartins.pm"
+          className="weight-hover underline decoration-border underline-offset-4 hover:text-accent"
+        >
+          Should you work with me? Take the test
+        </a>
+      </motion.p>
     </section>
   );
 }
