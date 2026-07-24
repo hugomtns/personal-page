@@ -45,6 +45,10 @@ export default function Header() {
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
+  // The compatibility quiz is a standalone, full-page experience served under
+  // its own subdomain. No site chrome: the game carries its own way back.
+  if (pathname.startsWith('/should-i-work-with')) return null;
+
   const tabClass = (href: string) =>
     `label weight-hover hover:text-accent ${pathname === href ? 'text-fg' : ''}`;
 

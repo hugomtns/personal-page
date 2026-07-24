@@ -69,6 +69,12 @@ describe('Header', () => {
     expect(within(social).getByRole('link', { name: /linkedin/i })).toBeInTheDocument();
     expect(within(social).getByRole('link', { name: /github/i })).toBeInTheDocument();
   });
+
+  it('renders nothing on the compatibility quiz route', () => {
+    route.pathname = '/should-i-work-with';
+    const { container } = render(<Header />);
+    expect(container).toBeEmptyDOMElement();
+  });
 });
 
 // The header bar cannot hold the wordmark, the tabs, both social icons and the
