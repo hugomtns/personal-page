@@ -36,7 +36,7 @@ export const QUIZ_RUN_LENGTH = 20;
 
 export const quizQuestions: QuizQuestion[] = [
   {
-    id: 'monday-feature',
+    id: 'mondayFeature',
     question: 'A stakeholder asks for a feature by Monday. You:',
     answers: [
       { text: 'Ship a thin slice and learn from it', scores: true },
@@ -76,7 +76,7 @@ export const quizQuestions: QuizQuestion[] = [
     ],
   },
   {
-    id: 'data-intuition',
+    id: 'dataIntuition',
     question: 'Data and judgment disagree. You:',
     answers: [
       { text: 'Let data inform, but judgment decides', scores: true },
@@ -108,7 +108,7 @@ export const quizQuestions: QuizQuestion[] = [
     ],
   },
   {
-    id: 'design-role',
+    id: 'designRole',
     question: 'Designers on your team:',
     answers: [
       { text: 'Shape the problem with me', scores: true },
@@ -116,7 +116,7 @@ export const quizQuestions: QuizQuestion[] = [
     ],
   },
   {
-    id: 'tech-debt',
+    id: 'techDebt',
     question: 'Tech debt:',
     answers: [
       { text: 'A budget you defend every cycle', scores: true },
@@ -124,7 +124,7 @@ export const quizQuestions: QuizQuestion[] = [
     ],
   },
   {
-    id: 'bad-launch',
+    id: 'badLaunch',
     question: 'A launch goes badly. You:',
     answers: [
       { text: 'Own it, learn, move on', scores: true },
@@ -132,7 +132,7 @@ export const quizQuestions: QuizQuestion[] = [
     ],
   },
   {
-    id: 'sales-ask',
+    id: 'salesAsk',
     question: 'Sales wants a custom feature for one deal. You:',
     answers: [
       { text: 'Find the pattern behind the ask', scores: true },
@@ -172,7 +172,7 @@ export const quizQuestions: QuizQuestion[] = [
     ],
   },
   {
-    id: 'saying-no',
+    id: 'sayingNo',
     question: 'Saying no:',
     answers: [
       { text: 'The most important word in the job', scores: true },

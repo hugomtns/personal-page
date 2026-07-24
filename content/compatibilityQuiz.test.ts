@@ -28,6 +28,12 @@ describe('quizQuestions', () => {
     expect(new Set(ids).size).toBe(quizQuestions.length);
   });
 
+  it('keeps every id alphanumeric (no hyphens or separators)', () => {
+    for (const q of quizQuestions) {
+      expect(q.id).toMatch(/^[a-zA-Z0-9]+$/);
+    }
+  });
+
   it('gives every question exactly two answers, exactly one of them scoring', () => {
     for (const q of quizQuestions) {
       expect(q.answers).toHaveLength(2);
