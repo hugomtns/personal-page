@@ -28,14 +28,33 @@ type FlyOut = { direction: 'left' | 'right'; text: string } | null;
 const HOME_URL = 'https://hugomartins.pm';
 const CONTACT_URL = 'https://hugomartins.pm/contact';
 
+// The secondary action: a quiet bordered pill.
 const exitLinkClass =
   'inline-flex min-h-11 items-center rounded-full border border-border px-6 text-small transition-colors duration-180 hover:border-accent';
+
+// The primary action as a link wears the same class Button does. It must be
+// the class, not utility copies of it: the unlayered `a { color: inherit }`
+// rule in globals.css beats layered color utilities on anchors.
+const primaryLinkClass = 'btn-primary';
 
 // The quiz has no site header, so it carries its own theme toggle, pinned to
 // the corner of every screen.
 const themeToggle = (
   <div className="fixed top-4 right-4 z-50">
     <ThemeToggle />
+  </div>
+);
+
+// Abstract avatar placeholder, sized to take a circle-cropped portrait later
+// (Hugo plans a set of expressive shots). The monogram stands in until then;
+// rounded-full + overflow-hidden means a plain <img> drops in with no layout
+// change. Shared by the question and result screens.
+const quizAvatar = (
+  <div
+    aria-hidden
+    className="grid size-24 shrink-0 place-items-center overflow-hidden rounded-full border border-border bg-surface font-display"
+  >
+    HM
   </div>
 );
 
@@ -60,6 +79,23 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
   useEffect(() => {
     if (phase === 'result') resultRef.current?.focus();
   }, [phase]);
+
+  // Local preview helper: on the dev server, ?score=N jumps straight to the
+  // result screen so the three verdict tiers can be reviewed without playing
+  // twenty questions (?score=5 fail, ?score=13 mid, ?score=18 top). Inert
+  // everywhere else, guarded on the hostname. It must be an effect, not a
+  // lazy useState initializer: the server has no window, so it always
+  // renders the intro, and initialising to the result on the client would
+  // be a hydration mismatch. Reading the URL once at mount is the legitimate
+  // exception to the no-setState-in-effect rule.
+  useEffect(() => {
+    if (!window.location.hostname.endsWith('localhost')) return;
+    const forced = new URLSearchParams(window.location.search).get('score');
+    if (forced === null) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setScore(Math.max(0, Math.min(QUIZ_RUN_LENGTH, Number(forced) || 0)));
+    setPhase('result');
+  }, []);
 
   function start() {
     setRun(dealRun(quizQuestions, QUIZ_RUN_LENGTH, rng));
@@ -105,28 +141,43 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
         {themeToggle}
         <div className="mx-auto flex min-h-svh max-w-2xl flex-col items-start justify-center px-6 py-20">
           <p className="label">Your score</p>
-          <motion.p
-            initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduce ? 0 : 0.45, ease: EASE_OUT }}
-            className="mt-4 font-display text-display"
-          >
-            {score} / {QUIZ_RUN_LENGTH}
-          </motion.p>
+          {/* The score is capped at the avatar's height (6rem) so the pair
+              reads as one lockup instead of a number with a stamp next to it. */}
+          <div className="mt-4 flex items-center gap-6">
+            {quizAvatar}
+            <motion.p
+              initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: reduce ? 0 : 0.45, ease: EASE_OUT }}
+              className="font-display text-[clamp(3.5rem,9vw,6rem)] leading-none tracking-[-0.035em]"
+            >
+              {score} / {QUIZ_RUN_LENGTH}
+            </motion.p>
+          </div>
           <h1 ref={resultRef} tabIndex={-1} className="mt-6 text-h1" style={{ outline: 'none' }}>
             {tier.headline}
           </h1>
           <p className="mt-6 max-w-xl text-h2 leading-snug text-muted">{tier.body}</p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button onClick={start}>Play again</Button>
+            {/* On the tiers that offer contact, that is the point of the page:
+                the primary CTA, with Play again and the way home as
+                secondaries. On the fail tier there is nothing to offer, so
+                Play again keeps the primary slot. */}
+            {tier.showContact ? (
+              <>
+                <a href={CONTACT_URL} className={primaryLinkClass}>
+                  Get in touch
+                </a>
+                <button type="button" onClick={start} className={exitLinkClass}>
+                  Play again
+                </button>
+              </>
+            ) : (
+              <Button onClick={start}>Play again</Button>
+            )}
             <a href={HOME_URL} className={exitLinkClass}>
               Back to hugomartins.pm
             </a>
-            {tier.showContact && (
-              <a href={CONTACT_URL} className={exitLinkClass}>
-                Get in touch
-              </a>
-            )}
           </div>
         </div>
       </>
@@ -153,10 +204,11 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
         </div>
 
         {/* The question block reserves its full height whether the question
-            runs one line or two (justify-end pins the avatar to the bottom),
-            so the avatar and the cards sit in the same spot on every step
-            instead of riding up and down with the text length. */}
-        <div className="mt-12 flex min-h-60 flex-col items-center justify-end gap-6 text-center">
+            runs one line or two, and the stack is pinned to its top, so the
+            avatar, question, and cards all sit in the same spot on every
+            step instead of riding up and down with the text length. */}
+        <div className="mt-12 flex min-h-60 flex-col items-center justify-start gap-6 text-center">
+          {quizAvatar}
           <h1
             ref={questionRef}
             tabIndex={-1}
@@ -168,16 +220,6 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
           >
             {current.question}
           </h1>
-          {/* Abstract avatar placeholder, sized to take a circle-cropped
-              portrait later (Hugo plans a set of expressive shots). The
-              monogram stands in until then; rounded-full + overflow-hidden
-              means a plain <img> drops in with no layout change. */}
-          <div
-            aria-hidden
-            className="grid size-24 shrink-0 place-items-center overflow-hidden rounded-full border border-border bg-surface font-display"
-          >
-            HM
-          </div>
         </div>
 
         {/* key={index} remounts the pair per question, replaying the deal-in.

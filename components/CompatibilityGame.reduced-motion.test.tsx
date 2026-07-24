@@ -19,6 +19,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 import CompatibilityGame from './CompatibilityGame';
+import { dealRun, quizQuestions, QUIZ_RUN_LENGTH } from '@/content/compatibilityQuiz';
 
 function mulberry32(seed: number) {
   return () => {
@@ -46,10 +47,10 @@ describe('CompatibilityGame with prefers-reduced-motion: reduce', () => {
   });
 
   it('answers without a fly-out animation', async () => {
+    const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(2));
     render(<CompatibilityGame rng={mulberry32(2)} />);
     await userEvent.click(screen.getByRole('button', { name: /start the game/i }));
-    const [firstButton] = screen.getAllByRole('button', { name: /^choose: /i });
-    await userEvent.click(firstButton);
+    await userEvent.click(screen.getByRole('button', { name: run[0].left.text }));
 
     expect(document.querySelector('[data-flyout]')).toBeNull();
     expect(screen.getByText(/Question 2 \/ 20/)).toBeInTheDocument();

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { afterEach, describe, it, expect } from 'vitest';
 import CompatibilityGame from './CompatibilityGame';
 import {
   dealRun,
@@ -25,6 +25,9 @@ function mulberry32(seed: number) {
   };
 }
 
+// The ?score= preview reads the URL; leave it clean for the next test.
+afterEach(() => window.history.pushState({}, '', '/'));
+
 async function startGame(seed: number) {
   render(<CompatibilityGame rng={mulberry32(seed)} />);
   await userEvent.click(screen.getByRole('button', { name: /start the game/i }));
@@ -37,12 +40,9 @@ function deadText(q: DealtQuestion) {
   return (q.left.scores ? q.right : q.left).text;
 }
 
-// Both answer buttons read "Choose"; the accessible name carries the answer.
-const choose = (text: string) => `Choose: ${text}`;
-
 async function answerRun(run: DealtQuestion[], pick: (q: DealtQuestion) => string) {
   for (const q of run) {
-    await userEvent.click(screen.getByRole('button', { name: choose(pick(q)) }));
+    await userEvent.click(screen.getByRole('button', { name: pick(q) }));
   }
 }
 
@@ -78,7 +78,7 @@ describe('CompatibilityGame', () => {
     expect(screen.getByText(`Question 1 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: run[0].question })).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole('button', { name: choose(scoringText(run[0])) }));
+    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
     expect(screen.getByText(`Question 2 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: run[1].question })).toBeInTheDocument();
   });
@@ -86,7 +86,7 @@ describe('CompatibilityGame', () => {
   it('shows a fly-out card when a question is answered', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(3));
     await startGame(3);
-    await userEvent.click(screen.getByRole('button', { name: choose(scoringText(run[0])) }));
+    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
     expect(document.querySelector('[data-flyout]')).not.toBeNull();
   });
 
@@ -116,6 +116,21 @@ describe('CompatibilityGame', () => {
     );
   });
 
+  it('shows the avatar beside the score and makes get in touch the primary action', async () => {
+    const perfectRun = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(14));
+    await startGame(14);
+    await answerRun(perfectRun, scoringText);
+
+    expect(screen.getByText('HM')).toBeInTheDocument();
+    const contact = screen.getByRole('link', { name: /get in touch/i });
+    expect(contact.className).toContain('btn-primary');
+    const playAgain = screen.getByRole('button', { name: /play again/i });
+    // Get in touch leads; Play again and the way home follow as secondaries.
+    expect(
+      contact.compareDocumentPosition(playAgain) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
   it('the fail tier shows the fail headline and no contact link', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(6));
     await startGame(6);
@@ -125,6 +140,27 @@ describe('CompatibilityGame', () => {
     expect(screen.getByText(`0 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /get in touch/i })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /back to hugomartins/i })).toBeInTheDocument();
+  });
+
+  it('previews the mid tier via ?score=13 on localhost', () => {
+    window.history.pushState({}, '', '/?score=13');
+    render(<CompatibilityGame rng={mulberry32(12)} />);
+
+    expect(
+      screen.getByRole('heading', { name: tierForScore(13).headline }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(`13 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /get in touch/i })).toBeInTheDocument();
+  });
+
+  it('previews the fail tier via ?score=0 on localhost', () => {
+    window.history.pushState({}, '', '/?score=0');
+    render(<CompatibilityGame rng={mulberry32(13)} />);
+
+    expect(
+      screen.getByRole('heading', { name: tierForScore(0).headline }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /get in touch/i })).not.toBeInTheDocument();
   });
 
   it('moves focus to the question heading when the game starts', async () => {
@@ -140,7 +176,7 @@ describe('CompatibilityGame', () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(9));
     await startGame(9);
 
-    await userEvent.click(screen.getByRole('button', { name: choose(scoringText(run[0])) }));
+    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
     expect(document.activeElement).toBe(
       screen.getByRole('heading', { name: run[1].question }),
     );
