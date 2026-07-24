@@ -27,7 +27,7 @@ function mulberry32(seed: number) {
 
 async function startGame(seed: number) {
   render(<CompatibilityGame rng={mulberry32(seed)} />);
-  await userEvent.click(screen.getByRole('button', { name: /start the test/i }));
+  await userEvent.click(screen.getByRole('button', { name: /start the game/i }));
 }
 
 function scoringText(q: DealtQuestion) {
@@ -37,9 +37,12 @@ function deadText(q: DealtQuestion) {
   return (q.left.scores ? q.right : q.left).text;
 }
 
+// Both answer buttons read "Choose"; the accessible name carries the answer.
+const choose = (text: string) => `Choose: ${text}`;
+
 async function answerRun(run: DealtQuestion[], pick: (q: DealtQuestion) => string) {
   for (const q of run) {
-    await userEvent.click(screen.getByRole('button', { name: pick(q) }));
+    await userEvent.click(screen.getByRole('button', { name: choose(pick(q)) }));
   }
 }
 
@@ -49,11 +52,23 @@ describe('CompatibilityGame', () => {
     expect(
       screen.getByRole('heading', { name: /should you work with hugo/i }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /start the test/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /start the game/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /back to hugomartins/i })).toHaveAttribute(
       'href',
       'https://hugomartins.pm',
     );
+  });
+
+  it('offers a theme toggle on every screen', async () => {
+    const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(11));
+    render(<CompatibilityGame rng={mulberry32(11)} />);
+    const toggle = () => screen.getByRole('button', { name: /switch to (light|dark) theme/i });
+
+    expect(toggle()).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: /start the game/i }));
+    expect(toggle()).toBeInTheDocument();
+    await answerRun(run, scoringText);
+    expect(toggle()).toBeInTheDocument();
   });
 
   it('starts on question 1 of 20 and advances as answers come in', async () => {
@@ -63,7 +78,7 @@ describe('CompatibilityGame', () => {
     expect(screen.getByText(`Question 1 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: run[0].question })).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
+    await userEvent.click(screen.getByRole('button', { name: choose(scoringText(run[0])) }));
     expect(screen.getByText(`Question 2 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: run[1].question })).toBeInTheDocument();
   });
@@ -71,7 +86,7 @@ describe('CompatibilityGame', () => {
   it('shows a fly-out card when a question is answered', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(3));
     await startGame(3);
-    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
+    await userEvent.click(screen.getByRole('button', { name: choose(scoringText(run[0])) }));
     expect(document.querySelector('[data-flyout]')).not.toBeNull();
   });
 
@@ -125,7 +140,7 @@ describe('CompatibilityGame', () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(9));
     await startGame(9);
 
-    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
+    await userEvent.click(screen.getByRole('button', { name: choose(scoringText(run[0])) }));
     expect(document.activeElement).toBe(
       screen.getByRole('heading', { name: run[1].question }),
     );

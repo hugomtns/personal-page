@@ -28,20 +28,31 @@ describe('shouldCommitSwipe', () => {
 });
 
 describe('AnswerCard', () => {
-  it('offers the answer as a real button (the click/keyboard path)', async () => {
+  it('offers a "Choose" button as the click/keyboard path', async () => {
     const onCommit = vi.fn();
     render(<AnswerCard side="left" answer={answer} reduce={false} onCommit={onCommit} />);
 
-    await userEvent.click(screen.getByRole('button', { name: answer.text }));
+    // Both buttons in a pair read "Choose"; the accessible name carries the
+    // answer so assistive tech (and tests) can tell them apart.
+    await userEvent.click(screen.getByRole('button', { name: `Choose: ${answer.text}` }));
     expect(onCommit).toHaveBeenCalledTimes(1);
   });
 
-  it('shows the answer text on the card exactly once to assistive tech', () => {
+  it('shows the answer text exactly once: on the aria-hidden card, not the button', () => {
     render(<AnswerCard side="left" answer={answer} reduce={false} onCommit={() => {}} />);
-    // The card's copy is aria-hidden (the button carries the accessible
-    // name), so the text is announced once, not twice.
-    expect(screen.getAllByText(answer.text)).toHaveLength(2); // card + button in the DOM
-    expect(screen.getByRole('button', { name: answer.text })).toBeInTheDocument();
+    // The card is aria-hidden and the button visibly reads only "Choose", so
+    // the answer text exists once in the DOM and is announced once, inside
+    // the button's accessible name.
+    expect(screen.getAllByText(answer.text)).toHaveLength(1);
+    const button = screen.getByRole('button', { name: `Choose: ${answer.text}` });
+    expect(button).toHaveTextContent('Choose');
+  });
+
+  it('deals the card portrait, like a playing card', () => {
+    const { container } = render(
+      <AnswerCard side="left" answer={answer} reduce={true} onCommit={() => {}} />,
+    );
+    expect(container.querySelector('.aspect-\\[5\\/7\\]')).not.toBeNull();
   });
 
   it('tilts outward from the middle: left card counter-clockwise, right card clockwise', () => {

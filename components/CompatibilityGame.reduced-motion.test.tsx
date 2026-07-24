@@ -33,7 +33,7 @@ function mulberry32(seed: number) {
 describe('CompatibilityGame with prefers-reduced-motion: reduce', () => {
   it('asserts the finished, visible state on the dealt cards', async () => {
     render(<CompatibilityGame rng={mulberry32(1)} />);
-    await userEvent.click(screen.getByRole('button', { name: /start the test/i }));
+    await userEvent.click(screen.getByRole('button', { name: /start the game/i }));
 
     // SSR renders the pre-animation state (opacity: 0). Reduced motion must
     // overwrite it with opacity: 1, not "skip animating" and leave the cards
@@ -47,8 +47,8 @@ describe('CompatibilityGame with prefers-reduced-motion: reduce', () => {
 
   it('answers without a fly-out animation', async () => {
     render(<CompatibilityGame rng={mulberry32(2)} />);
-    await userEvent.click(screen.getByRole('button', { name: /start the test/i }));
-    const [firstButton] = screen.getAllByRole('button');
+    await userEvent.click(screen.getByRole('button', { name: /start the game/i }));
+    const [firstButton] = screen.getAllByRole('button', { name: /^choose: /i });
     await userEvent.click(firstButton);
 
     expect(document.querySelector('[data-flyout]')).toBeNull();

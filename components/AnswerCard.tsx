@@ -38,11 +38,11 @@ export default function AnswerCard({ side, answer, reduce, onCommit }: Props) {
   return (
     <div className="flex flex-col gap-4">
       {/*
-        The card is presentation: draggable, tilted, aria-hidden. The button
-        below is the control (click, keyboard, screen reader). Both commit the
-        same answer, so no interaction requires the drag. `touch-pan-y` keeps
-        vertical page scrolling alive on touch while horizontal drags go to
-        the card.
+        The card is presentation: draggable, tilted, portrait like a playing
+        card (5:7), aria-hidden. The button below is the control (click,
+        keyboard, screen reader). Both commit the same answer, so no
+        interaction requires the drag. `touch-pan-y` keeps vertical page
+        scrolling alive on touch while horizontal drags go to the card.
       */}
       <motion.div
         data-answer-card
@@ -59,13 +59,18 @@ export default function AnswerCard({ side, answer, reduce, onCommit }: Props) {
         whileHover={reduce ? undefined : { rotate: 0, y: -4 }}
         className="touch-pan-y select-none"
       >
-        <Card className="flex min-h-44 items-center justify-center p-6 text-center shadow-[0_12px_32px_-12px_rgb(0_0_0/0.3)]">
+        <Card className="flex aspect-[5/7] items-center justify-center p-6 text-center shadow-[0_12px_32px_-12px_rgb(0_0_0/0.3)]">
           <span className="text-body leading-snug">{answer.text}</span>
         </Card>
       </motion.div>
 
-      <Button onClick={onCommit} className="w-full">
-        {answer.text}
+      {/* Both buttons read "Choose"; the answer they commit is on the card
+          above. The aria-label carries the answer so assistive tech can tell
+          the pair apart, and it starts with the visible label to satisfy
+          label-in-name. self-center keeps the button hugging its label
+          instead of stretching to the card's width. */}
+      <Button onClick={onCommit} className="self-center" aria-label={`Choose: ${answer.text}`}>
+        Choose
       </Button>
     </div>
   );
