@@ -112,6 +112,35 @@ describe('CompatibilityGame', () => {
     expect(screen.getByRole('link', { name: /back to hugomartins/i })).toBeInTheDocument();
   });
 
+  it('moves focus to the question heading when the game starts', async () => {
+    const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(8));
+    await startGame(8);
+
+    expect(document.activeElement).toBe(
+      screen.getByRole('heading', { name: run[0].question }),
+    );
+  });
+
+  it('moves focus to the next question heading after each answer', async () => {
+    const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(9));
+    await startGame(9);
+
+    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
+    expect(document.activeElement).toBe(
+      screen.getByRole('heading', { name: run[1].question }),
+    );
+  });
+
+  it('moves focus to the result heading after the last answer', async () => {
+    const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(10));
+    await startGame(10);
+    await answerRun(run, scoringText);
+
+    expect(document.activeElement).toBe(
+      screen.getByRole('heading', { name: tierForScore(QUIZ_RUN_LENGTH).headline }),
+    );
+  });
+
   it('play again reshuffles and restarts at question 1 with a zeroed score', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(7));
     await startGame(7);

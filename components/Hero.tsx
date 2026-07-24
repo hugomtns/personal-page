@@ -42,7 +42,9 @@ export default function Hero() {
 
   const words = site.name.split(' ');
 
-  // The name, what he is, one paragraph. Nothing is selling anything.
+  // The name, what he is, one paragraph, one link: the quiz, the single
+  // approved exception to the splash's no-links rule. Nothing is selling
+  // anything.
   return (
     <section className="mx-auto flex min-h-[calc(100svh-8.5rem)] max-w-5xl flex-col justify-center px-6 py-20">
       {/* Split text breaks the accessible name (the masks swallow the

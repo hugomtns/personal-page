@@ -10,7 +10,7 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      {children}
+      <main id="main">{children}</main>
     </>
   );
 }

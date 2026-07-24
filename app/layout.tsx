@@ -66,7 +66,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <SkipLink />
-          <main id="main">{children}</main>
+          {children}
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

@@ -17,6 +17,14 @@ export function proxy(request: NextRequest) {
   return NextResponse.rewrite(url);
 }
 
+// The matcher must keep three things off the rewrite path, or the quiz host
+// serves quiz HTML where it does not belong: `api/` (the contact form posts
+// there; note the trailing slash, a bare `api` would also exclude any first
+// segment starting with those letters), `_vercel` (analytics and
+// speed-insights inject root-relative /_vercel/* scripts; rewriting them to
+// HTML is the "Unexpected token '<'" pageerror), and `icon` (the favicon
+// route). This config is not covered by proxy.test.ts, which calls proxy()
+// directly — this comment is the guard.
 export const config = {
-  matcher: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  matcher: '/((?!api/|_next/static|_next/image|_vercel|icon|favicon.ico).*)',
 };

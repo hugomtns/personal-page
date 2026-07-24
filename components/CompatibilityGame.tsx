@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import Button from './Button';
 import AnswerCard from './AnswerCard';
@@ -37,6 +37,20 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [flyOut, setFlyOut] = useState<FlyOut>(null);
+  const questionRef = useRef<HTMLHeadingElement>(null);
+  const resultRef = useRef<HTMLHeadingElement>(null);
+
+  // The answer pair remounts per question (key={index} below), so the button
+  // a keyboard user just pressed unmounts and focus would fall to <body>.
+  // Hand it to the new question instead; tabIndex={-1} makes the heading
+  // focusable without adding it to the tab order.
+  useEffect(() => {
+    if (phase === 'playing') questionRef.current?.focus();
+  }, [index, phase]);
+
+  useEffect(() => {
+    if (phase === 'result') resultRef.current?.focus();
+  }, [phase]);
 
   function start() {
     setRun(dealRun(quizQuestions, QUIZ_RUN_LENGTH, rng));
@@ -88,7 +102,7 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
         >
           {score} / {QUIZ_RUN_LENGTH}
         </motion.p>
-        <h1 className="mt-6 text-h1">{tier.headline}</h1>
+        <h1 ref={resultRef} tabIndex={-1} className="mt-6 text-h1">{tier.headline}</h1>
         <p className="mt-6 max-w-xl text-h2 leading-snug text-muted">{tier.body}</p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <Button onClick={start}>Play again</Button>
@@ -131,7 +145,7 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
         >
           HM
         </div>
-        <h1 className="text-h3 max-w-xl">{current.question}</h1>
+        <h1 ref={questionRef} tabIndex={-1} className="text-h3 max-w-xl">{current.question}</h1>
       </div>
 
       {/* key={index} remounts the pair per question, replaying the deal-in. */}

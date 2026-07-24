@@ -18,5 +18,9 @@ export default async function QuizPage() {
   const host = (await headers()).get('host') ?? '';
   if (!host.startsWith('shouldiworkwith.')) redirect(QUIZ_ORIGIN);
 
-  return <CompatibilityGame />;
+  return (
+    <main id="main">
+      <CompatibilityGame />
+    </main>
+  );
 }
