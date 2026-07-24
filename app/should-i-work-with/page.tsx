@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import CompatibilityGame from '@/components/CompatibilityGame';
 
 export const metadata: Metadata = {
   title: 'Should you work with Hugo?',
@@ -17,6 +18,5 @@ export default async function QuizPage() {
   const host = (await headers()).get('host') ?? '';
   if (!host.startsWith('shouldiworkwith.')) redirect(QUIZ_ORIGIN);
 
-  // Placeholder until components/CompatibilityGame lands.
-  return <p>Quiz goes here.</p>;
+  return <CompatibilityGame />;
 }
