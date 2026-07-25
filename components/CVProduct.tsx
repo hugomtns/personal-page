@@ -62,6 +62,7 @@ export default function CVProduct({ product: p }: { product: Product }) {
               src={p.image}
               alt={p.name}
               className="mb-6 aspect-[16/10] w-full rounded-frame border border-border"
+              sizes="(max-width: 640px) 100vw, 576px"
             />
           )}
 

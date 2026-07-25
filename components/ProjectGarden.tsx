@@ -42,7 +42,14 @@ export function rowEndFor(i: number, cols: number, count: number) {
  * Rendering it per-row (rather than moving one panel around) means opening,
  * closing, and jumping between rows all animate their height cleanly.
  */
-export default function ProjectGarden({ projects }: { projects: Project[] }) {
+export default function ProjectGarden({
+  projects,
+  priorityCount = 0,
+}: {
+  projects: Project[];
+  /** How many leading tiles load eagerly (the above-fold row). The rest lazy-load. */
+  priorityCount?: number;
+}) {
   const panelId = useId();
   const [openId, setOpenId] = useState<string | null>(null);
   const cols = useSyncExternalStore(subscribeToColumns, columnCount, serverColumnCount);
@@ -60,6 +67,7 @@ export default function ProjectGarden({ projects }: { projects: Project[] }) {
             open={openId === p.id}
             panelId={panelId}
             onToggle={() => setOpenId((id) => (id === p.id ? null : p.id))}
+            priority={i < priorityCount}
           />
         );
 

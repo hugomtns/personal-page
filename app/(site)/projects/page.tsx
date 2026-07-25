@@ -38,7 +38,7 @@ export default function ProjectsPage() {
           Product prototypes and domain tools, mostly in the solar and B2B space.
         </p>
         <div className="mt-6">
-          <ProjectGarden projects={workProjects} />
+          <ProjectGarden projects={workProjects} priorityCount={3} />
         </div>
       </section>
 

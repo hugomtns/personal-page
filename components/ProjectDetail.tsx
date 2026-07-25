@@ -94,6 +94,8 @@ export default function ProjectDetail({
                   <img
                     src={img ?? undefined}
                     alt={`${p.name}: ${i + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="h-auto max-h-[70vh] w-auto rounded-frame border border-border"
                   />
                 </>
@@ -102,6 +104,7 @@ export default function ProjectDetail({
                   src={img}
                   alt={`${p.name}: ${i + 1}`}
                   className="aspect-[16/10] w-full rounded-frame border border-border"
+                  sizes="(max-width: 768px) 100vw, 500px"
                 />
               )}
             </button>

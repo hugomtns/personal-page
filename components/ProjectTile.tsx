@@ -18,11 +18,13 @@ export default function ProjectTile({
   open,
   panelId,
   onToggle,
+  priority = false,
 }: {
   project: Project;
   open: boolean;
   panelId: string;
   onToggle: () => void;
+  priority?: boolean;
 }) {
   return (
     <li>
@@ -40,6 +42,8 @@ export default function ProjectTile({
           src={p.images[0]}
           alt={p.name}
           className="aspect-[16/10] w-full shrink-0 rounded-t-card"
+          sizes="(max-width: 640px) 50vw, 33vw"
+          priority={priority}
         />
         <span className="block p-5">
           <span
