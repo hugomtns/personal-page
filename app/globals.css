@@ -97,6 +97,29 @@ h1, h2, h3 {
 
 a { color: inherit; }
 
+/* The site's one primary action, as a class so anchors can wear it too. It
+   cannot be a Tailwind utility combo: `a { color: inherit }` above is
+   unlayered, and unlayered author rules beat Tailwind's layered utilities —
+   so `text-bg` silently loses on <a> while working on <button>. Accent
+   background with the page background as ink: the inverse of the
+   accent-on-background pairing app/globals.test.ts pins at AA in both
+   themes, so it is AA in both themes by construction. Used by
+   components/Button.tsx and by primary-action links. */
+.btn-primary {
+  display: inline-flex;
+  min-height: 2.75rem; /* 44px touch target */
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--bg);
+  padding-inline: 1.5rem;
+  font-size: var(--text-small);
+  transition: opacity 180ms ease;
+}
+.btn-primary:hover { opacity: 0.8; }
+.btn-primary:disabled { cursor: not-allowed; opacity: 0.5; }
+
 /* Selected text in the accent, with the page background as the ink. This is
    the same accent-on-bg pairing Button uses, pinned at AA in both themes by
    app/globals.test.ts. */

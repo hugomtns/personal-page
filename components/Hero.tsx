@@ -42,7 +42,9 @@ export default function Hero() {
 
   const words = site.name.split(' ');
 
-  // The name, what he is, one paragraph. Nothing is selling anything.
+  // The name, what he is, one paragraph, one link: the quiz, the single
+  // approved exception to the splash's no-links rule. Nothing is selling
+  // anything.
   return (
     <section className="mx-auto flex min-h-[calc(100svh-8.5rem)] max-w-5xl flex-col justify-center px-6 py-20">
       {/* Split text breaks the accessible name (the masks swallow the
@@ -88,6 +90,15 @@ export default function Hero() {
         className="mt-12 max-w-2xl text-h2 leading-snug text-muted"
       >
         {intro}
+      </motion.p>
+
+      <motion.p {...enter(0.6, 0.55)} className="label mt-8">
+        <a
+          href="https://shouldiworkwith.hugomartins.pm"
+          className="weight-hover underline decoration-border underline-offset-4 hover:text-accent"
+        >
+          Should you work with me? Take the test
+        </a>
       </motion.p>
     </section>
   );

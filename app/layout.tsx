@@ -5,7 +5,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
 import SkipLink from '@/components/SkipLink';
-import Header from '@/components/Header';
 import { site } from '@/content/site';
 
 // Display face. Variable font (300–700) so headings can carry a real bold
@@ -67,8 +66,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <SkipLink />
-          <Header />
-          <main id="main">{children}</main>
+          {children}
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>
