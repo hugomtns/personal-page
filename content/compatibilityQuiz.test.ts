@@ -20,7 +20,7 @@ function mulberry32(seed: number) {
 
 describe('quizQuestions', () => {
   it('has a pool of 24 questions', () => {
-    expect(quizQuestions).toHaveLength(24);
+    expect(quizQuestions).toHaveLength(25);
   });
 
   it('gives every question a unique id', () => {

@@ -42,6 +42,14 @@ export const QUIZ_RUN_LENGTH = 20;
 
 export const quizQuestions: QuizQuestion[] = [
   {
+    id: 'goodSkill',
+    question: 'A great product manager has:',
+    answers: [
+      { text: 'A wide breadth of experience that lets them see the bigger picture and adapt to circumstances.', scores: true },
+      { text: 'Deep expertise in a specific domain, so they can hit the ground running.', scores: false },
+    ],
+  },
+  {
     id: 'mondayFeature',
     question: 'A C-level asks for a feature on a short deadline. You:',
     answers: [
@@ -252,16 +260,14 @@ export const tiers: QuizTier[] = [
     headline: 'We might click.',
     body: 'We agree on the fundamentals and that might be the start of something. How about a first chat?',
     showContact: true,
-    // Mid-tier expression still to come from Hugo; monogram until then.
-    avatar: null,
+    avatar: '/images/quiz/ok.webp',
   },
   {
     min: 17,
     headline: 'We need to talk.',
     body: 'You answered like someone I would enjoy building products with. Drop me a message, and let\'s chat!',
     showContact: true,
-    // Great-tier expression still to come from Hugo; monogram until then.
-    avatar: null,
+    avatar: '/images/quiz/great.webp',
   },
 ];
 

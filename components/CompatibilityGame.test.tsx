@@ -128,7 +128,7 @@ describe('CompatibilityGame', () => {
     await startGame(14);
     await answerRun(perfectRun, scoringText);
 
-    expect(screen.getByText('HM')).toBeInTheDocument();
+    expect(document.querySelector('img[src*="great.webp"]')).not.toBeNull();
     const contact = screen.getByRole('link', { name: /get in touch/i });
     expect(contact.className).toContain('btn-primary');
     const playAgain = screen.getByRole('button', { name: /play again/i });
@@ -160,9 +160,8 @@ describe('CompatibilityGame', () => {
     ).toBeInTheDocument();
     expect(screen.getByText(`13 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /get in touch/i })).toBeInTheDocument();
-    // The mid-tier expression is not shot yet: monogram, no photo.
-    expect(screen.getByText('HM')).toBeInTheDocument();
-    expect(document.querySelector('img[src*="quiz/"]')).toBeNull();
+    // The mid tier has its own expression photo.
+    expect(document.querySelector('img[src*="ok.webp"]')).not.toBeNull();
   });
 
   it('previews the fail tier via ?score=0 on localhost', () => {
