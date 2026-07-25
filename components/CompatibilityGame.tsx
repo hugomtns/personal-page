@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 import Button from './Button';
 import AnswerCard from './AnswerCard';
@@ -45,18 +46,22 @@ const themeToggle = (
   </div>
 );
 
-// Abstract avatar placeholder, sized to take a circle-cropped portrait later
-// (Hugo plans a set of expressive shots). The monogram stands in until then;
-// rounded-full + overflow-hidden means a plain <img> drops in with no layout
-// change. Shared by the question and result screens.
-const quizAvatar = (
-  <div
-    aria-hidden
-    className="grid size-24 shrink-0 place-items-center overflow-hidden rounded-full border border-border bg-surface font-display"
-  >
-    HM
-  </div>
-);
+const QUESTION_AVATAR = '/images/quiz/question.webp';
+
+// The 96px avatar circle. With an expression photo (192px webp in
+// public/images/quiz/) it shows the photo; without one it falls back to the
+// monogram. aria-hidden either way: it is decoration next to text that
+// already carries the meaning.
+function quizAvatar(src: string | null) {
+  return (
+    <div
+      aria-hidden
+      className="grid size-24 shrink-0 place-items-center overflow-hidden rounded-full border border-border bg-surface font-display"
+    >
+      {src ? <Image src={src} alt="" width={96} height={96} /> : 'HM'}
+    </div>
+  );
+}
 
 export default function CompatibilityGame({ rng = Math.random }: { rng?: () => number }) {
   const reduce = useReducedMotion();
@@ -144,7 +149,7 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
           {/* The score is capped at the avatar's height (6rem) so the pair
               reads as one lockup instead of a number with a stamp next to it. */}
           <div className="mt-4 flex items-center gap-6">
-            {quizAvatar}
+            {quizAvatar(tier.avatar)}
             <motion.p
               initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -208,7 +213,7 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
             avatar, question, and cards all sit in the same spot on every
             step instead of riding up and down with the text length. */}
         <div className="mt-12 flex min-h-60 flex-col items-center justify-start gap-6 text-center">
-          {quizAvatar}
+          {quizAvatar(QUESTION_AVATAR)}
           <h1
             ref={questionRef}
             tabIndex={-1}

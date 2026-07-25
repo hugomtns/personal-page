@@ -90,6 +90,13 @@ describe('CompatibilityGame', () => {
     expect(document.querySelector('[data-flyout]')).not.toBeNull();
   });
 
+  it('shows the expression photo as the avatar while playing', async () => {
+    await startGame(15);
+    // next/image rewrites the src through the optimizer, but the file name
+    // survives inside the url= parameter.
+    expect(document.querySelector('img[src*="question.webp"]')).not.toBeNull();
+  });
+
   it('reaches the result after 20 answers, scoring only the scoring answers', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(4));
     await startGame(4);
@@ -140,6 +147,8 @@ describe('CompatibilityGame', () => {
     expect(screen.getByText(`0 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /get in touch/i })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /back to hugomartins/i })).toBeInTheDocument();
+    // The fail tier has its own expression photo.
+    expect(document.querySelector('img[src*="fail.webp"]')).not.toBeNull();
   });
 
   it('previews the mid tier via ?score=13 on localhost', () => {
@@ -151,6 +160,9 @@ describe('CompatibilityGame', () => {
     ).toBeInTheDocument();
     expect(screen.getByText(`13 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /get in touch/i })).toBeInTheDocument();
+    // The mid-tier expression is not shot yet: monogram, no photo.
+    expect(screen.getByText('HM')).toBeInTheDocument();
+    expect(document.querySelector('img[src*="quiz/"]')).toBeNull();
   });
 
   it('previews the fail tier via ?score=0 on localhost', () => {

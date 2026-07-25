@@ -30,6 +30,12 @@ export type QuizTier = {
   headline: string;
   body: string;
   showContact: boolean;
+  /**
+   * Expression photo for the result-screen avatar, or null to fall back to
+   * the monogram. Files live in public/images/quiz/ (192x192 webp, made from
+   * the squares in assets/avatar-source/).
+   */
+  avatar: string | null;
 };
 
 export const QUIZ_RUN_LENGTH = 20;
@@ -37,34 +43,34 @@ export const QUIZ_RUN_LENGTH = 20;
 export const quizQuestions: QuizQuestion[] = [
   {
     id: 'mondayFeature',
-    question: 'A stakeholder asks for a feature by Monday. You:',
+    question: 'A C-level asks for a feature on a short deadline. You:',
     answers: [
-      { text: 'Ship a thin slice and learn from it', scores: true },
-      { text: 'Commit to the full feature to avoid disappointment', scores: false },
+      { text: 'Ship a thin slice and learn from it, and risk disappointing the higher up.', scores: true },
+      { text: 'Commit to the full feature to avoid disappointment, in spite of the deadline.', scores: false },
     ],
   },
   {
     id: 'discovery',
     question: 'A new initiative lands on your desk. First move:',
     answers: [
-      { text: 'Talk to five users before writing a ticket', scores: true },
-      { text: 'Start from the data; users will bias you', scores: false },
+      { text: 'Talk to five users before writing a single ticket.', scores: true },
+      { text: 'Start from the data; users will bias you.', scores: false },
     ],
   },
   {
     id: 'roadmap',
     question: 'A roadmap should be:',
     answers: [
-      { text: 'A direction with room to change', scores: true },
-      { text: 'A committed plan the org can rely on', scores: false },
+      { text: 'A direction with enough room to change in light of new evidence.', scores: true },
+      { text: 'A committed plan with timelines that the org can rely on.', scores: false },
     ],
   },
   {
     id: 'meetings',
     question: 'Meetings:',
     answers: [
-      { text: 'Default to async; meet when it matters', scores: true },
-      { text: 'Regular rituals keep everyone aligned', scores: false },
+      { text: 'Default to async; meet only when it really matters.', scores: true },
+      { text: 'Always better to have a face-to-face, regardless of topic.', scores: false },
     ],
   },
   {
@@ -72,159 +78,159 @@ export const quizQuestions: QuizQuestion[] = [
     question: 'Before engineers build, they need:',
     answers: [
       { text: 'One page of problem and constraints', scores: true },
-      { text: 'A complete spec covering every case', scores: false },
+      { text: 'A complete spec covering every case.', scores: false },
     ],
   },
   {
     id: 'dataIntuition',
-    question: 'Data and judgment disagree. You:',
+    question: 'Data and intuition disagree. You:',
     answers: [
-      { text: 'Let data inform, but judgment decides', scores: true },
-      { text: 'Follow the data; feelings do not scale', scores: false },
+      { text: 'Let data inform, but intution decides. Run an experiment to gain confidence.', scores: true },
+      { text: 'Follow the data; feelings do not scale. You can always adjust later.', scores: false },
     ],
   },
   {
     id: 'pushback',
     question: 'An engineer pushes back on your priority. You:',
     answers: [
-      { text: 'Argue it out; the best reasoning wins', scores: true },
-      { text: 'Pull rank; alignment beats debate', scores: false },
+      { text: 'Argue it out, and let the best reasoning win.', scores: true },
+      { text: 'Alignment beats debate, push for agreeing to disagree.', scores: false },
     ],
   },
   {
     id: 'shipping',
     question: 'The right release cadence:',
     answers: [
-      { text: 'Small releases every week', scores: true },
-      { text: 'Polished launches a few times a quarter', scores: false },
+      { text: 'Small releases whenever possible.', scores: true },
+      { text: 'Polished launches one or a few times a quarter.', scores: false },
     ],
   },
   {
     id: 'okrs',
     question: 'OKRs are:',
     answers: [
-      { text: 'A compass, not a contract', scores: true },
-      { text: 'Commitments you hit or explain', scores: false },
+      { text: 'A compass, not a contract.', scores: true },
+      { text: 'Commitments you hit or explain why you didn\'t.', scores: false },
     ],
   },
   {
     id: 'designRole',
     question: 'Designers on your team:',
     answers: [
-      { text: 'Shape the problem with me', scores: true },
-      { text: 'Execute the problem I define', scores: false },
+      { text: 'Shape the problem with me.', scores: true },
+      { text: 'Execute the problem I define.', scores: false },
     ],
   },
   {
     id: 'techDebt',
     question: 'Tech debt:',
     answers: [
-      { text: 'A budget you defend every cycle', scores: true },
-      { text: 'Something to fit in around features', scores: false },
+      { text: 'Is a budget you take on, or defend every cycle.', scores: true },
+      { text: 'Something to manage and deal with around features.', scores: false },
     ],
   },
   {
     id: 'badLaunch',
     question: 'A launch goes badly. You:',
     answers: [
-      { text: 'Own it, learn, move on', scores: true },
-      { text: 'Analyse until we know exactly whose call failed', scores: false },
+      { text: 'Own it, learn from it, move on.', scores: true },
+      { text: 'Analyse extensively until we know whose call failed.', scores: false },
     ],
   },
   {
     id: 'salesAsk',
-    question: 'Sales wants a custom feature for one deal. You:',
+    question: 'Sales wants a custom feature for one big deal. You:',
     answers: [
-      { text: 'Find the pattern behind the ask', scores: true },
-      { text: 'Close the deal; the roadmap absorbs it', scores: false },
+      { text: 'Pull them into a call and identify the pattern behind the request.', scores: true },
+      { text: 'Move priorities to close the deal; the roadmap can be adjusted.', scores: false },
     ],
   },
   {
     id: 'writing',
-    question: 'Decisions:',
+    question: 'Important decisions:',
     answers: [
-      { text: 'Get written down', scores: true },
-      { text: 'Live in the meeting; docs go stale', scores: false },
+      { text: 'Does not matter where they are written down, as long as there is a paper trail.', scores: true },
+      { text: 'Should be clarified thoroughly in central documentation.', scores: false },
     ],
   },
   {
     id: 'priorities',
     question: 'The team can handle:',
     answers: [
-      { text: 'One thing at a time, done well', scores: true },
-      { text: 'Several bets running in parallel', scores: false },
+      { text: 'One thing at a time, done well.', scores: true },
+      { text: 'Several bets running in parallel.', scores: false },
     ],
   },
   {
     id: 'research',
     question: 'User research:',
     answers: [
-      { text: "Continuous, lightweight, everyone's job", scores: true },
-      { text: 'A dedicated phase at the start of each project', scores: false },
+      { text: "Continuous, lightweight, and everyone's job.", scores: true },
+      { text: 'A dedicated phase at the start of each cycle.', scores: false },
     ],
   },
   {
     id: 'ai',
     question: 'AI in the product:',
     answers: [
-      { text: 'Ship it where it removes real work', scores: true },
-      { text: 'Add it where it demos well', scores: false },
+      { text: 'Ship it where it moves the needle.', scores: true },
+      { text: 'Add it as much as possible.', scores: false },
     ],
   },
   {
     id: 'sayingNo',
     question: 'Saying no:',
     answers: [
-      { text: 'The most important word in the job', scores: true },
-      { text: 'A last resort; yes keeps doors open', scores: false },
+      { text: 'The most important word in the job, when used thoughtfully.', scores: true },
+      { text: 'A last resort; "yes" keeps doors open.', scores: false },
     ],
   },
   {
-    id: 'estimates',
-    question: 'Estimates should be:',
+    id: 'aiProduct',
+    question: 'A Product Manager should leverage AI to:',
     answers: [
-      { text: 'Rough ranges with honest uncertainty', scores: true },
-      { text: 'Dates the business can plan around', scores: false },
+      { text: 'Augment human judgment, surface opportunities, improve prototypes.', scores: true },
+      { text: 'Produce communication pieces, create production-level content.', scores: false },
     ],
   },
   {
     id: 'feedback',
     question: 'Hard feedback is best given:',
     answers: [
-      { text: 'Direct, early, in private', scores: true },
-      { text: 'Carefully, documented, through the process', scores: false },
+      { text: 'Direct, early, and in private.', scores: true },
+      { text: 'Carefully, documented, through the process.', scores: false },
     ],
   },
   {
     id: 'process',
-    question: 'Process:',
+    question: 'Processes in product should be:',
     answers: [
-      { text: 'Enough to keep quality, no more', scores: true },
-      { text: 'A strong process scales beyond people', scores: false },
+      { text: 'Enough to keep quality, and adapted to the team\'s needs, no more.', scores: true },
+      { text: 'A strong set of guidelines that scales beyond people, and prevents chaos.', scores: false },
     ],
   },
   {
     id: 'strategy',
     question: 'Strategy is:',
     answers: [
-      { text: 'A few hard choices, clearly made', scores: true },
-      { text: 'Covering every opportunity to hedge the risk', scores: false },
+      { text: 'A few hard choices, clearly communicated and dilligently made.', scores: true },
+      { text: 'A horizon to aspire to, that will be validated along the way.', scores: false },
     ],
   },
   {
-    id: 'disagreement',
-    question: 'The team disagrees with your call. You:',
+    id: 'remoteWork',
+    question: 'Working fully remotely:',
     answers: [
-      { text: 'Disagree and commit, mine or theirs', scores: true },
-      { text: 'Keep discussing until there is consensus', scores: false },
+      { text: 'Is a sign of a mature org, that promotes trust above control.', scores: true },
+      { text: 'It is shown to result in lower productivity and hinders collaboration.', scores: false },
     ],
   },
   {
     id: 'success',
     question: 'Success means:',
     answers: [
-      { text: 'Outcomes the user can feel', scores: true },
-      { text: 'Output the org can count', scores: false },
+      { text: 'Outcomes the user can feel.', scores: true },
+      { text: 'Output the org can count on.', scores: false },
     ],
   },
 ];
@@ -236,21 +242,26 @@ export const quizQuestions: QuizQuestion[] = [
 export const tiers: QuizTier[] = [
   {
     min: 0,
-    headline: 'We would not click.',
+    headline: 'Not going to work.',
     body: 'Twenty questions, and we landed on different sides of most of them. Better to find out here than in a kickoff call.',
     showContact: false,
+    avatar: '/images/quiz/fail.webp',
   },
   {
     min: 10,
     headline: 'We might click.',
-    body: 'We agree on the fundamentals and differ on the rest, which is usually where the interesting conversations are.',
+    body: 'We agree on the fundamentals and that might be the start of something. How about a first chat?',
     showContact: true,
+    // Mid-tier expression still to come from Hugo; monogram until then.
+    avatar: null,
   },
   {
     min: 17,
-    headline: 'We should talk.',
-    body: 'You answered like someone I would enjoy building with. That is rarer than it should be.',
+    headline: 'We need to talk.',
+    body: 'You answered like someone I would enjoy building products with. Drop me a message, and let\'s chat!',
     showContact: true,
+    // Great-tier expression still to come from Hugo; monogram until then.
+    avatar: null,
   },
 ];
 
