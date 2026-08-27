@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google';
+import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
@@ -26,6 +27,15 @@ const geist = Geist({
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
+  display: 'swap',
+});
+
+// The PM Simulator's title face. Scoped to its header link through the CSS
+// variable, so the game can briefly break character without changing the site.
+const silkscreen = localFont({
+  src: '../assets/Silkscreen-Bold.woff2',
+  variable: '--font-pm-simulator',
+  weight: '700',
   display: 'swap',
 });
 
@@ -60,7 +70,7 @@ export default function RootLayout({
     // its own typefaces, and nothing errors to tell you.
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable}`}
+      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable} ${silkscreen.variable}`}
       suppressHydrationWarning
     >
       <body>

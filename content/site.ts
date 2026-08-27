@@ -28,6 +28,7 @@ export const site = {
   links: {
     linkedin: 'https://linkedin.com/in/hugommartins',
     github: 'https://github.com/hugomtns', // profile only — never per-project
+    pmSimulator: 'https://pm-simulator.hugomartins.pm',
   },
 } as const;
 

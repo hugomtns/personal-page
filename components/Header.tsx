@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import ThemeToggle from './ThemeToggle';
 import SocialLinks from './SocialLinks';
 import IconButton from './IconButton';
+import PMSimulatorLink from './PMSimulatorLink';
 import { site, liveNav } from '@/content/site';
 import { EASE_OUT, DURATION } from '@/lib/motion';
 
@@ -58,7 +59,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls={MENU_ID}
             aria-label="Menu"
-            className="label -m-1 sm:hidden"
+            className="label -m-1 lg:hidden"
           >
             <span aria-hidden="true" className="grid gap-[5px]">
               <span className="block h-px w-5 bg-current" />
@@ -75,10 +76,10 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-6">
-          {/* The tab row is the first thing that stops fitting: at 390px the bar
-              is already ~67px over budget, and CV and Projects are still to come.
-              Below `sm` the tabs move into the panel below instead. */}
-          <nav aria-label="Main" className="hidden items-center gap-6 sm:flex">
+          {/* The game link gives the tab row a deliberate extra beat. Below
+              `lg` the navigation moves into the panel so neither the wordmark
+              nor the controls are squeezed. */}
+          <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
             {tabs.map((tab) => (
               <Link
                 key={tab.href}
@@ -89,9 +90,10 @@ export default function Header() {
                 {tab.label}
               </Link>
             ))}
+            <PMSimulatorLink />
           </nav>
 
-          <span aria-hidden="true" className="hidden h-4 w-px bg-border sm:block" />
+          <span aria-hidden="true" className="hidden h-4 w-px bg-border lg:block" />
 
           <SocialLinks />
           <ThemeToggle />
@@ -116,7 +118,7 @@ export default function Header() {
           data-menu-scrim
           aria-hidden="true"
           onClick={() => setOpen(false)}
-          className="absolute inset-x-0 top-full h-screen bg-bg/70 sm:hidden"
+          className="absolute inset-x-0 top-full h-screen bg-bg/70 lg:hidden"
         />
       )}
 
@@ -127,7 +129,7 @@ export default function Header() {
           initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduce ? 0 : DURATION.fast, ease: EASE_OUT }}
-          className="absolute inset-x-0 top-full border-b border-border bg-bg sm:hidden"
+          className="absolute inset-x-0 top-full border-b border-border bg-bg lg:hidden"
         >
           <ul className="mx-auto flex max-w-5xl flex-col px-6 py-2">
             {tabs.map((tab) => (
@@ -144,6 +146,9 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            <li className="border-t border-border">
+              <PMSimulatorLink className="my-3 w-full" />
+            </li>
           </ul>
         </motion.nav>
       )}

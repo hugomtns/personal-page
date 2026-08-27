@@ -120,6 +120,60 @@ a { color: inherit; }
 .btn-primary:hover { opacity: 0.8; }
 .btn-primary:disabled { cursor: not-allowed; opacity: 0.5; }
 
+/* A compact artifact from PM Simulator's title screen: the game's Silkscreen
+   face, hard two-pixel bevel, rust cursor and stepped shadow. Kept independent
+   of the site theme so it reads as a portal into a different visual world. */
+.pm-simulator-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid;
+  border-color:
+    oklch(0.73 0.026 82)
+    oklch(0.16 0.02 67)
+    oklch(0.16 0.02 67)
+    oklch(0.73 0.026 82);
+  background: oklch(0.22 0.022 70);
+  box-shadow:
+    inset 2px 2px 0 oklch(0.38 0.022 75),
+    3px 3px 0 oklch(0.08 0.012 65 / 72%);
+  color: oklch(0.91 0.025 82);
+  padding-inline: 0.75rem;
+  font-family: var(--font-pm-simulator), "Courier New", monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+.pm-simulator-link::before {
+  margin-right: 0.35rem;
+  color: oklch(0.64 0.16 31);
+  content: ">";
+}
+.pm-simulator-link:hover,
+.pm-simulator-link:focus-visible {
+  border-color:
+    oklch(0.78 0.055 54)
+    oklch(0.3 0.1 29)
+    oklch(0.3 0.1 29)
+    oklch(0.78 0.055 54);
+  background: oklch(0.34 0.085 30);
+  color: oklch(0.95 0.025 82);
+}
+.pm-simulator-link:active {
+  box-shadow: inset 2px 2px 0 oklch(0.13 0.02 67);
+  transform: translate(2px, 2px);
+}
+
 /* Selected text in the accent, with the page background as the ink. This is
    the same accent-on-bg pairing Button uses, pinned at AA in both themes by
    app/globals.test.ts. */
@@ -167,4 +221,6 @@ summary {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .pm-simulator-link:active { transform: none; }
 }

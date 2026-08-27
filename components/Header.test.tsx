@@ -44,6 +44,16 @@ describe('Header', () => {
     }
   });
 
+  it('links to PM Simulator from the main navigation', () => {
+    render(<Header />);
+    const mainNav = screen.getByRole('navigation', { name: /^main$/i });
+
+    expect(within(mainNav).getByRole('link', { name: 'PM Simulator' })).toHaveAttribute(
+      'href',
+      'https://pm-simulator.hugomartins.pm'
+    );
+  });
+
   it('hides tabs that are not finished yet', () => {
     render(<Header />);
     const mainNav = screen.getByRole('navigation', { name: /^main$/i });
@@ -117,6 +127,10 @@ describe('Header menu (small screens)', () => {
     for (const tab of hiddenTabs) {
       expect(within(panel).queryByRole('link', { name: tab.label })).not.toBeInTheDocument();
     }
+    expect(within(panel).getByRole('link', { name: 'PM Simulator' })).toHaveAttribute(
+      'href',
+      'https://pm-simulator.hugomartins.pm'
+    );
   });
 
   it('closes on Escape', async () => {
