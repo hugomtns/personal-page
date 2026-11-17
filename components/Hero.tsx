@@ -18,7 +18,7 @@ export default function Hero() {
           className="terminal-control terminal-home__action"
         >
           <span aria-hidden="true">&gt;</span>
-          <span>Should you work with me? Take the test</span>
+          <span>I am open to work! Are we a match?</span>
           <span aria-hidden="true">↗</span>
         </a>
       </div>

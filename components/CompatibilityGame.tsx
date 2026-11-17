@@ -100,8 +100,9 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
       <QuizFrame>
         <h1 className="terminal-quiz__headline">Should you work with Hugo?</h1>
         <p className="terminal-quiz__description">
-          Twenty questions about how product work gets done, with two answers
-          each. Takes only a few minutes.
+          Twenty questions on how I do product work, each with two possible answers.
+          <br />
+          Takes only a few minutes.
         </p>
         <div className="terminal-quiz__actions">
           <Button onClick={start}>Start the game</Button>

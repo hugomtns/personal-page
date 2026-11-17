@@ -46,7 +46,7 @@ describe('Hero', () => {
   it('links to the compatibility quiz on its subdomain', () => {
     render(<Hero />);
     expect(
-      screen.getByRole('link', { name: /should you work with me/i }),
+      screen.getByRole('link', { name: 'I am open to work! Are we a match?' }),
     ).toHaveAttribute('href', 'https://shouldiworkwith.hugomartins.pm');
   });
 });
