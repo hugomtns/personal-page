@@ -31,7 +31,7 @@ export type QuizTier = {
   body: string;
   showContact: boolean;
   /**
-   * Expression photo for the result-screen avatar, or null to fall back to
+   * Expression portrait for the result-screen avatar, or null to fall back to
    * the monogram. Files live in public/images/quiz/ (192x192 webp, made from
    * the squares in assets/avatar-source/).
    */
@@ -253,21 +253,21 @@ export const tiers: QuizTier[] = [
     headline: 'Not going to work.',
     body: 'Twenty questions, and we landed on different sides of most of them. Better to find out here than in a kickoff call.',
     showContact: false,
-    avatar: '/images/quiz/fail.webp',
+    avatar: '/images/quiz/fail-pixel.webp',
   },
   {
     min: 10,
     headline: 'We might click.',
     body: 'We agree on the fundamentals and that might be the start of something. How about a first chat?',
     showContact: true,
-    avatar: '/images/quiz/ok.webp',
+    avatar: '/images/quiz/ok-pixel.webp',
   },
   {
     min: 17,
     headline: 'We need to talk.',
     body: 'You answered like someone I would enjoy building products with. Drop me a message, and let\'s chat!',
     showContact: true,
-    avatar: '/images/quiz/great.webp',
+    avatar: '/images/quiz/great-pixel.webp',
   },
 ];
 
