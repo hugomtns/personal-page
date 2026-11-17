@@ -6,7 +6,7 @@ import CompatibilityGame from '@/components/CompatibilityGame';
 export const metadata: Metadata = {
   title: 'Should you work with Hugo?',
   description:
-    'A twenty-question compatibility test about product-management working styles. Swipe your answers, get a verdict.',
+    'A twenty-question compatibility test about product-management working styles. Choose your answers and get a verdict.',
 };
 
 const QUIZ_ORIGIN = 'https://shouldiworkwith.hugomartins.pm';

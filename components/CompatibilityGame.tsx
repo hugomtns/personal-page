@@ -18,12 +18,6 @@ import { EASE_OUT } from '@/lib/motion';
 
 type Phase = 'intro' | 'playing' | 'result';
 
-// The card just answered, flying off while the next pair deals in. It is
-// aria-hidden and pointer-events-none: presentation over the live UI, never
-// a duplicate control. If its completion callback never fires (jsdom), the
-// only cost is a hidden overlay; the game itself never waits on it.
-type FlyOut = { direction: 'left' | 'right'; text: string } | null;
-
 // Exit links are absolute: the game is served under a subdomain, and a
 // relative "/" would resolve against it.
 const HOME_URL = 'https://hugomartins.pm';
@@ -57,14 +51,10 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
   const [run, setRun] = useState<DealtQuestion[]>([]);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [flyOut, setFlyOut] = useState<FlyOut>(null);
   const questionRef = useRef<HTMLHeadingElement>(null);
   const resultRef = useRef<HTMLHeadingElement>(null);
 
-  // The answer pair remounts per question (key={index} below), so the button
-  // a keyboard user just pressed unmounts and focus would fall to <body>.
-  // Hand it to the new question instead; tabIndex={-1} makes the heading
-  // focusable without adding it to the tab order.
+  // Announce the next question and start the tab order before both answers.
   useEffect(() => {
     if (phase === 'playing') questionRef.current?.focus();
   }, [index, phase]);
@@ -94,13 +84,11 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
     setRun(dealRun(quizQuestions, QUIZ_RUN_LENGTH, rng));
     setIndex(0);
     setScore(0);
-    setFlyOut(null);
     setPhase('playing');
   }
 
-  function answer(side: 'left' | 'right', choice: QuizAnswer) {
+  function answer(choice: QuizAnswer) {
     setScore((s) => s + (choice.scores ? 1 : 0));
-    if (!reduce) setFlyOut({ direction: side, text: choice.text });
     if (index + 1 >= run.length) setPhase('result');
     else setIndex((i) => i + 1);
   }
@@ -173,39 +161,10 @@ export default function CompatibilityGame({ rng = Math.random }: { rng?: () => n
           {current.question}
         </h1>
       </div>
-      {/* Remount the pair per question to replay the deal-in. */}
-      <div key={index} className="terminal-quiz__cards">
-        <AnswerCard
-          side="left"
-          answer={current.left}
-          reduce={reduce}
-          onCommit={() => answer('left', current.left)}
-        />
-        <AnswerCard
-          side="right"
-          answer={current.right}
-          reduce={reduce}
-          onCommit={() => answer('right', current.right)}
-        />
+      <div className="terminal-quiz__cards">
+        <AnswerCard answer={current.left} onCommit={() => answer(current.left)} />
+        <AnswerCard answer={current.right} onCommit={() => answer(current.right)} />
       </div>
-
-      {flyOut && (
-        <motion.div
-          data-flyout
-          aria-hidden
-          initial={false}
-          animate={{
-            x: flyOut.direction === 'left' ? -600 : 600,
-            opacity: 0,
-            rotate: flyOut.direction === 'left' ? -12 : 12,
-          }}
-          transition={{ duration: 0.35, ease: EASE_OUT }}
-          onAnimationComplete={() => setFlyOut(null)}
-          className="terminal-quiz__flyout"
-        >
-          {flyOut.text}
-        </motion.div>
-      )}
     </QuizFrame>
   );
 }

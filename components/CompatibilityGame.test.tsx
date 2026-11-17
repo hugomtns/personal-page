@@ -83,11 +83,17 @@ describe('CompatibilityGame', () => {
     expect(screen.getByRole('heading', { name: run[1].question })).toBeInTheDocument();
   });
 
-  it('shows a fly-out card when a question is answered', async () => {
+  it('updates the two answer buttons in place when a question is answered', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(3));
     await startGame(3);
-    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
-    expect(document.querySelector('[data-flyout]')).not.toBeNull();
+    const left = screen.getByRole('button', { name: run[0].left.text });
+    const right = screen.getByRole('button', { name: run[0].right.text });
+
+    await userEvent.click(left);
+
+    expect(screen.getByRole('button', { name: run[1].left.text })).toBe(left);
+    expect(screen.getByRole('button', { name: run[1].right.text })).toBe(right);
+    expect(document.querySelector('[data-flyout]')).toBeNull();
   });
 
   it('shows the pixel-art expression while playing', async () => {
