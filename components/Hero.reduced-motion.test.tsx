@@ -22,16 +22,9 @@ Object.defineProperty(window, 'matchMedia', {
 import Hero from './Hero';
 import { intro } from '@/content/about';
 
-// This is the single most dangerous failure mode for the hero: a
-// reduced-motion visitor must land on the FINISHED state immediately —
-// fully visible, fully readable — never an element stuck at opacity: 0.
-//
-// The subtle part, and the one that shipped broken: it is NOT enough for
-// Motion to decline to animate. The server cannot read a motion preference,
-// so it renders the pre-animation state (opacity: 0) straight into the HTML.
-// If the client then hands Motion no props, that opacity: 0 is never undone
-// and the hero is permanently blank. So the assertion here is deliberately
-// that Motion *does* write the visible state — not that it writes nothing.
+// A previous entrance animation left reduced-motion visitors at opacity: 0.
+// The terminal hero is static and server-rendered. Keep the explicit visible
+// state guard so a future animation cannot quietly reintroduce that failure.
 describe('Hero with prefers-reduced-motion: reduce', () => {
   it('asserts the finished, visible state instead of leaving the server-rendered opacity: 0 in place', () => {
     render(<Hero />);
@@ -46,28 +39,16 @@ describe('Hero with prefers-reduced-motion: reduce', () => {
       expect(el).toBeVisible();
     }
     for (const el of [role, introText]) {
-      // The load-bearing one: an explicit opacity: 1 is what overwrites what
-      // the server put there. An empty string here means Motion left the DOM
-      // untouched — which is exactly how the hero went invisible in a real
-      // browser while this test was passing.
+      // Keep the explicit finished state as well as the computed visibility.
       expect(el.style.opacity).toBe('1');
     }
   });
 
-  it('mounts the masked name reveal at its finished state, not behind the mask', () => {
+  it('keeps the complete name and portrait visible without a name reveal', () => {
     render(<Hero />);
-
-    // The h1 itself carries no motion now; each word is a motion.span sliding
-    // up inside an overflow-hidden mask. The same contract applies: the server
-    // rendered hidden (opacity 0, y 110%), so the client must write the final
-    // state. An un-animated word would sit at y 110% behind the mask, and the
-    // headline would simply not be there.
-    for (const word of ['Hugo', 'Martins']) {
-      const el = screen.getByText(word);
-      expect(el.style.opacity).toBe('1');
-      // Motion writes the finished transform as none or translateY(0px);
-      // anything still holding a percentage offset never left the mask.
-      expect(el.style.transform).not.toMatch(/110%/);
-    }
+    const heading = screen.getByRole('heading', { level: 1, name: 'Hugo Martins' });
+    expect(heading).toHaveTextContent('Hugo Martins');
+    expect(heading).toBeVisible();
+    expect(screen.getByRole('img', { name: /ascii portrait of hugo martins/i })).toBeVisible();
   });
 });

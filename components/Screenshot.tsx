@@ -1,13 +1,10 @@
 import Image from 'next/image';
 
 /**
- * The screenshot frame shared by the project tiles, the project detail
- * gallery, and the CV product shots. The call site sets size, ratio and
+ * The screenshot frame shared by the Projects gallery and CV product
+ * shots. The call site sets size, ratio and
  * border via className so every shot reads as one system; a missing shot
  * shows the placeholder instead of a broken image.
- *
- * Promoted out of ProjectTile.tsx, where CVProduct had already grown a
- * hand-rolled duplicate of the same frame.
  *
  * next/image, not a plain <img>: the source frames are 1200x750, and a plain
  * img ships all 1200px to every tile (a ~350px slot gets the same file as the

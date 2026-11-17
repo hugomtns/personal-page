@@ -11,6 +11,18 @@ describe('Hero', () => {
     ).toBeInTheDocument();
   });
 
+  it('gives the ASCII portrait one accessible name without reading its characters aloud', () => {
+    render(<Hero />);
+    const portrait = screen.getByRole('img', { name: /ascii portrait of hugo martins/i });
+    expect(screen.getAllByRole('img')).toHaveLength(1);
+    const characterBlocks = portrait.querySelectorAll('pre');
+    expect(characterBlocks.length).toBeGreaterThan(0);
+    for (const block of characterBlocks) {
+      expect(block).toHaveAttribute('aria-hidden', 'true');
+      expect(block.textContent?.trim()).not.toBe('');
+    }
+  });
+
   it('states what he is, as fact', () => {
     render(<Hero />);
     expect(screen.getByText(/product builder/i)).toBeInTheDocument();
@@ -34,7 +46,7 @@ describe('Hero', () => {
   it('links to the compatibility quiz on its subdomain', () => {
     render(<Hero />);
     expect(
-      screen.getByRole('link', { name: /should you work with me/i }),
+      screen.getByRole('link', { name: 'I am open to work! Are we a match?' }),
     ).toHaveAttribute('href', 'https://shouldiworkwith.hugomartins.pm');
   });
 });

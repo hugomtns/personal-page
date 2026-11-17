@@ -40,37 +40,30 @@ export default function ContactForm() {
 
   if (state === 'sent') {
     return (
-      <p role="status" className="text-h2 leading-snug">
+      <p role="status" className="terminal-contact__feedback">
         Thank you. I&apos;ll come back to you shortly.
       </p>
     );
   }
 
-  // The underline is the field. A box would be the only hard-edged rectangle on
-  // a site built from hairlines and space, and `bg-transparent` keeps it that
-  // way in both themes. py-3 plus the label puts every target over 44px without
-  // a box to measure.
-  const field =
-    'w-full border-b border-border bg-transparent py-3 outline-none transition-colors duration-180 hover:border-muted focus:border-accent';
-
   return (
-    <form onSubmit={onSubmit} noValidate className="grid w-full gap-7">
+    <form onSubmit={onSubmit} noValidate className="grid w-full gap-5">
       <div>
-        <label htmlFor="name" className="label mb-1 block">
+        <label htmlFor="name" className="terminal-contact__label">
           Name
         </label>
-        <input id="name" name="name" type="text" required className={field} />
+        <input id="name" name="name" type="text" required className="terminal-contact__field" />
       </div>
 
       <div>
-        <label htmlFor="email" className="label mb-1 block">
+        <label htmlFor="email" className="terminal-contact__label">
           Email
         </label>
-        <input id="email" name="email" type="email" required className={field} />
+        <input id="email" name="email" type="email" required className="terminal-contact__field" />
       </div>
 
       <div>
-        <label htmlFor="message" className="label mb-1 block">
+        <label htmlFor="message" className="terminal-contact__label">
           Message
         </label>
         <textarea
@@ -78,7 +71,7 @@ export default function ContactForm() {
           name="message"
           rows={4}
           required
-          className={`${field} resize-y`}
+          className="terminal-contact__field resize-y"
         />
       </div>
 
@@ -89,12 +82,13 @@ export default function ContactForm() {
       </div>
 
       {error && (
-        <p role="alert" className="-mt-2 text-small text-accent">
+        <p role="alert" className="terminal-contact__feedback">
           {error}
         </p>
       )}
 
       <Button type="submit" disabled={state === 'sending'} className="justify-self-start">
+        <span aria-hidden="true">&gt;</span>
         {state === 'sending' ? 'Sending…' : 'Send'}
       </Button>
     </form>

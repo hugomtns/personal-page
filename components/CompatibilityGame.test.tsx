@@ -83,18 +83,24 @@ describe('CompatibilityGame', () => {
     expect(screen.getByRole('heading', { name: run[1].question })).toBeInTheDocument();
   });
 
-  it('shows a fly-out card when a question is answered', async () => {
+  it('updates the two answer buttons in place when a question is answered', async () => {
     const run = dealRun(quizQuestions, QUIZ_RUN_LENGTH, mulberry32(3));
     await startGame(3);
-    await userEvent.click(screen.getByRole('button', { name: scoringText(run[0]) }));
-    expect(document.querySelector('[data-flyout]')).not.toBeNull();
+    const left = screen.getByRole('button', { name: run[0].left.text });
+    const right = screen.getByRole('button', { name: run[0].right.text });
+
+    await userEvent.click(left);
+
+    expect(screen.getByRole('button', { name: run[1].left.text })).toBe(left);
+    expect(screen.getByRole('button', { name: run[1].right.text })).toBe(right);
+    expect(document.querySelector('[data-flyout]')).toBeNull();
   });
 
-  it('shows the expression photo as the avatar while playing', async () => {
+  it('shows the pixel-art expression while playing', async () => {
     await startGame(15);
     // next/image rewrites the src through the optimizer, but the file name
     // survives inside the url= parameter.
-    expect(document.querySelector('img[src*="question.webp"]')).not.toBeNull();
+    expect(document.querySelector('img[src*="question-pixel.webp"]')).not.toBeNull();
   });
 
   it('reaches the result after 20 answers, scoring only the scoring answers', async () => {
@@ -128,7 +134,7 @@ describe('CompatibilityGame', () => {
     await startGame(14);
     await answerRun(perfectRun, scoringText);
 
-    expect(document.querySelector('img[src*="great.webp"]')).not.toBeNull();
+    expect(document.querySelector('img[src*="great-pixel.webp"]')).not.toBeNull();
     const contact = screen.getByRole('link', { name: /get in touch/i });
     expect(contact.className).toContain('btn-primary');
     const playAgain = screen.getByRole('button', { name: /play again/i });
@@ -147,8 +153,7 @@ describe('CompatibilityGame', () => {
     expect(screen.getByText(`0 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /get in touch/i })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /back to hugomartins/i })).toBeInTheDocument();
-    // The fail tier has its own expression photo.
-    expect(document.querySelector('img[src*="fail.webp"]')).not.toBeNull();
+    expect(document.querySelector('img[src*="fail-pixel.webp"]')).not.toBeNull();
   });
 
   it('previews the mid tier via ?score=13 on localhost', () => {
@@ -160,8 +165,7 @@ describe('CompatibilityGame', () => {
     ).toBeInTheDocument();
     expect(screen.getByText(`13 / ${QUIZ_RUN_LENGTH}`)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /get in touch/i })).toBeInTheDocument();
-    // The mid tier has its own expression photo.
-    expect(document.querySelector('img[src*="ok.webp"]')).not.toBeNull();
+    expect(document.querySelector('img[src*="ok-pixel.webp"]')).not.toBeNull();
   });
 
   it('previews the fail tier via ?score=0 on localhost', () => {

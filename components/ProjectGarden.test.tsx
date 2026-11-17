@@ -24,37 +24,38 @@ const mockProjects: Project[] = [
 ];
 
 describe('ProjectGarden', () => {
-  it('renders a tile for every supplied project', () => {
+  it('renders a row for every supplied project', () => {
     render(<ProjectGarden projects={mockProjects} />);
     mockProjects.forEach((p) => {
       expect(screen.getByRole('button', { name: new RegExp(p.name, 'i') })).toBeInTheDocument();
     });
   });
 
-  it('opens a tile and shows the detail panel', async () => {
+  it('opens a project and preserves missing screenshot placeholders', async () => {
     const user = userEvent.setup();
     render(<ProjectGarden projects={mockProjects} />);
 
     const first = mockProjects[0];
     const tile = screen.getByRole('button', { name: new RegExp(first.name, 'i') });
     expect(tile).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByRole('heading', { name: first.name })).not.toBeInTheDocument();
+    expect(screen.queryByText(first.description)).not.toBeInTheDocument();
 
     await user.click(tile);
     expect(tile).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('heading', { name: first.name })).toBeInTheDocument();
     expect(screen.getByText(first.description)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /View larger image 1 of 1/i })).toHaveTextContent('screenshot');
 
     await user.click(tile);
     expect(tile).toHaveAttribute('aria-expanded', 'false');
   });
 
-  it('only opens one tile at a time', async () => {
+  it('only opens one project at a time and gives each panel a unique id', async () => {
     const user = userEvent.setup();
     render(<ProjectGarden projects={mockProjects} />);
 
     const one = screen.getByRole('button', { name: /alpha/i });
     const two = screen.getByRole('button', { name: /beta/i });
+    expect(one.getAttribute('aria-controls')).not.toEqual(two.getAttribute('aria-controls'));
 
     await user.click(one);
     expect(one).toHaveAttribute('aria-expanded', 'true');

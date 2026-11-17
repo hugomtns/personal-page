@@ -25,16 +25,17 @@ describe('Projects page', () => {
     expect(screen.getByRole('heading', { name: 'Play', level: 2 })).toBeInTheDocument();
   });
 
-  it('renders a tile for every project', () => {
+  it('renders a collapsed disclosure for every project', () => {
     render(<ProjectsPage />);
     projects.forEach((p) => {
-      expect(
-        screen.getByRole('button', { name: new RegExp(p.name, 'i') })
-      ).toBeInTheDocument();
+      const trigger = screen.getByRole('button', { name: p.name });
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(trigger).toHaveAccessibleDescription(p.tagline);
     });
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
 
-  it('renders the correct number of tiles in each section', () => {
+  it('renders the correct number of projects in each section', () => {
     render(<ProjectsPage />);
 
     const workSection = screen.getByRole('heading', { name: 'Work', level: 2 }).closest('section');
@@ -44,22 +45,24 @@ describe('Projects page', () => {
     expect(within(playSection!).getAllByRole('button').length).toBe(playCount);
   });
 
-  it('opens a tile’s detail in place, then closes it', async () => {
+  it('opens a project directly below its trigger and restores focus on close', async () => {
     const user = userEvent.setup();
     render(<ProjectsPage />);
 
     const first = projects[0];
-    const tile = screen.getByRole('button', { name: new RegExp(first.name, 'i') });
-    expect(tile).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByRole('heading', { name: first.name })).not.toBeInTheDocument();
+    const trigger = screen.getByRole('button', { name: first.name });
+    expect(screen.queryByText(first.description)).not.toBeInTheDocument();
 
-    await user.click(tile);
-    expect(tile).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('heading', { name: first.name })).toBeInTheDocument();
-    expect(screen.getByText(first.description)).toBeInTheDocument();
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const panel = document.getElementById(trigger.getAttribute('aria-controls')!);
+    expect(panel?.parentElement).toBe(trigger.closest('li'));
+    expect(within(panel!).getByText(first.description)).toBeInTheDocument();
+    expect(within(panel!).getAllByRole('button', { name: /View larger image/ })).toHaveLength(first.images.length);
 
-    await user.click(tile);
-    expect(tile).toHaveAttribute('aria-expanded', 'false');
+    await user.click(within(panel!).getByRole('button', { name: 'Close project' }));
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(trigger).toHaveFocus();
   });
 
   it('opens only one project at a time within a garden', async () => {

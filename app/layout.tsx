@@ -28,6 +28,9 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
   display: 'swap',
+  // The ASCII portraits need fixed-width cells even before the font loads.
+  adjustFontFallback: false,
+  fallback: ['Courier New', 'monospace'],
 });
 
 // The PM Simulator's title face. Scoped to its header link through the CSS
@@ -37,6 +40,15 @@ const silkscreen = localFont({
   variable: '--font-pm-simulator',
   weight: '700',
   display: 'swap',
+});
+
+const departureMono = localFont({
+  src: '../assets/DepartureMono-Regular.woff2',
+  variable: '--font-departure-mono',
+  weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
+  fallback: ['monospace'],
 });
 
 export const metadata: Metadata = {
@@ -70,7 +82,7 @@ export default function RootLayout({
     // its own typefaces, and nothing errors to tell you.
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable} ${silkscreen.variable}`}
+      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable} ${silkscreen.variable} ${departureMono.variable}`}
       suppressHydrationWarning
     >
       <body>

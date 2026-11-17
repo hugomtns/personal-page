@@ -51,9 +51,11 @@ describe('CVProduct', () => {
     const trigger = screen.getByRole('button', { name: /flagship rebuild/i });
 
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByText('[+]')).toHaveAttribute('aria-hidden', 'true');
     await user.click(trigger);
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByText('[-]')).toHaveAttribute('aria-hidden', 'true');
     const regionId = trigger.getAttribute('aria-controls');
     expect(regionId).toBeTruthy();
     expect(document.getElementById(regionId!)).toContainElement(

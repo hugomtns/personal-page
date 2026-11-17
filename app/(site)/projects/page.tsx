@@ -14,43 +14,40 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   if (!isLive('/projects')) notFound();
 
-  if (comingSoon) {
-    return (
-      <PageShell title="Projects">
-        <p className="label mb-4">Coming soon</p>
-        <p className="max-w-xl text-muted">
-          Side projects and prototypes, from discovery and user research work
-          to things built for the fun of it. A few of them will live here
-          soon.
-        </p>
-      </PageShell>
-    );
-  }
-
   const workProjects = projects.filter((p) => p.group === 'work');
   const playProjects = projects.filter((p) => p.group === 'play');
 
   return (
-    <PageShell title="Projects">
-      <section className="mb-12">
-        <h2 className="font-display text-h1">Work</h2>
-        <p className="mt-2 max-w-2xl text-muted">
-          Product prototypes and domain tools, mostly in the solar and B2B space.
-        </p>
-        <div className="mt-6">
-          <ProjectGarden projects={workProjects} priorityCount={3} />
-        </div>
-      </section>
-
-      <section>
-        <h2 className="font-display text-h1">Play</h2>
-        <p className="mt-2 max-w-2xl text-muted">
-          Games, tools, and experiments built for the fun of it.
-        </p>
-        <div className="mt-6">
-          <ProjectGarden projects={playProjects} />
-        </div>
-      </section>
+    <PageShell title="Projects" command="projects">
+      <div className="terminal-projects">
+        {comingSoon ? (
+          <section>
+            <h2 className="terminal-projects__heading">Coming soon</h2>
+            <p className="max-w-xl text-muted">
+              Side projects and prototypes, from discovery and user research work
+              to things built for the fun of it. A few of them will live here
+              soon.
+            </p>
+          </section>
+        ) : (
+          <>
+            <section>
+              <h2 className="terminal-projects__heading terminal-projects__heading--section">Work</h2>
+              <p className="terminal-projects__intro">
+                Product prototypes and domain tools, mostly in the solar and B2B space.
+              </p>
+              <ProjectGarden projects={workProjects} />
+            </section>
+            <section>
+              <h2 className="terminal-projects__heading terminal-projects__heading--section">Play</h2>
+              <p className="terminal-projects__intro">
+                Games, tools, and experiments built for the fun of it.
+              </p>
+              <ProjectGarden projects={playProjects} />
+            </section>
+          </>
+        )}
+      </div>
     </PageShell>
   );
 }

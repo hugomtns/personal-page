@@ -6,16 +6,11 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { SPRING } from '@/lib/motion';
 
 /**
- * The height-reveal disclosure behind the CV milestones and the projects
- * garden. Three call sites repeated the same AnimatePresence block (same
- * duration, same easing, same reduced-motion handling); this owns it, along
- * with the aria wiring between trigger and panel. Trigger visuals stay with
- * the call site (a company card, a product row, a garden tile): the trigger
- * is a render prop receiving the toggle, the open state, and the aria props.
+ * The height-reveal disclosure behind the CV and Projects rows. The trigger
+ * receives the toggle, open state, and accessibility attributes as a render prop.
  *
- * AccordionPanel is exported separately for the garden, whose open state is
- * controlled one level up (only one project open at a time) and whose panel
- * must render as an li inside the grid ul.
+ * Projects uses AccordionPanel directly so each section can track which of
+ * its projects is open.
  *
  * Reduced motion gets the finished state asserted (explicit opacity 1), not
  * merely no animation. That is the contract Hero.tsx documents: never leave
@@ -38,10 +33,9 @@ type PanelProps = {
   children: ReactNode;
   /** Extra classes on the animated region, merged with overflow-hidden. */
   className?: string;
-  /** Render the region as an li (the garden's panel is a child of the ul). */
+  /** Render the region as an li when the parent is a list. */
   as?: 'div' | 'li';
-  /** Key on the animated element, so AnimatePresence treats a changed open
-      item under an already-open panel as a swap, not an update. */
+  /** Key the animated element to animate a change of panel content. */
   panelKey?: string;
 };
 
