@@ -198,6 +198,217 @@ a { color: inherit; }
   font-weight: 500;
 }
 
+/* First terminal checkpoint. Keep the treatment local until each page has
+   been reviewed; the existing palette and typography tokens stay shared. */
+.terminal-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  font-family: var(--font-departure-mono, monospace);
+}
+.terminal-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding: 0.625rem 1.5rem;
+}
+.terminal-header__identity, .terminal-header__tools {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.terminal-header__brand {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.03125rem;
+  white-space: nowrap;
+}
+.terminal-header__brand > span { color: var(--accent); }
+.terminal-header__nav { align-items: center; gap: 1rem; }
+.terminal-header__tab {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  transition: color 180ms ease;
+}
+.terminal-header__tab.is-current { color: var(--accent); }
+.terminal-header__tab.is-current::before { content: '['; margin-right: 0.25rem; }
+.terminal-header__tab.is-current::after { content: ']'; margin-left: 0.25rem; }
+.terminal-header a:hover { color: var(--accent); }
+.terminal-header__menu {
+  display: inline-flex;
+  width: auto;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.4rem;
+  padding-inline: 0.5rem;
+  font-size: 0.9375rem;
+}
+.terminal-header__menu > span { color: var(--accent); }
+.terminal-header__panel { background: var(--bg); border-bottom: 1px solid var(--border); }
+.terminal-header__panel-link { display: flex; padding-block: 0.75rem; }
+.terminal-header .pm-simulator-link {
+  border: 1px solid var(--border);
+  background: transparent;
+  box-shadow: none;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.terminal-header .pm-simulator-link::before { color: var(--accent); }
+.terminal-header .pm-simulator-link:hover,
+.terminal-header .pm-simulator-link:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.terminal-header .pm-simulator-link:active { transform: none; }
+.terminal-theme-toggle { flex-shrink: 0; }
+
+.terminal-home {
+  --terminal-rule: color-mix(in srgb, var(--muted) 52%, var(--bg));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: calc(100% - 3rem);
+  max-width: 72rem;
+  margin: clamp(1.75rem, 6vh, 4.5rem) auto 3rem;
+  border: 1px solid var(--terminal-rule);
+  font-family: var(--font-departure-mono, monospace);
+}
+.terminal-home__content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-bottom: 1px solid var(--terminal-rule);
+  padding: clamp(1rem, 3.5vw, 2.75rem);
+}
+.terminal-home__prompt {
+  grid-column: 1 / -1;
+  padding: 0.625rem clamp(1rem, 3.5vw, 2.75rem);
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 1.03125rem;
+  line-height: 1.35;
+}
+.terminal-home__name {
+  font-family: inherit;
+  font-size: 2.0625rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+.terminal-home__role {
+  margin-top: 0.5rem;
+  color: var(--accent);
+  font-size: 1.125rem;
+}
+.terminal-home__intro {
+  max-width: 49ch;
+  margin-top: 1.75rem;
+  color: var(--muted);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+.terminal-home__action {
+  display: inline-flex;
+  min-height: 2.75rem;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 1.75rem;
+  border: 1px solid var(--terminal-rule);
+  padding: 0.625rem 0.75rem;
+  color: var(--fg);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.terminal-home__action > :first-child,
+.terminal-home__action > :last-child { color: var(--accent); flex-shrink: 0; }
+.terminal-home__action:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.terminal-home__portrait.ascii-portrait {
+  width: min(calc(100% - 2rem), 26rem);
+  min-width: 0;
+  align-self: center;
+  justify-self: center;
+  margin-block: 1.5rem;
+}
+.ascii-portrait {
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 1;
+  color: var(--fg);
+}
+.ascii-portrait pre {
+  width: calc(var(--columns) * 1ch);
+  height: calc(var(--rows) * 0.96em);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: calc(100cqi / var(--columns) / 0.6);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: 0;
+  font-variant-ligatures: none;
+  white-space: pre;
+  user-select: none;
+}
+.ascii-portrait__mobile { display: none; }
+:root:not(.dark) .ascii-portrait__dark,
+.dark .ascii-portrait__light { display: none; }
+@media (min-width: 960px) {
+  .terminal-home { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  .terminal-home__content {
+    grid-column: 2;
+    grid-row: 2;
+    border-bottom: 0;
+    border-left: 1px solid var(--terminal-rule);
+  }
+  .terminal-home__portrait { grid-column: 1; grid-row: 2; }
+  .terminal-home__name { font-size: 2.75rem; }
+}
+@media (min-width: 1024px) {
+  .terminal-header__menu { display: none; }
+}
+@media (min-width: 1120px) {
+  .terminal-home__name { font-size: 3.4375rem; }
+  .terminal-home__intro { font-size: 1.375rem; }
+}
+@media (width < 768px) {
+  .ascii-portrait__desktop { display: none; }
+  .ascii-portrait__mobile { display: block; }
+  .terminal-home__portrait.ascii-portrait { max-width: 21rem; }
+}
+@media (max-width: 639px) {
+  .terminal-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    padding: 0.5rem 1rem;
+  }
+  .terminal-header__identity, .terminal-header__tools { display: contents; }
+  .terminal-header__brand { grid-column: 1; grid-row: 1; }
+  .terminal-theme-toggle { grid-column: 2; grid-row: 1; justify-self: end; }
+  .terminal-header__social { grid-column: 1; grid-row: 2; margin-left: -0.5rem; }
+  .terminal-header__menu { grid-column: 2; grid-row: 2; justify-self: end; }
+  .terminal-home { width: calc(100% - 2rem); margin-top: 1.75rem; }
+  .terminal-home__intro, .terminal-home__action { margin-top: 1.25rem; }
+  .terminal-home__intro { font-size: 1.03125rem; }
+}
+
 /* Tailwind v4's Preflight no longer sets cursor: pointer on buttons. Restore it
    for every clickable control site-wide; a disabled control keeps the default. */
 button:not(:disabled),

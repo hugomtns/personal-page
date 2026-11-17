@@ -47,45 +47,43 @@ export default function Header() {
   }, [open]);
 
   const tabClass = (href: string) =>
-    `label weight-hover hover:text-accent ${pathname === href ? 'text-fg' : ''}`;
+    `terminal-header__tab ${pathname === href ? 'is-current' : ''}`;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-        <div className="flex items-center gap-3">
+    <header className="terminal-header sticky top-0 z-40">
+      <div className="terminal-header__inner">
+        <div className="terminal-header__identity">
           <IconButton
             ref={buttonRef}
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls={MENU_ID}
             aria-label="Menu"
-            className="label -m-1 lg:hidden"
+            className="terminal-header__menu lg:hidden"
           >
-            <span aria-hidden="true" className="grid gap-[5px]">
-              <span className="block h-px w-5 bg-current" />
-              <span className="block h-px w-5 bg-current" />
-            </span>
+            <span aria-hidden="true">[{open ? '−' : '+'}]</span> Menu
           </IconButton>
 
           <Link
             href="/"
-            className="-my-2 inline-flex items-center py-2 font-display text-lg whitespace-nowrap weight-hover hover:text-accent"
+            className="terminal-header__brand"
           >
+            <span aria-hidden="true">&gt; </span>
             {site.name}
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-6">
+        <div className="terminal-header__tools">
           {/* The game link gives the tab row a deliberate extra beat. Below
               `lg` the navigation moves into the panel so neither the wordmark
               nor the controls are squeezed. */}
-          <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
+          <nav aria-label="Main" className="terminal-header__nav hidden lg:flex">
             {tabs.map((tab) => (
               <Link
                 key={tab.href}
                 href={tab.href}
                 aria-current={pathname === tab.href ? 'page' : undefined}
-                className={`${tabClass(tab.href)} -my-3.5 inline-flex items-center py-3.5`}
+                className={tabClass(tab.href)}
               >
                 {tab.label}
               </Link>
@@ -93,9 +91,7 @@ export default function Header() {
             <PMSimulatorLink />
           </nav>
 
-          <span aria-hidden="true" className="hidden h-4 w-px bg-border lg:block" />
-
-          <SocialLinks />
+          <SocialLinks className="terminal-header__social" />
           <ThemeToggle />
         </div>
       </div>
@@ -129,9 +125,9 @@ export default function Header() {
           initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduce ? 0 : DURATION.fast, ease: EASE_OUT }}
-          className="absolute inset-x-0 top-full border-b border-border bg-bg lg:hidden"
+          className="terminal-header__panel absolute inset-x-0 top-full lg:hidden"
         >
-          <ul className="mx-auto flex max-w-5xl flex-col px-6 py-2">
+          <ul className="mx-auto flex max-w-6xl flex-col px-6 py-3">
             {tabs.map((tab) => (
               <li key={tab.href}>
                 <Link
@@ -140,7 +136,7 @@ export default function Header() {
                   // Tapping the tab you are already on changes no route, so the
                   // pathname effect above would never fire to close this.
                   onClick={() => setOpen(false)}
-                  className={`${tabClass(tab.href)} block py-3.5`}
+                  className={`${tabClass(tab.href)} terminal-header__panel-link`}
                 >
                   {tab.label}
                 </Link>

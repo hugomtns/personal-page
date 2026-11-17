@@ -18,25 +18,31 @@ export default function ThemeToggle() {
   // The server cannot know the visitor's theme. Render a same-sized
   // placeholder until mount, or the header reflows on hydration.
   if (!mounted) {
-    return <div className="size-9" aria-hidden="true" />;
+    return <div className="terminal-theme-toggle size-11" aria-hidden="true" />;
   }
 
   const isDark = resolvedTheme === 'dark';
   const next = isDark ? 'light' : 'dark';
 
   return (
-    // The button is 44px so a thumb can hit it; the -m-1 pulls that back out of
-    // the layout so the visible circle stays the 36px the header was built for.
+    // Reserve the same 44px square as the server placeholder.
     <IconButton
       onClick={() => setTheme(next)}
       aria-label={`Switch to ${next} theme`}
-      className="group -m-1"
+      className="terminal-theme-toggle group"
     >
       <span
         aria-hidden="true"
-        className="grid size-9 place-items-center rounded-full border border-border text-sm transition-colors duration-180 group-hover:text-accent"
+        className="grid size-11 place-items-center border border-border transition-colors duration-180 group-hover:text-accent"
       >
-        {isDark ? '☀' : '☾'}
+        <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+          {isDark ? (
+            <>
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+            </>
+          ) : <path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" />}
+        </svg>
       </span>
     </IconButton>
   );

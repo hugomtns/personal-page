@@ -39,6 +39,15 @@ const silkscreen = localFont({
   display: 'swap',
 });
 
+const departureMono = localFont({
+  src: '../assets/DepartureMono-Regular.woff2',
+  variable: '--font-departure-mono',
+  weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
+  fallback: ['monospace'],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -70,7 +79,7 @@ export default function RootLayout({
     // its own typefaces, and nothing errors to tell you.
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable} ${silkscreen.variable}`}
+      className={`${spaceGrotesk.variable} ${geist.variable} ${geistMono.variable} ${silkscreen.variable} ${departureMono.variable}`}
       suppressHydrationWarning
     >
       <body>
