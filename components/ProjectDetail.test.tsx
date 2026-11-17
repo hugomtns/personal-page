@@ -38,14 +38,25 @@ describe('ProjectDetail', () => {
     expect(screen.getByRole('dialog')).toHaveAccessibleName('Demo Project — First caption');
   });
 
-  it('closes the lightbox on Escape', async () => {
+  it('keeps the gallery controls in the focus order and restores focus on Escape', async () => {
     const user = userEvent.setup();
     render(<ProjectDetail project={mockProject} onClose={() => {}} />);
 
-    await user.click(screen.getByRole('button', { name: /View larger image 1 of 2/i }));
+    const opener = screen.getByRole('button', { name: /View larger image 1 of 2/i });
+    await user.click(opener);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    await user.tab();
+    expect(screen.getByRole('button', { name: 'Previous image' })).toHaveFocus();
+    await user.tab();
+    const next = screen.getByRole('button', { name: 'Next image' });
+    expect(next).toHaveFocus();
+    await user.keyboard('{Enter}');
+    expect(screen.getByRole('dialog')).toHaveAccessibleName('Demo Project — Screenshot 2');
+    expect(next).toHaveFocus();
 
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(opener).toHaveFocus();
   });
 });

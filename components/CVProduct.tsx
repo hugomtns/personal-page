@@ -1,5 +1,5 @@
 import type { Product } from '@/content/cvTimeline';
-import CVDisclosure from './CVDisclosure';
+import TerminalDisclosure from './TerminalDisclosure';
 import Screenshot from './Screenshot';
 import MetaList from './MetaList';
 
@@ -7,7 +7,7 @@ export default function CVProduct({ product }: { product: Product }) {
   const leadership = product.audience === '';
 
   return (
-    <CVDisclosure name={product.name} dates={product.year} summary={product.tagline}>
+    <TerminalDisclosure name={product.name} dates={product.year} summary={product.tagline}>
       <div className="terminal-cv__case">
         {product.image && (
           <Screenshot
@@ -27,6 +27,6 @@ export default function CVProduct({ product }: { product: Product }) {
           ]}
         />
       </div>
-    </CVDisclosure>
+    </TerminalDisclosure>
   );
 }

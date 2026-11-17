@@ -3,12 +3,11 @@ export const comingSoon = false;
 export type Project = {
   id: string;
   name: string;
-  /** One line shown on the tile face. */
+  /** One line shown in the project list. */
   tagline: string;
   /** The story: what it is, why it exists, what it does. Shown when expanded. */
   description: string;
-  /** Screenshots. First is the tile thumbnail; the rest join it in the gallery.
-      A null entry renders the placeholder frame. */
+  /** Screenshots in display order. A null entry renders a placeholder frame. */
   images: (string | null)[];
   /** Optional plain-text caption for each image, used by the lightbox. */
   captions?: string[];

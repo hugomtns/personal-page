@@ -1,11 +1,11 @@
 import type { Company } from '@/content/cvTimeline';
-import CVDisclosure from './CVDisclosure';
+import TerminalDisclosure from './TerminalDisclosure';
 import CVProduct from './CVProduct';
 import MetaList from './MetaList';
 
 export default function CVCompany({ company }: { company: Company }) {
   return (
-    <CVDisclosure
+    <TerminalDisclosure
       name={company.name}
       dates={company.dates}
       summary={company.tagline}
@@ -38,6 +38,6 @@ export default function CVCompany({ company }: { company: Company }) {
           ))}
         </ol>
       </div>
-    </CVDisclosure>
+    </TerminalDisclosure>
   );
 }

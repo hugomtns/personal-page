@@ -1,18 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { Project } from '@/content/projects';
-import Card from './Card';
-import IconButton, { ArrowLeftIcon, ArrowRightIcon, CloseIcon } from './IconButton';
+import IconButton, { ArrowLeftIcon, ArrowRightIcon } from './IconButton';
 import Modal from './Modal';
 import Screenshot from './Screenshot';
 
-/**
- * The detail for an open project: the story and the screenshot gallery. It is
- * the inner content of the full-width panel the garden opens below a tile's row
- * (see ProjectGarden) — so it carries no positioning of its own, just the
- * layout of the content and a close affordance.
- */
 export default function ProjectDetail({
   project: p,
   onClose,
@@ -21,7 +15,7 @@ export default function ProjectDetail({
   onClose: () => void;
 }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const closeLightbox = () => setLightbox(null);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
   const goPrev = useCallback(
     () =>
       setLightbox((i) =>
@@ -53,118 +47,76 @@ export default function ProjectDetail({
 
   return (
     <>
-      <Card open className="p-6 sm:p-8">
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <div>
-          <h2 className="font-display text-h1">{p.name}</h2>
-          <p className="mt-1 text-small text-muted">{p.tagline}</p>
+      <div className="terminal-projects__detail">
+        <div className="terminal-projects__body">
+          <div className="terminal-projects__story">
+            <p>{p.description}</p>
+            {p.details?.split('\n\n').map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+          </div>
+          {p.images.length > 0 && (
+            <section className="terminal-projects__gallery">
+              <h3 className="terminal-projects__heading">Screenshots</h3>
+              <ul className="terminal-projects__screenshots">
+                {p.images.map((image, i) => (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => setLightbox(i)}
+                      aria-label={`View larger image ${i + 1} of ${p.images.length}`}
+                      className="terminal-projects__thumbnail"
+                    >
+                      <Screenshot
+                        src={image}
+                        alt={`${p.name}: ${i + 1}`}
+                        className={p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}
+                        sizes="(max-width: 639px) 45vw, (max-width: 899px) 40vw, 230px"
+                      />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
-        <IconButton
-          onClick={onClose}
-          aria-label="Close"
-          className="-mr-2 -mt-1 shrink-0 text-muted transition-colors duration-180 hover:text-fg"
+        <button type="button" onClick={onClose} className="terminal-control terminal-projects__close">
+          <span aria-hidden="true">[-]</span> Close project
+        </button>
+      </div>
+
+      {lightbox !== null && createPortal(
+        <Modal
+          open
+          onClose={closeLightbox}
+          title={`${p.name} — ${p.captions?.[lightbox] ?? `Screenshot ${lightbox + 1}`}`}
+          className="max-w-6xl"
+          terminal
         >
-          <CloseIcon />
-        </IconButton>
-      </div>
-
-      <div className="grid gap-8 md:grid-cols-2">
-        <div className="space-y-4">
-          <p className="max-w-prose leading-relaxed">{p.description}</p>
-          {p.details?.split('\n\n').map((paragraph, i) => (
-            <p key={i} className="max-w-prose leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-
-        {/* Landscape shots are 16:10; portrait/mobile shots keep their ratio. */}
-        <div className="grid gap-4">
-          {p.images.map((img, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setLightbox(i)}
-              aria-label={`View larger image ${i + 1} of ${p.images.length}`}
-              className="text-left"
-            >
-              {p.portrait ? (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img ?? undefined}
-                    alt={`${p.name}: ${i + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-auto max-h-[70vh] w-auto rounded-frame border border-border"
-                  />
-                </>
-              ) : (
-                <Screenshot
-                  src={img}
-                  alt={`${p.name}: ${i + 1}`}
-                  className="aspect-[16/10] w-full rounded-frame border border-border"
-                  sizes="(max-width: 768px) 100vw, 500px"
-                />
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-    </Card>
-
-    <Modal
-      open={lightbox !== null}
-      onClose={closeLightbox}
-      title={
-        lightbox !== null
-          ? `${p.name} — ${p.captions?.[lightbox] ?? `Screenshot ${lightbox + 1}`}`
-          : p.name
-      }
-      className="max-w-6xl"
-      frameActions={
-        lightbox !== null ? (
-          <>
-            <IconButton
-              onClick={goPrev}
-              aria-label="Previous image"
-              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 text-bg transition-colors duration-180 hover:text-white"
-            >
-              <ArrowLeftIcon />
-            </IconButton>
-            <IconButton
-              onClick={goNext}
-              aria-label="Next image"
-              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 text-bg transition-colors duration-180 hover:text-white"
-            >
-              <ArrowRightIcon />
-            </IconButton>
-          </>
-        ) : null
-      }
-    >
-      {lightbox !== null && (
-        <div className="p-4 sm:p-6">
-          {p.images[lightbox] ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={p.images[lightbox]!}
-              alt={`${p.name}: ${lightbox + 1}`}
-              className={`rounded-frame ${p.portrait ? 'mx-auto h-auto max-h-[80vh] w-auto' : 'w-full'}`}
-            />
-          ) : (
-            <span
-              className={`label flex w-full items-center justify-center rounded-frame bg-surface-strong ${p.portrait ? 'aspect-[9/16]' : 'aspect-[16/10]'}`}
-            >
-              screenshot
-            </span>
-          )}
-          {p.captions?.[lightbox] && (
-            <p className="mt-4 text-small text-muted">{p.captions[lightbox]}</p>
-          )}
-        </div>
+          <div className="terminal-projects__lightbox">
+            {p.images[lightbox] ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={p.images[lightbox]!}
+                alt={`${p.name}: ${lightbox + 1}`}
+                className="terminal-projects__full-image"
+              />
+            ) : (
+              <span className="terminal-projects__placeholder">screenshot</span>
+            )}
+            {p.images.length > 1 && (
+              <div className="terminal-projects__image-nav">
+                <IconButton onClick={goPrev} aria-label="Previous image" className="terminal-control">
+                  <ArrowLeftIcon />
+                </IconButton>
+                <span aria-live="polite">{lightbox + 1} / {p.images.length}</span>
+                <IconButton onClick={goNext} aria-label="Next image" className="terminal-control">
+                  <ArrowRightIcon />
+                </IconButton>
+              </div>
+            )}
+          </div>
+        </Modal>,
+        document.body,
       )}
-    </Modal>
     </>
   );
 }
