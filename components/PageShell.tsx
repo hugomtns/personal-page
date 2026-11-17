@@ -8,16 +8,31 @@ import type { ReactNode } from 'react';
 export default function PageShell({
   title,
   children,
-  headingClassName = 'mb-16',
+  headingClassName,
+  headingAction,
+  stickyHeading = false,
+  terminal = false,
 }: {
   title: string;
   children: ReactNode;
   /** Spacing on the heading. Contact clears it: its grid carries mt-16. */
   headingClassName?: string;
+  headingAction?: ReactNode;
+  stickyHeading?: boolean;
+  terminal?: boolean;
 }) {
+  const frame = terminal ? 'terminal-frame' : 'mx-auto max-w-5xl px-6 py-20';
+  const heading = terminal ? headingClassName : `text-h1 ${headingClassName ?? 'mb-16'}`.trim();
+  const titleElement = <h1 className={heading}>{title}</h1>;
+
   return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
-      <h1 className={`text-h1 ${headingClassName}`}>{title}</h1>
+    <div className={frame}>
+      {terminal ? (
+        <div className={stickyHeading ? 'terminal-bar terminal-bar--sticky' : 'terminal-bar'}>
+          {titleElement}
+          {headingAction}
+        </div>
+      ) : titleElement}
       {children}
     </div>
   );

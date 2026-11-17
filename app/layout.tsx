@@ -28,6 +28,9 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
   display: 'swap',
+  // The ASCII portraits need fixed-width cells even before the font loads.
+  adjustFontFallback: false,
+  fallback: ['Courier New', 'monospace'],
 });
 
 // The PM Simulator's title face. Scoped to its header link through the CSS

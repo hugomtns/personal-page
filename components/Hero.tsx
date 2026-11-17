@@ -4,8 +4,8 @@ import AsciiPortrait from './AsciiPortrait';
 
 export default function Hero() {
   return (
-    <section className="terminal-home">
-      <p className="terminal-home__prompt" aria-hidden="true">
+    <section className="terminal-frame terminal-home">
+      <p className="terminal-bar" aria-hidden="true">
         hugo@berlin:~$ whoami
       </p>
       <div className="terminal-home__content">
@@ -14,7 +14,7 @@ export default function Hero() {
         <p className="terminal-home__intro" style={{ opacity: 1 }}>{intro}</p>
         <a
           href="https://shouldiworkwith.hugomartins.pm"
-          className="terminal-home__action"
+          className="terminal-control terminal-home__action"
         >
           <span aria-hidden="true">&gt;</span>
           <span>Should you work with me? Take the test</span>

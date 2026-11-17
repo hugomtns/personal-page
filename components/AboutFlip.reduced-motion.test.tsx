@@ -15,8 +15,6 @@ describe('AboutFlip, reduced motion', () => {
   it('renders the text fully visible, never mid-animation', () => {
     render(
       <AboutFlip
-        portraitSrc="/hugo-martins.jpg"
-        personalSrc={null}
         professional={['The professional paragraph.']}
         personal={['The personal paragraph.']}
       />
@@ -24,15 +22,14 @@ describe('AboutFlip, reduced motion', () => {
 
     const paragraph = screen.getByText('The professional paragraph.');
     // SSR has no matchMedia, so "not animating" must never mean invisible.
-    expect(paragraph.closest('div[class*="grid"]')?.parentElement?.style.opacity).not.toBe('0');
+    expect(paragraph).toBeVisible();
+    expect(paragraph.parentElement?.style.opacity).toBe('1');
   });
 
-  it('swaps faces instantly instead of rotating', async () => {
+  it('shows the other biography at full opacity when toggled', async () => {
     const user = userEvent.setup();
     render(
       <AboutFlip
-        portraitSrc="/hugo-martins.jpg"
-        personalSrc="/hugo-martins-personal.jpg"
         professional={['The professional paragraph.']}
         personal={['The personal paragraph.']}
       />
@@ -40,8 +37,7 @@ describe('AboutFlip, reduced motion', () => {
 
     await user.click(screen.getByRole('button', { name: /personal side/i }));
 
-    // The back face is rendered directly; no 3D rig, no transition.
-    expect(screen.getByAltText('Hugo Martins, off the clock')).toBeInTheDocument();
-    expect(document.querySelector('[class*="preserve-3d"]')).toBeNull();
+    expect(await screen.findByText('The personal paragraph.')).toBeVisible();
+    expect(screen.getByText('The personal paragraph.').parentElement?.style.opacity).toBe('1');
   });
 });

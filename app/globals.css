@@ -200,6 +200,11 @@ a { color: inherit; }
 
 /* First terminal checkpoint. Keep the treatment local until each page has
    been reviewed; the existing palette and typography tokens stay shared. */
+:root {
+  --terminal-control-height: 2.75rem;
+  --site-header-padding: 0.625rem;
+  --site-header-height: calc(var(--terminal-control-height) + 2 * var(--site-header-padding) + 1px);
+}
 .terminal-header {
   border-bottom: 1px solid var(--border);
   background: var(--bg);
@@ -212,7 +217,7 @@ a { color: inherit; }
   gap: 1.5rem;
   max-width: 75rem;
   margin-inline: auto;
-  padding: 0.625rem 1.5rem;
+  padding: var(--site-header-padding) 1.5rem;
 }
 .terminal-header__identity, .terminal-header__tools {
   display: flex;
@@ -273,15 +278,80 @@ a { color: inherit; }
 .terminal-header .pm-simulator-link:active { transform: none; }
 .terminal-theme-toggle { flex-shrink: 0; }
 
-.terminal-home {
+/* Shared by the homepage and every page using the terminal PageShell. */
+.terminal-frame {
   --terminal-rule: color-mix(in srgb, var(--muted) 52%, var(--bg));
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  --terminal-inset: clamp(1rem, 3.5vw, 2.75rem);
   width: calc(100% - 3rem);
   max-width: 72rem;
   margin: clamp(1.75rem, 6vh, 4.5rem) auto 3rem;
   border: 1px solid var(--terminal-rule);
   font-family: var(--font-departure-mono, monospace);
+}
+.terminal-bar {
+  display: flex;
+  min-height: var(--terminal-control-height);
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-inline: var(--terminal-inset);
+  background: var(--accent);
+  color: var(--bg);
+  font-family: inherit;
+  font-size: 1.03125rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.35;
+}
+.terminal-bar > h1 {
+  font: inherit;
+  letter-spacing: inherit;
+}
+.terminal-bar--sticky {
+  position: sticky;
+  top: var(--site-header-height);
+  z-index: 30;
+}
+.terminal-bar__action {
+  display: inline-flex;
+  min-height: var(--terminal-control-height);
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 0.5rem;
+  font-size: 0.9375rem;
+  text-align: start;
+}
+.terminal-bar__action:hover {
+  background: var(--bg);
+  color: var(--accent);
+}
+.terminal-bar__action:focus-visible {
+  outline-color: currentColor;
+  outline-offset: -3px;
+}
+.terminal-control {
+  display: inline-flex;
+  min-height: var(--terminal-control-height);
+  max-width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  border: 1px solid var(--terminal-rule);
+  padding: 0.5rem 0.75rem;
+  color: var(--fg);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  text-align: start;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.terminal-control:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.terminal-control > [aria-hidden="true"] { color: var(--accent); flex-shrink: 0; }
+
+.terminal-home {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
 }
 .terminal-home__content {
   display: flex;
@@ -290,16 +360,9 @@ a { color: inherit; }
   align-items: flex-start;
   justify-content: center;
   border-bottom: 1px solid var(--terminal-rule);
-  padding: clamp(1rem, 3.5vw, 2.75rem);
+  padding: var(--terminal-inset);
 }
-.terminal-home__prompt {
-  grid-column: 1 / -1;
-  padding: 0.625rem clamp(1rem, 3.5vw, 2.75rem);
-  background: var(--accent);
-  color: var(--bg);
-  font-size: 1.03125rem;
-  line-height: 1.35;
-}
+.terminal-home > .terminal-bar { grid-column: 1 / -1; }
 .terminal-home__name {
   font-family: inherit;
   font-size: 2.0625rem;
@@ -318,26 +381,7 @@ a { color: inherit; }
   font-size: 1.125rem;
   line-height: 1.65;
 }
-.terminal-home__action {
-  display: inline-flex;
-  min-height: 2.75rem;
-  max-width: 100%;
-  align-items: center;
-  gap: 0.625rem;
-  margin-top: 1.75rem;
-  border: 1px solid var(--terminal-rule);
-  padding: 0.625rem 0.75rem;
-  color: var(--fg);
-  font-size: 0.9375rem;
-  line-height: 1.45;
-  transition: color 180ms ease, border-color 180ms ease;
-}
-.terminal-home__action > :first-child,
-.terminal-home__action > :last-child { color: var(--accent); flex-shrink: 0; }
-.terminal-home__action:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
+.terminal-home__action { margin-top: 1.75rem; }
 .terminal-home__portrait.ascii-portrait {
   width: min(calc(100% - 2rem), 26rem);
   min-width: 0;
@@ -356,7 +400,7 @@ a { color: inherit; }
   height: calc(var(--rows) * 0.96em);
   margin: 0;
   padding: 0;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-mono, 'Courier New', monospace);
   font-size: calc(100cqi / var(--columns) / 0.6);
   font-weight: 400;
   line-height: 0.96;
@@ -392,21 +436,42 @@ a { color: inherit; }
   .terminal-home__portrait.ascii-portrait { max-width: 21rem; }
 }
 @media (max-width: 639px) {
+  :root {
+    --site-header-padding: 0.5rem;
+    --site-header-row-gap: 0.25rem;
+    --site-header-height: calc(2 * var(--terminal-control-height) + 2 * var(--site-header-padding) + var(--site-header-row-gap) + 1px);
+  }
   .terminal-header__inner {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 0.75rem;
-    row-gap: 0.25rem;
-    padding: 0.5rem 1rem;
+    row-gap: var(--site-header-row-gap);
+    padding: var(--site-header-padding) 1rem;
   }
   .terminal-header__identity, .terminal-header__tools { display: contents; }
   .terminal-header__brand { grid-column: 1; grid-row: 1; }
   .terminal-theme-toggle { grid-column: 2; grid-row: 1; justify-self: end; }
   .terminal-header__social { grid-column: 1; grid-row: 2; margin-left: -0.5rem; }
   .terminal-header__menu { grid-column: 2; grid-row: 2; justify-self: end; }
-  .terminal-home { width: calc(100% - 2rem); margin-top: 1.75rem; }
+  .terminal-frame { width: calc(100% - 2rem); margin-top: 1.75rem; }
   .terminal-home__intro, .terminal-home__action { margin-top: 1.25rem; }
   .terminal-home__intro { font-size: 1.03125rem; }
+}
+
+.terminal-about {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: var(--terminal-inset);
+  font-size: 1.03125rem;
+  line-height: 1.65;
+}
+.terminal-about__paragraphs {
+  display: grid;
+  max-width: 63ch;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .terminal-about { font-size: 1.125rem; }
 }
 
 /* Tailwind v4's Preflight no longer sets cursor: pointer on buttons. Restore it

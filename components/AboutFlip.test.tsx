@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from 'vitest';
+import AboutPage from '@/app/(site)/about/page';
 import AboutFlip from './AboutFlip';
 
 const professional = ['The professional paragraph.'];
@@ -9,8 +10,6 @@ const personal = ['The personal paragraph.'];
 const renderFlip = () =>
   render(
     <AboutFlip
-      portraitSrc="/hugo-martins.jpg"
-      personalSrc="/hugo-martins-personal.jpg"
       professional={professional}
       personal={personal}
     />
@@ -33,8 +32,6 @@ describe('AboutFlip', () => {
 
     expect(await screen.findByText('The personal paragraph.')).toBeInTheDocument();
     expect(screen.queryByText('The professional paragraph.')).not.toBeInTheDocument();
-    // The personal photo is now the visible face.
-    expect(screen.getByAltText('Hugo Martins, off the clock')).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /professional side/i }));
 
@@ -45,8 +42,6 @@ describe('AboutFlip', () => {
     const user = userEvent.setup();
     render(
       <AboutFlip
-        portraitSrc="/hugo-martins.jpg"
-        personalSrc={null}
         professional={['The professional paragraph.']}
         personal={['Here is the recipe: Bacalhau com Natas. Enjoy!']}
         links={[{ match: 'Bacalhau com Natas', href: 'https://example.com/recipe' }]}
@@ -60,16 +55,17 @@ describe('AboutFlip', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('shows a placeholder back face when the personal photo is missing', () => {
-    render(
-      <AboutFlip
-        portraitSrc="/hugo-martins.jpg"
-        personalSrc={null}
-        professional={professional}
-        personal={personal}
-      />
-    );
+  it('renders both About sides without images', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<AboutPage />);
+    const titleBar = screen.getByRole('heading', { name: 'About', level: 1 }).closest('.terminal-bar');
+    expect(titleBar).not.toBeNull();
 
-    expect(screen.getByText(/personal photo goes here/i)).toBeInTheDocument();
+    expect(screen.getByText(/studied Biochemistry and Bioinformatics/)).toBeInTheDocument();
+    expect(container.querySelector('img, [role="img"]')).toBeNull();
+
+    await user.click(within(titleBar as HTMLElement).getByRole('button', { name: /personal side/i }));
+    expect(await screen.findByText(/Portuguese town called Guarda/)).toBeInTheDocument();
+    expect(container.querySelector('img, [role="img"]')).toBeNull();
   });
 });
