@@ -474,6 +474,149 @@ a { color: inherit; }
   .terminal-about { font-size: 1.125rem; }
 }
 
+.terminal-cv {
+  display: grid;
+  gap: 2rem;
+  padding: var(--terminal-inset);
+}
+.terminal-cv__heading {
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+  font: inherit;
+  font-size: 1.03125rem;
+  letter-spacing: normal;
+}
+.terminal-cv__companies, .terminal-cv__products, .terminal-cv__credentials {
+  border-block: 1px solid var(--terminal-rule);
+}
+.terminal-cv__companies > li + li,
+.terminal-cv__products > li + li,
+.terminal-cv__credentials > div + div {
+  border-top: 1px solid var(--terminal-rule);
+}
+.terminal-cv__entry {
+  --terminal-cv-indent: calc(3ch + 0.75rem);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'name dates' 'summary summary';
+  align-items: center;
+  gap: 0 0.75rem;
+  padding: 0.5rem 1rem 0.75rem;
+  transition: background-color 180ms ease;
+}
+.terminal-cv__entry:hover,
+.terminal-cv__entry[data-expanded="true"] {
+  background: color-mix(in srgb, var(--muted) 7%, var(--bg));
+}
+.terminal-cv__title {
+  display: flex;
+  grid-area: name;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.terminal-cv__toggle {
+  display: inline-flex;
+  min-height: var(--terminal-control-height);
+  align-items: center;
+  gap: 0.75rem;
+  text-align: start;
+}
+/* Extend the toggle across the row while the company link remains its own control. */
+.terminal-cv__toggle::after { content: ''; position: absolute; inset: 0; }
+.terminal-cv__toggle:focus-visible { outline: none; }
+.terminal-cv__toggle:focus-visible::after { outline: 2px solid var(--accent); outline-offset: -3px; }
+.terminal-cv__cue { flex: none; color: var(--accent); }
+.terminal-cv__name { font-size: 1.375rem; line-height: 1.25; overflow-wrap: anywhere; }
+.terminal-cv__company-link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex: none;
+  min-height: var(--terminal-control-height);
+  align-items: center;
+  padding-inline: 0.375rem;
+  color: var(--accent);
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.terminal-cv__company-link:focus-visible { outline-offset: -2px; }
+.terminal-cv__entry > .terminal-cv__summary { padding-inline-start: var(--terminal-cv-indent); }
+.terminal-cv__dates {
+  grid-area: dates;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+.terminal-cv__summary {
+  grid-area: summary;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.terminal-cv__company-panel {
+  padding: 1rem 0 1.5rem 2.75rem;
+}
+.terminal-cv__products {
+  margin-top: 1.25rem;
+  border-inline-start: 1px solid var(--terminal-rule);
+}
+.terminal-cv__products .terminal-cv__name { font-size: 1.03125rem; }
+.terminal-cv__company-details, .terminal-cv__case {
+  max-width: 46rem;
+}
+.terminal-cv__case { padding: 1rem 1rem 1.25rem; }
+.terminal-cv__screenshot {
+  aspect-ratio: 16 / 10;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--terminal-rule);
+}
+.terminal-cv__meta { gap: 0; }
+.terminal-cv__meta > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 0.375rem 1rem;
+  border-bottom: 1px solid var(--terminal-rule);
+  padding-block: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.terminal-cv__meta dt {
+  margin: 0;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.9375rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.terminal-cv__credentials > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'name dates' 'summary summary';
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  padding: 0.75rem 1rem;
+}
+.terminal-cv__credentials dt { grid-area: name; }
+@media (max-width: 639px) {
+  .terminal-cv__entry {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'name' 'dates' 'summary';
+    padding-inline: 0.5rem;
+  }
+  .terminal-cv__entry > .terminal-cv__dates { padding-inline-start: var(--terminal-cv-indent); }
+  .terminal-cv__title { column-gap: 0.375rem; }
+  .terminal-cv__name { font-size: 1.125rem; }
+  .terminal-cv__company-panel { padding-inline-start: 1.25rem; }
+  .terminal-cv__case { padding-inline: 0.75rem; }
+  .terminal-cv__meta > div { grid-template-columns: minmax(0, 1fr); }
+  .terminal-cv__credentials > div {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'name' 'dates' 'summary';
+    padding-inline: 0.5rem;
+  }
+}
+
 /* Tailwind v4's Preflight no longer sets cursor: pointer on buttons. Restore it
    for every clickable control site-wide; a disabled control keeps the default. */
 button:not(:disabled),

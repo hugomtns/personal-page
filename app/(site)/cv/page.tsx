@@ -13,6 +13,17 @@ export const metadata: Metadata = {
   robots: isLive('/cv') ? undefined : { index: false, follow: false },
 };
 
+const credentials = [
+  {
+    title: 'Certifications',
+    entries: certifications.map(({ name, issuer, date }) => ({ name, detail: issuer, date })),
+  },
+  {
+    title: 'Education',
+    entries: education.map(({ degree, institution, years }) => ({ name: degree, detail: institution, date: years })),
+  },
+];
+
 export default function CVPage() {
   // noindex and a hidden nav link only stop people who were never going to type
   // the URL. This page is a full CV — until the tab ships it must genuinely not
@@ -24,44 +35,29 @@ export default function CVPage() {
     // a page by anyone who finds it.
     <>
       <ScrollProgress />
-      <PageShell title="Curriculum Vitae">
-      <section className="mb-20">
-        <h2 className="label mb-10">Experience</h2>
-        <CVTimeline />
-      </section>
+      <PageShell title="Curriculum Vitae" terminal>
+        <div className="terminal-cv">
+          <section>
+            <h2 className="terminal-cv__heading">Experience</h2>
+            <CVTimeline />
+          </section>
 
-      <section className="mb-20">
-        <h2 className="label mb-10">Education</h2>
-        <dl className="grid gap-6">
-          {education.map((e) => (
-            <div
-              key={e.degree}
-              className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-border pb-4"
-            >
-              <dt className="font-display text-h2">{e.degree}</dt>
-              <dd className="label justify-self-end whitespace-nowrap">{e.years}</dd>
-              <dd className="text-small text-muted">{e.institution}</dd>
-            </div>
+          {credentials.map(({ title, entries }) => (
+            <section key={title}>
+              <h2 className="terminal-cv__heading">{title}</h2>
+              <dl className="terminal-cv__credentials">
+                {entries.map(({ name, detail, date }) => (
+                  <div key={name}>
+                    <dt>{name}</dt>
+                    <dd className="terminal-cv__dates">{date}</dd>
+                    <dd className="terminal-cv__summary">{detail}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
           ))}
-        </dl>
-      </section>
-
-      <section>
-        <h2 className="label mb-10">Certifications</h2>
-        <dl className="grid gap-6">
-          {certifications.map((c) => (
-            <div
-              key={c.name}
-              className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-border pb-4"
-            >
-              <dt className="font-display text-h2">{c.name}</dt>
-              <dd className="label justify-self-end whitespace-nowrap">{c.date}</dd>
-              <dd className="text-small text-muted">{c.issuer}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-    </PageShell>
+        </div>
+      </PageShell>
     </>
   );
 }

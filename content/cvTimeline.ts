@@ -40,6 +40,7 @@ export type Company = {
   products: Product[];
 };
 
+// Company and product arrays are authored oldest first. The CV displays them newest first.
 export const companies: Company[] = [
   {
     id: 'researchgate',
@@ -240,6 +241,33 @@ export const companies: Company[] = [
         did:
           'Took over a product that was stuck in discovery and brought the first alpha version to life. Coordinated the expansion of a customer advisory board to gather regular feedback, and led a development team to build a cross-functional, sellable open beta.',
         outcome: 'Shipped from pre-alpha to open beta, validated with 30+ customers.',
+        image: null,
+      },
+    ],
+  },
+  {
+    id: 'orcrist',
+    name: 'Orcrist Technologies',
+    dates: '2026',
+    tagline: 'Sovereign defense software · Berlin',
+    about:
+      'Founded in Berlin in 2023, Orcrist develops data fusion and analysis software for public authorities and armed forces. Its Data Fabric Framework lets organizations connect data and build analytical applications on their own infrastructure. Orcrist is part of Vektor Group.',
+    role:
+      'I joined Orcrist as the product manager for the OSINT product layer, managing a centralized API platform, multiple external data connectors, data ingestion, ML insights extraction and presentation to users in the form of actionable information for law enforcement and military tasks.',
+    links: [{ label: 'orcrist.org', href: 'https://orcrist.org' }],
+    products: [
+      {
+        id: 'orcrist-connector-hub',
+        name: 'Connector Hub',
+        year: '2026',
+        tagline: 'A central hub for external data sources.',
+        audience: 'Law enforcement and military analysts relying on open-source intelligence data',
+        problem:
+          'Analysts relied on live open-source data from multiple providers, each with its own API credentials and data feed. We needed one place to manage those feeds and turn incoming telemetry into information analysts could act on.',
+        did:
+          'I led product work on Connector Hub, covering API credential management, external data connectors and ingestion. I evaluated data partners and ran technical and scenario-based API tests. I also assessed the quality of the returned data and its suitability for the intended use cases. My scope also covered how we used machine learning to extract insights and how we presented those insights to analysts.',
+        outcome:
+          'A centralized API credential, ingestion and insights extraction management platform for highly critical live telemetry from multiple external sources.',
         image: null,
       },
     ],

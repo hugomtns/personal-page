@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 
 // The page 404s unless its tab is live, so force it live here — this file is
@@ -12,6 +13,47 @@ vi.mock('@/content/site', async (importOriginal) => {
 import CVPage from './page';
 
 describe('CV page', () => {
+  it('starts with the newest company and reveals its cases newest first', async () => {
+    const user = userEvent.setup();
+    render(<CVPage />);
+
+    const companies = [/Orcrist Technologies/, /PVcase/, /Staffbase/, /Medwing/, /Helpling/, /ResearchGate/]
+      .map(name => screen.getByRole('button', { name }));
+    expect(screen.getAllByRole('button')).toEqual(companies);
+    const pvcase = screen.getByRole('button', { name: 'PVcase' });
+    expect(pvcase).toHaveAttribute('aria-expanded', 'false');
+
+    await user.click(pvcase);
+    const hub = await screen.findByRole('button', { name: 'Hub' });
+    const groundMount = screen.getByRole('button', { name: /Ground Mount/ });
+    expect(screen.getAllByRole('button')).toEqual([...companies.slice(0, 2), hub, groundMount, ...companies.slice(2)]);
+    expect(hub).toHaveAttribute('aria-expanded', 'false');
+
+    const role = screen.getByText('My role');
+    const about = screen.getByText('About');
+    expect(role.compareDocumentPosition(about) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(about.compareDocumentPosition(hub) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('shows the Orcrist company link while collapsed and expands Connector Hub', async () => {
+    const user = userEvent.setup();
+    render(<CVPage />);
+
+    const company = screen.getByRole('button', { name: 'Orcrist Technologies' });
+    const link = screen.getByRole('link', { name: /Link to orcrist/i });
+    expect(company).toHaveAttribute('aria-expanded', 'false');
+    expect(link).toHaveTextContent(/^Link$/);
+    expect(link).toHaveAttribute('href', 'https://orcrist.org');
+    expect(company.nextElementSibling).toBe(link);
+
+    await user.click(company);
+    await user.click(await screen.findByRole('button', { name: 'Connector Hub' }));
+    expect(await screen.findByText(/Law enforcement and military analysts relying on open-source intelligence data/))
+      .toBeInTheDocument();
+    expect(screen.getByText('Problem').nextElementSibling).toHaveTextContent(/live open-source data from multiple providers/);
+    expect(screen.getByText('What I did').nextElementSibling).toHaveTextContent(/I led product work on Connector Hub/);
+  });
+
   it('renders education and certifications', () => {
     render(<CVPage />);
     expect(screen.getByText(/bioinformatics/i)).toBeInTheDocument();

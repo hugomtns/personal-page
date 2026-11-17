@@ -1,82 +1,32 @@
-'use client';
-
 import type { Product } from '@/content/cvTimeline';
-import Accordion from './Accordion';
+import CVDisclosure from './CVDisclosure';
 import Screenshot from './Screenshot';
 import MetaList from './MetaList';
 
-/**
- * A product branches off its company's trunk: a horizontal connector runs from
- * the trunk (at -1rem, the company's pl-20 gutter) out to the node, so it reads
- * as attached rather than a floating pin. Click reveals the case: image frame,
- * then the ruled list: For / Problem / What I did / Outcome. The link to the
- * company lives on the company card, not here.
- *
- * A leadership milestone has no `audience` — it shows Scope instead of Problem
- * and drops the For row.
- */
-export default function CVProduct({ product: p }: { product: Product }) {
-  const leadership = p.audience === '';
+export default function CVProduct({ product }: { product: Product }) {
+  const leadership = product.audience === '';
 
   return (
-    <div className="relative pl-12 pb-9 last:pb-0">
-      {/* Horizontal connector from the trunk out to the node. */}
-      <span
-        aria-hidden
-        className="absolute -left-8 top-[1.35rem] h-px w-14 -translate-y-1/2 bg-border"
-      />
-
-      <Accordion
-        trigger={({ open, ...triggerProps }) => (
-          <>
-            {/* Node. Its fill tracks the open state, so the trigger renders
-                it; it is still positioned against the outer relative div. */}
-            <span
-              aria-hidden
-              className={`absolute left-6 top-[1.35rem] size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent transition-colors duration-180 ${
-                open ? 'bg-accent' : 'bg-bg'
-              }`}
-            />
-            <button
-              type="button"
-              {...triggerProps}
-              className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-4 text-left"
-            >
-              <span className="text-[1.0625rem] font-medium transition-colors duration-180 group-hover:text-accent">
-                {p.name}
-              </span>
-              <span className="label whitespace-nowrap">{p.year}</span>
-              {/* Full-width row under both columns: a date-range year would
-                  otherwise starve the tagline's column and smash it on mobile. */}
-              <span className="col-span-2 mt-0.5 block text-small text-muted">{p.tagline}</span>
-            </button>
-          </>
-        )}
-      >
-        <div className="mt-5 max-w-xl">
-          {/* Fixed 16:10 so every product reads as one system. A product with
-              no image gets no frame: an empty placeholder reads as missing
-              content, not as restraint. */}
-          {p.image && (
-            <Screenshot
-              src={p.image}
-              alt={p.name}
-              className="mb-6 aspect-[16/10] w-full rounded-frame border border-border"
-              sizes="(max-width: 640px) 100vw, 576px"
-            />
-          )}
-
-          <MetaList
-            className="border-l border-accent pl-6"
-            items={[
-              ...(!leadership ? [{ label: 'For', value: p.audience }] : []),
-              { label: leadership ? 'Scope' : 'Problem', value: p.problem },
-              { label: 'What I did', value: p.did },
-              { label: 'Outcome', value: p.outcome },
-            ]}
+    <CVDisclosure name={product.name} dates={product.year} summary={product.tagline}>
+      <div className="terminal-cv__case">
+        {product.image && (
+          <Screenshot
+            src={product.image}
+            alt={product.name}
+            className="terminal-cv__screenshot"
+            sizes="(max-width: 767px) 100vw, 736px"
           />
-        </div>
-      </Accordion>
-    </div>
+        )}
+        <MetaList
+          className="terminal-cv__meta"
+          items={[
+            ...(!leadership ? [{ label: 'For', value: product.audience }] : []),
+            { label: leadership ? 'Scope' : 'Problem', value: product.problem },
+            { label: 'What I did', value: product.did },
+            { label: 'Outcome', value: product.outcome },
+          ]}
+        />
+      </div>
+    </CVDisclosure>
   );
 }
