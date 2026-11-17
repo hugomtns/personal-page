@@ -15,7 +15,7 @@ export default function PageShell({
 }: {
   title: string;
   children: ReactNode;
-  /** Spacing on the heading. Contact clears it: its grid carries mt-16. */
+  /** Optional heading classes. The default layout includes bottom spacing. */
   headingClassName?: string;
   headingAction?: ReactNode;
   stickyHeading?: boolean;

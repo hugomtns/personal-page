@@ -25,20 +25,21 @@ export default function BookingButton() {
 
   return (
     <>
-      <p className="mb-7 max-w-sm text-small text-muted">
+      <p className="terminal-contact__booking-note">
         Booking takes place via Google Calendar. Opening the booking modal sets
         a Google cookie.
       </p>
 
       <Button type="button" onClick={() => setOpen(true)}>
+        <span aria-hidden="true">&gt;</span>
         Book a call
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)} title="Book a call">
+      <Modal open={open} onClose={() => setOpen(false)} title="Book a call" terminal>
         <iframe
           src={site.bookingUrl}
           title="Book a call with Hugo Martins"
-          className="h-[70vh] w-full"
+          className="terminal-contact__calendar"
         />
       </Modal>
     </>
