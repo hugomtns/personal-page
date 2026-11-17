@@ -35,7 +35,7 @@ export default function CVPage() {
     // a page by anyone who finds it.
     <>
       <ScrollProgress />
-      <PageShell title="Curriculum Vitae" terminal>
+      <PageShell title="Curriculum Vitae" command="cv">
         <div className="terminal-cv">
           <section>
             <h2 className="terminal-cv__heading">Experience</h2>

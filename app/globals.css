@@ -310,6 +310,25 @@ a { color: inherit; }
   font: inherit;
   letter-spacing: inherit;
 }
+.terminal-prompt {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5ch;
+  overflow-wrap: anywhere;
+}
+.terminal-prompt__cursor {
+  flex: none;
+  inline-size: 0.65ch;
+  block-size: 0.9em;
+  background: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .terminal-prompt__cursor { animation: terminal-cursor-blink 1s step-end 4; }
+}
+@keyframes terminal-cursor-blink {
+  50% { opacity: 0; }
+}
 .terminal-bar--sticky {
   position: sticky;
   top: var(--site-header-height);
@@ -331,6 +350,21 @@ a { color: inherit; }
 .terminal-bar__action:focus-visible {
   outline-color: currentColor;
   outline-offset: -3px;
+}
+.terminal-about__flip { flex-shrink: 0; }
+.terminal-about__flip-short { display: none; }
+@media (max-width: 559px) {
+  .terminal-about__flip-full { display: none; }
+  .terminal-about__flip-short { display: inline; }
+  .terminal-about__flip {
+    min-width: var(--terminal-control-height);
+    justify-content: center;
+  }
+}
+@media (max-width: 375px) {
+  .terminal-bar:has(.terminal-about__flip) .terminal-prompt {
+    font-size: clamp(0.8125rem, 4vw, var(--terminal-text-size));
+  }
 }
 .terminal-control {
   display: inline-flex;

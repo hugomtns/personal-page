@@ -18,7 +18,7 @@ export default function ProjectsPage() {
   const playProjects = projects.filter((p) => p.group === 'play');
 
   return (
-    <PageShell title="Projects" terminal>
+    <PageShell title="Projects" command="projects">
       <div className="terminal-projects">
         {comingSoon ? (
           <section>

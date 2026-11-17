@@ -17,7 +17,7 @@ export default function ContactPage() {
   if (!isLive('/contact')) notFound();
 
   return (
-    <PageShell title="Contact" terminal>
+    <PageShell title="Contact" command="contact">
       <div className="terminal-contact">
         <section>
           <h2 className="terminal-contact__heading">Send a message</h2>

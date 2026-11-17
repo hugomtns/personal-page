@@ -18,6 +18,7 @@ export default function AboutFlip({ professional, personal, links }: AboutFlipPr
   const [side, setSide] = useState<'professional' | 'personal'>('professional');
   const isPersonal = side === 'personal';
   const paragraphs = isPersonal ? personal : professional;
+  const nextSide = isPersonal ? 'professional' : 'personal';
 
   const renderText = (text: string) => {
     const link = links?.find((l) => text.includes(l.match));
@@ -42,16 +43,17 @@ export default function AboutFlip({ professional, personal, links }: AboutFlipPr
   return (
     <PageShell
       title="About"
-      terminal
+      command="whoami"
       stickyHeading
       headingAction={(
         <button
           type="button"
           onClick={() => setSide(isPersonal ? 'professional' : 'personal')}
-          className="terminal-bar__action"
+          className="terminal-bar__action terminal-about__flip"
+          aria-label={`Flip to the ${nextSide} side`}
         >
-          <span aria-hidden="true">&gt;</span>
-          {isPersonal ? 'The professional side' : 'The personal side'}
+          <span className="terminal-about__flip-full" aria-hidden="true">&gt; The {nextSide} side</span>
+          <span className="terminal-about__flip-short" aria-hidden="true">Flip</span>
         </button>
       )}
     >

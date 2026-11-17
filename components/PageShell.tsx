@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import TerminalPrompt, { type TerminalCommand } from './TerminalPrompt';
 
 /**
  * The frame every tab page shares: the centered column and the h1. Exists so
@@ -11,7 +12,7 @@ export default function PageShell({
   headingClassName,
   headingAction,
   stickyHeading = false,
-  terminal = false,
+  command,
 }: {
   title: string;
   children: ReactNode;
@@ -19,20 +20,22 @@ export default function PageShell({
   headingClassName?: string;
   headingAction?: ReactNode;
   stickyHeading?: boolean;
-  terminal?: boolean;
+  command?: TerminalCommand;
 }) {
-  const frame = terminal ? 'terminal-frame' : 'mx-auto max-w-5xl px-6 py-20';
-  const heading = terminal ? headingClassName : `text-h1 ${headingClassName ?? 'mb-16'}`.trim();
-  const titleElement = <h1 className={heading}>{title}</h1>;
+  const frame = command ? 'terminal-frame' : 'mx-auto max-w-5xl px-6 py-20';
 
   return (
     <div className={frame}>
-      {terminal ? (
+      {command ? (
         <div className={stickyHeading ? 'terminal-bar terminal-bar--sticky' : 'terminal-bar'}>
-          {titleElement}
+          <h1 className={headingClassName} aria-label={title}>
+            <TerminalPrompt command={command} />
+          </h1>
           {headingAction}
         </div>
-      ) : titleElement}
+      ) : (
+        <h1 className={`text-h1 ${headingClassName ?? 'mb-16'}`.trim()}>{title}</h1>
+      )}
       {children}
     </div>
   );

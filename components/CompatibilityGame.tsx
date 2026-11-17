@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import Button from './Button';
 import AnswerCard from './AnswerCard';
 import ThemeToggle from './ThemeToggle';
+import TerminalPrompt from './TerminalPrompt';
 import {
   dealRun,
   tierForScore,
@@ -29,7 +30,8 @@ function QuizFrame({ children }: { children: ReactNode }) {
   return (
     <div className="terminal-frame terminal-quiz">
       <div className="terminal-bar terminal-quiz__bar">
-        <span>A compatibility test</span>
+        <span className="sr-only">A compatibility test</span>
+        <TerminalPrompt command="quiz" />
         <ThemeToggle />
       </div>
       <div className="terminal-quiz__body">{children}</div>

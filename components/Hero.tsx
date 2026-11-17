@@ -1,12 +1,13 @@
 import { site } from '@/content/site';
 import { intro } from '@/content/about';
 import AsciiPortrait from './AsciiPortrait';
+import TerminalPrompt from './TerminalPrompt';
 
 export default function Hero() {
   return (
     <section className="terminal-frame terminal-home">
       <p className="terminal-bar" aria-hidden="true">
-        hugo@berlin:~$ whoami
+        <TerminalPrompt command="home" />
       </p>
       <div className="terminal-home__content">
         <h1 className="terminal-home__name">{site.name}</h1>

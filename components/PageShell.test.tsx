@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import PageShell from './PageShell';
 
@@ -16,6 +16,13 @@ describe('PageShell', () => {
   it('wraps everything in the shared centered column', () => {
     const { container } = render(<PageShell title="About">Body</PageShell>);
     expect(container.firstChild).toHaveClass('mx-auto', 'max-w-5xl', 'px-6', 'py-20');
+  });
+
+  it('shows the terminal command while keeping the page heading name', () => {
+    render(<PageShell title="About" command="whoami">Body</PageShell>);
+    const heading = screen.getByRole('heading', { level: 1, name: 'About' });
+    const prompt = within(heading).getByText('hugo@berlin:~$ whoami');
+    expect(prompt.closest('[aria-hidden="true"]')).not.toBeNull();
   });
 
   it('spaces the heading off the content by default', () => {
