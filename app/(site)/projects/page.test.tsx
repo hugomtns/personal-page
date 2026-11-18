@@ -19,10 +19,14 @@ const workCount = projects.filter((p) => p.group === 'work').length;
 const playCount = projects.filter((p) => p.group === 'play').length;
 
 describe('Projects page', () => {
-  it('renders Work and Play section headings', () => {
+  it('links each category to its section heading', () => {
     render(<ProjectsPage />);
-    expect(screen.getByRole('heading', { name: 'Work', level: 2 })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Play', level: 2 })).toBeInTheDocument();
+    const navigation = screen.getByRole('navigation', { name: 'Project categories' });
+
+    for (const [name, id] of [['Work', 'work'], ['Play', 'play'], ['Stellaris Mods', 'stellaris-mods']]) {
+      expect(within(navigation).getByRole('link', { name })).toHaveAttribute('href', `#${id}`);
+      expect(screen.getByRole('heading', { level: 2, name })).toHaveAttribute('id', id);
+    }
   });
 
   it('renders a collapsed disclosure for every project', () => {
