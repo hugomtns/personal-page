@@ -7,7 +7,7 @@ import { isLive } from '@/content/site';
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Side projects and product prototypes by Hugo Martins.',
+  description: 'Side projects, product prototypes, and Stellaris mods by Hugo Martins.',
   robots: isLive('/projects') ? undefined : { index: false, follow: false },
 };
 
@@ -16,6 +16,7 @@ export default function ProjectsPage() {
 
   const workProjects = projects.filter((p) => p.group === 'work');
   const playProjects = projects.filter((p) => p.group === 'play');
+  const stellarisMods = projects.filter((p) => p.group === 'stellaris-mods');
 
   return (
     <PageShell title="Projects" command="projects">
@@ -44,6 +45,13 @@ export default function ProjectsPage() {
                 Games, tools, and experiments built for the fun of it.
               </p>
               <ProjectGarden projects={playProjects} />
+            </section>
+            <section>
+              <h2 className="terminal-projects__heading terminal-projects__heading--section">Stellaris Mods</h2>
+              <p className="terminal-projects__intro">
+                Modifications I built for one of my favourite videogames, Stellaris.
+              </p>
+              <ProjectGarden projects={stellarisMods} />
             </section>
           </>
         )}
