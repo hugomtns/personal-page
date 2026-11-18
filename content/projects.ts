@@ -169,6 +169,29 @@ All in all, this was a great learning experience in building knowledge bases, un
   },
   // Play
   {
+    id: 'trip-planner',
+    name: 'Trip Planner',
+    tagline: 'Local travel planning with sourced itineraries.',
+    description:
+      'Trip Planner turns a rough travel brief into a day-by-day itinerary. It compares destinations, routes, and stays, tracks the budget for the whole party, and shows the sources and assumptions behind its recommendations.',
+    details: `I built the workflow around decisions that get more specific as a trip takes shape. You can begin with a date range, a departure city, and a budget. Once you approve a destination and dates, the planner researches transport, where to stay, how to get around, and what to do.
+
+Specialist agents research different parts of the trip. A separate verifier checks dates, routes, costs, and sources before final approval. Changing a key constraint sends affected decisions back for review. Once you approve the final plan, you can export it as a PDF. Traveler profiles, conversations, and plans are stored locally.`,
+    images: [
+      '/images/projects/trip-planner/01.webp',
+      '/images/projects/trip-planner/02.webp',
+      '/images/projects/trip-planner/03.webp',
+      '/images/projects/trip-planner/04.webp',
+    ],
+    captions: [
+      'Comparing destinations, dates, and budget ranges',
+      'Reviewing a return flight and entry requirements',
+      'Reviewing the itinerary and its verification checks',
+      'Exporting the approved plan to PDF',
+    ],
+    group: 'play',
+  },
+  {
     id: 'ai-tng',
     name: 'Project Ten Forward',
     tagline: 'A Star Trek agent game in LCARS.',
