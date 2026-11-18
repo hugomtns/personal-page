@@ -11,6 +11,7 @@ export default function PageShell({
   children,
   headingClassName,
   headingAction,
+  headingNavigation,
   stickyHeading = false,
   command,
 }: {
@@ -19,6 +20,7 @@ export default function PageShell({
   /** Optional heading classes. The default layout includes bottom spacing. */
   headingClassName?: string;
   headingAction?: ReactNode;
+  headingNavigation?: ReactNode;
   stickyHeading?: boolean;
   command?: TerminalCommand;
 }) {
@@ -27,11 +29,14 @@ export default function PageShell({
   return (
     <div className={frame}>
       {command ? (
-        <div className={stickyHeading ? 'terminal-bar terminal-bar--sticky' : 'terminal-bar'}>
-          <h1 className={headingClassName} aria-label={title}>
-            <TerminalPrompt command={command} />
-          </h1>
-          {headingAction}
+        <div className={stickyHeading ? 'terminal-bar--sticky' : undefined}>
+          <div className="terminal-bar">
+            <h1 className={headingClassName} aria-label={title}>
+              <TerminalPrompt command={command} />
+            </h1>
+            {headingAction}
+          </div>
+          {headingNavigation}
         </div>
       ) : (
         <h1 className={`text-h1 ${headingClassName ?? 'mb-16'}`.trim()}>{title}</h1>
