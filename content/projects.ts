@@ -48,6 +48,7 @@ The organizer defines the cards and chip values in a configuration and shares a 
   {
     id: 'pvfinance',
     name: 'PV Finance',
+    url: 'https://pv-finance.hugomartins.pm/',
     tagline: 'Solar project finance in the browser.',
     description:
       'A browser-side financial model for utility-scale solar projects. It takes project parameters and runs IRR, NPV, LCOE, debt sizing, and a 25-year cash-flow projection. Sensitivity sliders let you see how assumptions affect returns, an audit log shows the formula behind every number, and it exports a PDF report.',
