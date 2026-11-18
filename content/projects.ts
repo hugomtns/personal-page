@@ -26,6 +26,7 @@ export const projects: Project[] = [
   {
     id: 'feature-poker',
     name: 'Feature Poker',
+    url: 'https://feature-poker.hugomartins.pm/demo',
     tagline: 'A fixed-budget game for product prioritization.',
     description:
       'Feature Poker gives a team a way to rank competing feature ideas with a limited set of chips. Players assign higher values to their strongest priorities, review their choices, and submit anonymously.',
