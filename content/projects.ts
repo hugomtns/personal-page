@@ -213,6 +213,35 @@ The queue runs in the background while you accept, regenerate, or skip completed
     group: 'play',
   },
   {
+    id: 'charger-map',
+    name: 'Charger Map',
+    tagline: 'EV charging maps and route planning across twelve countries.',
+    description:
+      'Charger Map is a local EV charging map and route planner. You can browse stations by connector, check charging power and estimated prices, and plan a trip around your vehicle, starting charge, and minimum reserve.',
+    details: `Charger locations and connector types come from public charging registers and OpenStreetMap. The September 2026 catalog includes more than 321,000 charging locations across twelve European countries. The map queries stations in view and groups them at wider zoom levels, so you can explore the whole region and then inspect an individual charger.
+
+The route planner uses BRouter and manufacturer-published vehicle specifications for battery capacity, range, energy consumption, and charging power. You can also enter your own vehicle specifications. The planner breaks a trip into driving legs and charging stops. It uses reported station power to estimate charging time and dated public tariffs to estimate cost.
+
+You can browse places to eat, shop, or explore within five kilometres of a planned stop. The coverage heatmap shows the driving distance from a road to the nearest charger, which makes gaps in coverage easy to spot.`,
+    images: [
+      '/images/projects/charger-map/01.webp',
+      '/images/projects/charger-map/02.webp',
+      '/images/projects/charger-map/03.webp',
+      '/images/projects/charger-map/04.webp',
+      '/images/projects/charger-map/05.webp',
+      '/images/projects/charger-map/06.webp',
+    ],
+    captions: [
+      'Browsing charger clusters across the Benelux region',
+      'Checking connectors, power, and pricing in Vienna',
+      'Coverage heatmap showing road distance to the nearest charger around Pamplona',
+      'Brussels to Amsterdam with a charging stop and cost estimate',
+      'Things to do near a planned charging stop in Brecht',
+      'Selecting a vehicle and reviewing its manufacturer specifications',
+    ],
+    group: 'play',
+  },
+  {
     id: 'ai-tng',
     name: 'Project Ten Forward',
     tagline: 'A Star Trek agent game in LCARS.',
