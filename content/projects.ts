@@ -22,6 +22,27 @@ export type Project = {
 export const projects: Project[] = [
   // Work
   {
+    id: 'feature-poker',
+    name: 'Feature Poker',
+    tagline: 'A fixed-budget game for product prioritization.',
+    description:
+      'Feature Poker gives a team a way to rank competing feature ideas with a limited set of chips. Players assign higher values to their strongest priorities, review their choices, and submit anonymously.',
+    details: `I built the game around a fixed budget to make tradeoffs visible. The default board has eight feature cards and six chips of different values. Each card can hold one chip, so players leave two ideas unfunded. You can drag a chip onto a card or select them in sequence with a mouse, keyboard, or touch.
+
+The organizer defines the cards and chip values in a configuration and shares a link to that round. Players review their picks in value order before submitting. The organizer receives each hand by email.`,
+    images: [
+      '/images/projects/feature-poker/01.webp',
+      '/images/projects/feature-poker/02.webp',
+      '/images/projects/feature-poker/03.webp',
+    ],
+    captions: [
+      'The opening board with eight feature cards and six chips',
+      'Assigning the highest-value chips to the top priorities',
+      'Reviewing the ranked picks before submission',
+    ],
+    group: 'work',
+  },
+  {
     id: 'pvfinance',
     name: 'PV Finance',
     tagline: 'Solar project finance in the browser.',
