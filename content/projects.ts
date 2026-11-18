@@ -7,6 +7,8 @@ export type Project = {
   tagline: string;
   /** The story: what it is, why it exists, what it does. Shown when expanded. */
   description: string;
+  /** Optional live project link shown beside its name. */
+  url?: string;
   /** Screenshots in display order. A null entry renders a placeholder frame. */
   images: (string | null)[];
   /** Optional plain-text caption for each image, used by the lightbox. */
@@ -21,6 +23,27 @@ export type Project = {
 
 export const projects: Project[] = [
   // Work
+  {
+    id: 'feature-poker',
+    name: 'Feature Poker',
+    tagline: 'A fixed-budget game for product prioritization.',
+    description:
+      'Feature Poker gives a team a way to rank competing feature ideas with a limited set of chips. Players assign higher values to their strongest priorities, review their choices, and submit anonymously.',
+    details: `I built the game around a fixed budget to make tradeoffs visible. The default board has eight feature cards and six chips of different values. Each card can hold one chip, so players leave two ideas unfunded. You can drag a chip onto a card or select them in sequence with a mouse, keyboard, or touch.
+
+The organizer defines the cards and chip values in a configuration and shares a link to that round. Players review their picks in value order before submitting. The organizer receives each hand by email.`,
+    images: [
+      '/images/projects/feature-poker/01.webp',
+      '/images/projects/feature-poker/02.webp',
+      '/images/projects/feature-poker/03.webp',
+    ],
+    captions: [
+      'The opening board with eight feature cards and six chips',
+      'Assigning the highest-value chips to the top priorities',
+      'Reviewing the ranked picks before submission',
+    ],
+    group: 'work',
+  },
   {
     id: 'pvfinance',
     name: 'PV Finance',
@@ -168,6 +191,103 @@ All in all, this was a great learning experience in building knowledge bases, un
     group: 'work',
   },
   // Play
+  {
+    id: 'belfort',
+    name: 'Belfort',
+    tagline: 'Competitive intelligence for campaign planning.',
+    description:
+      'Belfort is an interactive prototype for finding prospects who may be evaluating a competitor. It ties each assessment to dated evidence and carries that evidence into an audience a team can review.',
+    url: 'https://belfort.hugomartins.pm/',
+    details: `A campaign starts with a target segment, a list of competitors, and a time window. Belfort ranks prospects for each competitor using signals such as product reviews, public content engagement, and webinar activity. You can inspect the source timeline and a relationship graph, with observed activity, inferred evaluation, and unanswered questions shown separately.
+
+The audience review checks whether each person can be contacted before saving the shortlist. The saved audience keeps the competitor assessments and source references for a simulated engagement plan. The public demo uses fictional data throughout.`,
+    images: [
+      '/images/projects/belfort/01.webp',
+      '/images/projects/belfort/02.webp',
+      '/images/projects/belfort/03.webp',
+      '/images/projects/belfort/04.webp',
+    ],
+    captions: [
+      'Ranking prospects by competitor evidence',
+      'Inspecting the signals behind a prospect assessment',
+      'Exploring the relationships behind the evidence',
+      'Reviewing who can be included in the campaign audience',
+    ],
+    group: 'play',
+  },
+  {
+    id: 'trip-planner',
+    name: 'Trip Planner',
+    tagline: 'Local travel planning with sourced itineraries.',
+    description:
+      'Trip Planner turns a rough travel brief into a day-by-day itinerary. It compares destinations, routes, and stays, tracks the budget for the whole party, and shows the sources and assumptions behind its recommendations.',
+    details: `I built the workflow around decisions that get more specific as a trip takes shape. You can begin with a date range, a departure city, and a budget. Once you approve a destination and dates, the planner researches transport, where to stay, how to get around, and what to do.
+
+Specialist agents research different parts of the trip. A separate verifier checks dates, routes, costs, and sources before final approval. Changing a key constraint sends affected decisions back for review. Once you approve the final plan, you can export it as a PDF. Traveler profiles, conversations, and plans are stored locally.`,
+    images: [
+      '/images/projects/trip-planner/01.webp',
+      '/images/projects/trip-planner/02.webp',
+      '/images/projects/trip-planner/03.webp',
+      '/images/projects/trip-planner/04.webp',
+    ],
+    captions: [
+      'Comparing destinations, dates, and budget ranges',
+      'Reviewing a return flight and entry requirements',
+      'Reviewing the itinerary and its verification checks',
+      'Exporting the approved plan to PDF',
+    ],
+    group: 'play',
+  },
+  {
+    id: 'regen-generator',
+    name: 'Regen Generator',
+    tagline: 'Portraits for Football Manager 24 newgens.',
+    description:
+      'Regen Generator turns a Football Manager 24 roster export into a batch of portraits for fictional players. It uses separate kit templates for outfield players and goalkeepers and can update an existing portrait as a player ages.',
+    details: `I built the app to handle the work around image generation. It reads player IDs from the roster, flags IDs that may belong to real players, and queues the selected portraits through Codex CLI. The app uses the chosen kit template and prepares the portrait at the size the game expects.
+
+The queue runs in the background while you accept, regenerate, or skip completed portraits. Once you approve a set, the app shows the changes it will make to the game's portrait mappings. It backs up existing files before writing the approved portraits and updating config.xml.`,
+    images: [
+      '/images/projects/regen-generator/01.webp',
+      '/images/projects/regen-generator/02-review.webp',
+      '/images/projects/regen-generator/03.webp',
+    ],
+    captions: [
+      'Choosing roster actions and flagging mapped player IDs',
+      'Reviewing a generated portrait before saving it',
+      'Initial portrait and age update from a generation test',
+    ],
+    group: 'play',
+  },
+  {
+    id: 'charger-map',
+    name: 'Charger Map',
+    tagline: 'EV charging maps and route planning across twelve countries.',
+    description:
+      'Charger Map is a local EV charging map and route planner. You can browse stations by connector, check charging power and estimated prices, and plan a trip around your vehicle, starting charge, and minimum reserve.',
+    details: `Charger locations and connector types come from public charging registers and OpenStreetMap. The September 2026 catalog includes more than 321,000 charging locations across twelve European countries. The map queries stations in view and groups them at wider zoom levels, so you can explore the whole region and then inspect an individual charger.
+
+The route planner uses BRouter and manufacturer-published vehicle specifications for battery capacity, range, energy consumption, and charging power. You can also enter your own vehicle specifications. The planner breaks a trip into driving legs and charging stops. It uses reported station power to estimate charging time and dated public tariffs to estimate cost.
+
+You can browse places to eat, shop, or explore within five kilometres of a planned stop. The coverage heatmap shows the driving distance from a road to the nearest charger, which makes gaps in coverage easy to spot.`,
+    images: [
+      '/images/projects/charger-map/01.webp',
+      '/images/projects/charger-map/02.webp',
+      '/images/projects/charger-map/03.webp',
+      '/images/projects/charger-map/04.webp',
+      '/images/projects/charger-map/05.webp',
+      '/images/projects/charger-map/06.webp',
+    ],
+    captions: [
+      'Browsing charger clusters across the Benelux region',
+      'Checking connectors, power, and pricing in Vienna',
+      'Coverage heatmap showing road distance to the nearest charger around Pamplona',
+      'Brussels to Amsterdam with a charging stop and cost estimate',
+      'Things to do near a planned charging stop in Brecht',
+      'Selecting a vehicle and reviewing its manufacturer specifications',
+    ],
+    group: 'play',
+  },
   {
     id: 'ai-tng',
     name: 'Project Ten Forward',

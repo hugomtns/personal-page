@@ -1,5 +1,5 @@
 import type { Company } from '@/content/cvTimeline';
-import TerminalDisclosure from './TerminalDisclosure';
+import TerminalDisclosure, { TerminalDisclosureLink } from './TerminalDisclosure';
 import CVProduct from './CVProduct';
 import MetaList from './MetaList';
 
@@ -10,16 +10,7 @@ export default function CVCompany({ company }: { company: Company }) {
       dates={company.dates}
       summary={company.tagline}
       action={company.links.map(link => (
-        <a
-          key={link.href}
-          href={link.href}
-          aria-label={`Link to ${link.label}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="terminal-cv__company-link"
-        >
-          Link
-        </a>
+        <TerminalDisclosureLink key={link.href} href={link.href} label={link.label} />
       ))}
     >
       <div className="terminal-cv__company-panel">

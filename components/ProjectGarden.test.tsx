@@ -18,6 +18,7 @@ const mockProjects: Project[] = [
     name: 'Beta',
     tagline: 'Second test project.',
     description: 'This is the beta project.',
+    url: 'https://example.com/beta',
     images: [null, null],
     group: 'play',
   },
@@ -29,6 +30,22 @@ describe('ProjectGarden', () => {
     mockProjects.forEach((p) => {
       expect(screen.getByRole('button', { name: new RegExp(p.name, 'i') })).toBeInTheDocument();
     });
+  });
+
+  it('offers an independent live link beside the collapsed project', async () => {
+    const user = userEvent.setup();
+    render(<ProjectGarden projects={mockProjects} />);
+
+    const toggle = screen.getByRole('button', { name: 'Beta' });
+    const link = screen.getByRole('link', { name: 'Link to Beta' });
+    expect(link).toHaveTextContent('Link');
+    expect(link).toHaveAttribute('href', 'https://example.com/beta');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link.parentElement).toBe(toggle.parentElement);
+    expect(screen.getAllByRole('link')).toEqual([link]);
+
+    await user.click(link);
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('opens a project and preserves missing screenshot placeholders', async () => {
