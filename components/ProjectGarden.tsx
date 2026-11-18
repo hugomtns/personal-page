@@ -4,7 +4,7 @@ import { useId, useRef, useState } from 'react';
 import type { Project } from '@/content/projects';
 import { AccordionPanel } from './Accordion';
 import ProjectDetail from './ProjectDetail';
-import { TerminalDisclosureTrigger } from './TerminalDisclosure';
+import { TerminalDisclosureLink, TerminalDisclosureTrigger } from './TerminalDisclosure';
 
 export default function ProjectGarden({ projects }: { projects: Project[] }) {
   const listId = useId();
@@ -28,6 +28,7 @@ export default function ProjectGarden({ projects }: { projects: Project[] }) {
             <TerminalDisclosureTrigger
               name={project.name}
               summary={project.tagline}
+              action={project.url ? <TerminalDisclosureLink href={project.url} label={project.name} /> : undefined}
               open={open}
               aria-expanded={open}
               aria-controls={panelId}

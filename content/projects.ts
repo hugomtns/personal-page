@@ -7,6 +7,8 @@ export type Project = {
   tagline: string;
   /** The story: what it is, why it exists, what it does. Shown when expanded. */
   description: string;
+  /** Optional live project link shown beside its name. */
+  url?: string;
   /** Screenshots in display order. A null entry renders a placeholder frame. */
   images: (string | null)[];
   /** Optional plain-text caption for each image, used by the lightbox. */
@@ -189,6 +191,30 @@ All in all, this was a great learning experience in building knowledge bases, un
     group: 'work',
   },
   // Play
+  {
+    id: 'belfort',
+    name: 'Belfort',
+    tagline: 'Competitive intelligence for campaign planning.',
+    description:
+      'Belfort is an interactive prototype for finding prospects who may be evaluating a competitor. It ties each assessment to dated evidence and carries that evidence into an audience a team can review.',
+    url: 'https://belfort.hugomartins.pm/',
+    details: `A campaign starts with a target segment, a list of competitors, and a time window. Belfort ranks prospects for each competitor using signals such as product reviews, public content engagement, and webinar activity. You can inspect the source timeline and a relationship graph, with observed activity, inferred evaluation, and unanswered questions shown separately.
+
+The audience review checks whether each person can be contacted before saving the shortlist. The saved audience keeps the competitor assessments and source references for a simulated engagement plan. The public demo uses fictional data throughout.`,
+    images: [
+      '/images/projects/belfort/01.webp',
+      '/images/projects/belfort/02.webp',
+      '/images/projects/belfort/03.webp',
+      '/images/projects/belfort/04.webp',
+    ],
+    captions: [
+      'Ranking prospects by competitor evidence',
+      'Inspecting the signals behind a prospect assessment',
+      'Exploring the relationships behind the evidence',
+      'Reviewing who can be included in the campaign audience',
+    ],
+    group: 'play',
+  },
   {
     id: 'trip-planner',
     name: 'Trip Planner',

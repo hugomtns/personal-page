@@ -10,6 +10,20 @@ type Row = {
   action?: ReactNode;
 };
 
+export function TerminalDisclosureLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      aria-label={`Link to ${label}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="terminal-disclosure__link"
+    >
+      Link
+    </a>
+  );
+}
+
 export function TerminalDisclosureTrigger({
   name,
   dates,

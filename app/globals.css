@@ -571,7 +571,7 @@ a { color: inherit; }
 .terminal-disclosure__cue { flex: none; color: var(--accent); }
 .terminal-disclosure__name, .terminal-projects__heading--section { font-size: 1.375rem; }
 .terminal-disclosure__name { line-height: 1.25; overflow-wrap: anywhere; }
-.terminal-cv__company-link {
+.terminal-disclosure__link {
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -584,7 +584,7 @@ a { color: inherit; }
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
-.terminal-cv__company-link:focus-visible { outline-offset: -2px; }
+.terminal-disclosure__link:focus-visible { outline-offset: -2px; }
 .terminal-disclosure__summary { padding-inline-start: var(--terminal-disclosure-indent); }
 .terminal-cv__dates, .terminal-disclosure__dates {
   grid-area: dates;
