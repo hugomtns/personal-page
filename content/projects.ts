@@ -18,7 +18,7 @@ export type Project = {
   /** Optional longer multi-paragraph copy shown below the summary. */
   details?: string;
   /** Which section the project belongs to. */
-  group: 'work' | 'play';
+  group: 'work' | 'play' | 'stellaris-mods';
 };
 
 export const projects: Project[] = [
@@ -411,5 +411,75 @@ It could have more bells and whistles, but it works just fine for what I need. M
     ],
     portrait: true,
     group: 'play',
+  },
+  // Stellaris Mods
+  {
+    id: 'rise-of-the-kryptonians',
+    name: 'Rise of the Kryptonians',
+    tagline: 'Lead the Kryptonian Science Council beyond a dying homeworld.',
+    description:
+      'I built a playable Kryptonian empire that starts on a doomed planet. The Science Council has to find a new home, and the stars you settle under determine how powerful your Kryptonian populations and armies become.',
+    details:
+      'I added a custom starting system around Rao, new ship components, and an archaeological expedition to recover the Eradicator. Returning to the ruins of Krypton lets you discover Kryptonite and research uses for it.',
+    url: 'https://steamcommunity.com/sharedfiles/filedetails/?id=3832943156',
+    images: [
+      '/images/projects/rise-of-the-kryptonians/01.webp',
+      '/images/projects/rise-of-the-kryptonians/02.webp',
+      '/images/projects/rise-of-the-kryptonians/03.webp',
+      '/images/projects/rise-of-the-kryptonians/04.webp',
+    ],
+    captions: [
+      'Kryptonian Science Council empire preset',
+      'Krypton and its neighboring planets around Rao',
+      'Kryptonian crystal armor in the ship designer',
+      'Project Doomsday research event',
+    ],
+    group: 'stellaris-mods',
+  },
+  {
+    id: 'lantern-corps',
+    name: 'Emotional Spectrum - Lantern Corps',
+    tagline: 'The Lantern Corps enter the galaxy as independent powers.',
+    description:
+      'I gave each Lantern Corps its own role in a Stellaris campaign. The Guardians of Oa judge empires by their conduct and can send defensive fleets. Sinestro launches a mid-game invasion from Qward and grows stronger as empires surrender.',
+    details:
+      'The other Corps bring their own offers and threats. Blue Lanterns can establish sanctuaries, Star Sapphires can lend detachments, and Larfleeze may raid your capital if you refuse his demands for Energy Credits.',
+    url: 'https://steamcommunity.com/sharedfiles/filedetails/?id=3836171687',
+    images: [
+      '/images/projects/lantern-corps/01.webp',
+      '/images/projects/lantern-corps/02.webp',
+      '/images/projects/lantern-corps/03.webp',
+      '/images/projects/lantern-corps/04.webp',
+    ],
+    captions: [
+      'Diplomacy with the Guardians of Oa',
+      'Sinestro Corps invasion announcement',
+      'Hal Jordan recruitment event',
+      'A fleet encounter near a black hole',
+    ],
+    group: 'stellaris-mods',
+  },
+  {
+    id: 'darkseid-is',
+    name: 'Darkseid IS',
+    tagline: 'Follow the New Gods from a barren moon to Apokolips.',
+    description:
+      'I built a campaign arc that starts with an archaeological discovery and leads to an audience with Darkseid. Empires that accept his offer can adopt the Anti-Life tradition tree, produce Omega Energy, and rebuild their homeworld as Apokolips.',
+    details:
+      'Completing the Anti-Life Equation starts a five-year broadcast. The rest of the galaxy can form a coalition to stop it, and the Lantern Corps can join the opposition if Emotional Spectrum is installed.',
+    url: 'https://steamcommunity.com/sharedfiles/filedetails/?id=3838671323',
+    images: [
+      '/images/projects/darkseid-is/01.webp',
+      '/images/projects/darkseid-is/02.webp',
+      '/images/projects/darkseid-is/03.webp',
+      '/images/projects/darkseid-is/04.webp',
+    ],
+    captions: [
+      'First audience with Darkseid',
+      'The completed Anti-Life tradition tree',
+      'Apokolips in the system view',
+      'Final Crisis broadcast progress',
+    ],
+    group: 'stellaris-mods',
   },
 ];
