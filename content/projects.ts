@@ -220,6 +220,7 @@ The audience review checks whether each person can be contacted before saving th
   {
     id: 'trip-planner',
     name: 'Trip Planner',
+    url: 'https://trip-planner.hugomartins.pm/',
     tagline: 'Local travel planning with sourced itineraries.',
     description:
       'Trip Planner turns a rough travel brief into a day-by-day itinerary. It compares destinations, routes, and stays, tracks the budget for the whole party, and shows the sources and assumptions behind its recommendations.',
