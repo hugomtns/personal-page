@@ -192,6 +192,27 @@ Specialist agents research different parts of the trip. A separate verifier chec
     group: 'play',
   },
   {
+    id: 'regen-generator',
+    name: 'Regen Generator',
+    tagline: 'Portraits for Football Manager 24 newgens.',
+    description:
+      'Regen Generator turns a Football Manager 24 roster export into a batch of portraits for fictional players. It uses separate kit templates for outfield players and goalkeepers and can update an existing portrait as a player ages.',
+    details: `I built the app to handle the work around image generation. It reads player IDs from the roster, flags IDs that may belong to real players, and queues the selected portraits through Codex CLI. The app uses the chosen kit template and prepares the portrait at the size the game expects.
+
+The queue runs in the background while you accept, regenerate, or skip completed portraits. Once you approve a set, the app shows the changes it will make to the game's portrait mappings. It backs up existing files before writing the approved portraits and updating config.xml.`,
+    images: [
+      '/images/projects/regen-generator/01.webp',
+      '/images/projects/regen-generator/02-review.webp',
+      '/images/projects/regen-generator/03.webp',
+    ],
+    captions: [
+      'Choosing roster actions and flagging mapped player IDs',
+      'Reviewing a generated portrait before saving it',
+      'Initial portrait and age update from a generation test',
+    ],
+    group: 'play',
+  },
+  {
     id: 'ai-tng',
     name: 'Project Ten Forward',
     tagline: 'A Star Trek agent game in LCARS.',
