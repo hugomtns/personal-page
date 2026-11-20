@@ -74,6 +74,7 @@ The application, while not up to speed with a SaaS solution, allowed us to under
   {
     id: 'pv-projectmgmt',
     name: 'PV Project Management',
+    url: 'https://pv-projects.vercel.app/',
     tagline: 'Solar project management with a 3D site view.',
     description:
       'A prototype of project management tooling for utility-scale solar. It tracks tasks, documents, designs, and financials in one place, with a 3D site viewer and a digital twin panel for monitoring. Everything runs client-side with mocked data, so it is easy to demo without a backend.',
